@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KIRARA MUSE — ひらめきから、絵がはじまる。</title>
+  <meta name="description" content="子どもの絵のひらめきが生まれる、きららのアートギャラリー。参考作品やひらめき画像を自由に見て、自分だけの絵のアイデアを見つけよう。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        KIRARA MUSE
+        <span>きらら・ミューズ</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="global-nav" id="globalNav">
+        <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="works.html">ひらめき作品</a></li>
+          <li><a href="images.html">ひらめき画像</a></li>
+          <li><a href="themes.html">テーマで探す</a></li>
+          <li><a href="howto.html">使い方</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <p class="hero-eyebrow">KIRARA MUSE</p>
+      <h1 class="hero-title">ひらめきから、絵がはじまる。</h1>
+      <p class="hero-lead">
+        見て、感じて、思いつく。<br>
+        参考作品とひらめき画像から、<br>
+        自分だけの絵のアイデアを見つけよう。
+      </p>
+      <div class="hero-buttons">
+        <a href="works.html" class="btn btn-primary">ひらめき作品を見る</a>
+        <a href="images.html" class="btn btn-secondary">ひらめき画像を見る</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <span class="section-label">WORKS</span>
+        <h2 class="section-title">ひらめき作品</h2>
+        <p class="section-desc">子どもたちのアイデアのヒントになる、さまざまな参考作品を集めました。</p>
+      </div>
+      <div class="card-grid" id="homeWorksGrid"></div>
+      <div style="margin-top: 36px; text-align: center;">
+        <a href="works.html" class="btn btn-secondary">もっと見る</a>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--color-gold-light); border-radius: 20px; margin: 0 24px 64px;">
+      <div class="section-header">
+        <span class="section-label">IMAGES</span>
+        <h2 class="section-title">ひらめき画像</h2>
+        <p class="section-desc">自然・まち・生きものの写真や観察画像。じっくり見て、発見しよう。</p>
+      </div>
+      <div class="card-grid" id="homeImagesGrid"></div>
+      <div style="margin-top: 36px; text-align: center;">
+        <a href="images.html" class="btn btn-primary">もっと見る</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-logo">KIRARA MUSE</p>
+    <p>© 2026 KIRARA MUSE. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js?v=2"></script>
+  <script>
+    async function loadHomePreview() {
+      const [worksRes, imagesRes] = await Promise.all([
+        fetch('data/works.json'),
+        fetch('data/images.json')
+      ]);
+      const works  = await worksRes.json();
+      const images = await imagesRes.json();
+
+      document.getElementById('homeWorksGrid').innerHTML = works.slice(0, 3).map(w => `
+        <article class="card">
+          <div class="card-image-wrap">
+            ${imageAreaHTML(w.image, w.title)}
+            ${makeSaveBtn(w.id, w.image, w.title)}
+          </div>
+          <div class="card-caption">
+            <span class="card-theme">${w.themeEn}</span>
+            <p class="card-title">${w.title}</p>
+            <p class="card-sub">${w.desc}</p>
+          </div>
+        </article>
+      `).join('');
+
+      document.getElementById('homeImagesGrid').innerHTML = images.slice(0, 3).map(img => `
+        <article class="card image-card">
+          <div class="card-image-wrap">
+            ${imageAreaHTML(img.image, img.title)}
+            ${makeSaveBtn(img.id, img.image, img.title)}
+          </div>
+          <div class="card-caption">
+            <span class="card-theme">${img.themeEn}</span>
+            <p class="card-title">${img.title}</p>
+            <p class="card-sub">${img.desc}</p>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', loadHomePreview);
+  </script>
+</body>
+</html>
