@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>きららだより — KIRARA MUSE</title>
+  <meta name="description" content="子どものアトリエきらら 月間コース別デジタルだより。月間予定・持ち物・レッスン内容・コンクール予定をコース別に確認できます。">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/kirara-letter.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        KIRARA MUSE
+        <span>きらら・ミューズ</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="global-nav" id="globalNav">
+        <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="works.html">ひらめき作品</a></li>
+          <li><a href="images.html">ひらめき画像</a></li>
+          <li><a href="themes.html">テーマで探す</a></li>
+          <li><a href="howto.html">使い方</a></li>
+          <li><a href="ai-inspiration.html">AIひらめき</a></li>
+          <li><a href="kirara-letter.html" class="active">きららだより</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ページヘッダー -->
+    <section class="letter-hero">
+      <div class="letter-hero-inner">
+        <p class="letter-eyebrow">KIRARA LETTER</p>
+        <h1 class="letter-title">きららだより</h1>
+        <p class="letter-subtitle">2026年6月号｜コース別デジタルだより</p>
+        <p class="letter-desc">
+          子どものアトリエきららの月間予定、制作内容、持ち物、コンクール予定を<br>
+          コース別にまとめています。<br>
+          おうちでも予定を確認しながら、安心してレッスンの準備ができます。
+        </p>
+      </div>
+    </section>
+
+    <!-- コース切り替えタブ -->
+    <div class="course-tabs-wrap">
+      <div class="course-tabs" role="tablist" aria-label="コース切り替え">
+        <button class="course-tab active" role="tab" aria-selected="true"
+                aria-controls="panel-zoukei" id="tab-zoukei" data-course="zoukei">
+          <span class="course-tab-icon">🎨</span>
+          造形コース
+        </button>
+        <button class="course-tab" role="tab" aria-selected="false"
+                aria-controls="panel-kaiga" id="tab-kaiga" data-course="kaiga">
+          <span class="course-tab-icon">🖌️</span>
+          絵画専門コース
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== 造形コース パネル ===== -->
+    <div class="course-panel" id="panel-zoukei" role="tabpanel" aria-labelledby="tab-zoukei">
+
+      <!-- デジタル版／手書き版 トグル -->
+      <div class="view-toggle-wrap">
+        <div class="view-toggle" role="group" aria-label="表示切り替え">
+          <button class="view-btn active" data-view="digital" data-panel="zoukei">デジタル版</button>
+          <button class="view-btn" data-view="handwritten" data-panel="zoukei">手書き版</button>
+        </div>
+      </div>
+
+      <!-- デジタル版コンテンツ -->
+      <div class="letter-content" id="digital-zoukei">
+
+        <!-- コース見出し -->
+        <div class="course-heading">
+          <span class="course-badge zoukei">造形コース</span>
+          <h2>2026年6月号</h2>
+        </div>
+
+        <!-- 6月の予定 -->
+        <section class="letter-card">
+          <h3 class="card-title-row">
+            <span class="card-icon">📅</span>6月の予定
+          </h3>
+          <p class="schedule-note">水・木・金にも絵画コースの生徒がいるので、3日分の予定を掲載しています。</p>
+          <div class="schedule-grid">
+            <div class="schedule-col">
+              <div class="schedule-day">水曜日</div>
+              <ul class="schedule-dates">
+                <li>6/3</li><li>6/10</li><li>6/17</li><li>6/24</li>
+              </ul>
+            </div>
+            <div class="schedule-col">
+              <div class="schedule-day">木曜日</div>
+              <ul class="schedule-dates">
+                <li>6/4</li><li>6/11</li><li>6/18</li><li>6/25</li>
+              </ul>
+            </div>
+            <div class="schedule-col">
+              <div class="schedule-day">金曜日</div>
+              <ul class="schedule-dates">
+                <li>6/5</li><li>6/12</li><li>6/19</li><li>6/26</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- よしかず先生の月1レッスン -->
+        <section class="letter-card monthly-lesson-card">
+          <h3 class="card-title-row">
+            <span class="card-icon">⭐</span>よしかず先生の月1レッスン
+          </h3>
+          <div class="lesson-highlight-row">
+            <div class="lesson-highlight-item">
+              <span class="highlight-label">日程</span>
+              <span class="highlight-value">6/28(日)</span>
+            </div>
+            <div class="lesson-highlight-item">
+              <span class="highlight-label">時間</span>
+              <span class="highlight-value">16:00〜19:30</span>
+            </div>
+            <div class="lesson-highlight-item">
+              <span class="highlight-label">予約</span>
+              <span class="highlight-value line-tag">LINE要予約</span>
+            </div>
+          </div>
+          <p class="lesson-desc">生徒が来られれば終了します。早く来た順にレッスンします。順番の遅い子は、お越しいただいてから1時間後くらいになります。小3〜やる気のある子。あかげんけんはありません。</p>
+        </section>
+
+        <!-- 月謝袋について -->
+        <section class="letter-card fee-card">
+          <h3 class="card-title-row">
+            <span class="card-icon">💌</span>月謝袋について
+          </h3>
+          <ul class="notice-list">
+            <li>月謝袋は月末にお渡ししますので、帰宅後ご確認をお願いします。</li>
+            <li>月謝袋は初回レッスンに必ずお持ちください。</li>
+            <li>忘れた場合は日曜17:00までにとこやへ届けてください。</li>
+          </ul>
+        </section>
+
+        <!-- 今月の制作内容 -->
+        <section class="letter-card">
+          <h3 class="card-title-row">
+            <span class="card-icon">✂️</span>今月の制作
+          </h3>
+
+          <div class="lesson-step">
+            <div class="step-header">
+              <span class="step-num">①</span>
+              <span class="step-title">シーグラスアート①</span>
+            </div>
+            <ol class="step-list">
+              <li>フレームに合わせて紙をカットします。</li>
+              <li>裏に名前を書きます。</li>
+              <li>透明水彩のブルーを水でといたものを筆にのせ、あら塩を指でふってしばらく置きます。</li>
+              <li>自然乾燥で乾かします。</li>
+            </ol>
+          </div>
+
+          <div class="lesson-step">
+            <div class="step-header">
+              <span class="step-num">②</span>
+              <span class="step-title">シーグラスアート②</span>
+            </div>
+            <ol class="step-list">
+              <li>流木、木工用ボンドでバランスよくシーグラスや貝などをつけていきます。</li>
+              <li>色彩やバランス感覚、色の組み合わせの勉強にします。</li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- 夏休み絵画コンクール -->
+        <section class="letter-card contest-card">
+          <h3 class="card-title-row">
+            <span class="card-icon">🏆</span>夏休み絵画コンクール
+          </h3>
+          <p class="contest-deadline">締切予定：<strong>8月末まで</strong></p>
+          <ul class="contest-tags">
+            <li>赤い羽根ポスター</li>
+            <li>明るい選挙ポスター</li>
+            <li>冬の生活 表紙絵</li>
+            <li>セントレア空の絵コンテスト</li>
+            <li>ドコモ未来ミュージアム</li>
+          </ul>
+          <p class="contest-note">その他、学校独自の絵画コンクールや各種コンクールがあれば持参してください。個人で提出をお願いします。</p>
+        </section>
+
+        <!-- 持ち物 -->
+        <section class="letter-card">
+          <h3 class="card-title-row">
+            <span class="card-icon">🎒</span>持ち物
+          </h3>
+          <ul class="checklist">
+            <li><span class="check-box" aria-hidden="true"></span>月謝袋</li>
+            <li><span class="check-box" aria-hidden="true"></span>持ち帰り袋</li>
+            <li><span class="check-box" aria-hidden="true"></span>自分の描くポスターや絵の資料</li>
+            <li><span class="check-box" aria-hidden="true"></span>絵の具</li>
+            <li><span class="check-box" aria-hidden="true"></span>筆</li>
+            <li><span class="check-box" aria-hidden="true"></span>パレット</li>
+            <li><span class="check-box" aria-hidden="true"></span>ぞうきんまたはタオル</li>
+            <li><span class="check-box" aria-hidden="true"></span>チューブ絵の具の緑系補充</li>
+            <li><span class="check-box" aria-hidden="true"></span>赤・白・黄・青は2色ずつあるとよい</li>
+          </ul>
+        </section>
+
+        <!-- 先生からのお願い -->
+        <section class="letter-card teacher-note-card">
+          <h3 class="card-title-row">
+            <span class="card-icon">📝</span>資料準備のお願い
+          </h3>
+          <p class="teacher-note">人物が入っている資料は、子ども自身にポーズをとってもらって撮影したものがおすすめです。景色を組み合わせたり、何枚かの資料をLINEで送って相談してください。よしかず先生に画像生成してもらい、それを印刷して持参しても大丈夫です。アイデアスケッチを簡単でよいので描いたものを添えてください。</p>
+        </section>
+
+      </div>
+
+      <!-- 手書き版コンテンツ -->
+      <div class="handwritten-content hidden" id="handwritten-zoukei">
+        <div class="handwritten-inner">
+          <div class="handwritten-header">
+            <h3 class="handwritten-title">手書き版きららだより</h3>
+            <p class="handwritten-desc">先生が手書きで作成した、もとのきららだよりです。<br>デジタル版とあわせてご確認ください。</p>
+            <p class="handwritten-hint">画像が小さく見える場合は、スマホで拡大してご覧ください。</p>
+          </div>
+          <div class="handwritten-image-card">
+            <img
+              src="images/kirara-letter/2026-06-zoukei.jpg"
+              alt="2026年6月 造形コース きららだより手書き版"
+              class="handwritten-img"
+              id="hw-img-zoukei"
+              loading="lazy"
+              onerror="this.closest('.handwritten-image-card').innerHTML='<p class=\'hw-unavailable\'>手書き版は現在準備中です。</p>'"
+            >
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ===== 絵画専門コース パネル ===== -->
+    <div class="course-panel hidden" id="panel-kaiga" role="tabpanel" aria-labelledby="tab-kaiga">
+
+      <!-- デジタル版／手書き版 トグル -->
+      <div class="view-toggle-wrap">
+        <div class="view-toggle" role="group" aria-label="表示切り替え">
+          <button class="view-btn active" data-view="digital" data-panel="kaiga">デジタル版</button>
+          <button class="view-btn" data-view="handwritten" data-panel="kaiga">手書き版</button>
+        </div>
+      </div>
+
+      <!-- デジタル版コンテンツ -->
+      <div class="letter-content" id="digital-kaiga">
+
+        <!-- コース見出し -->
+        <div class="course-heading">
+          <span class="course-badge kaiga">絵画専門コース</span>
+          <h2>2026年6月号</h2>
+        </div>
+
+        <!-- 6月の予定 -->
+        <section class="letter-card">
+          <h3 class="card-title-row">
+            <span class="card-icon">📅</span>6月の予定
+          </h3>
+          <p class="schedule-note">水・木・金にも絵画コースの生徒がいるので、3日分の予定を掲載しています。</p>
+          <div class="schedule-grid">
+            <div class="schedule-col">
+              <div class="schedule-day">水曜日</div>
+              <ul class="schedule-dates">
+                <li>6/3</li><li>6/10</li><li>6/17</li><li>6/24</li>
+              </ul>
+            </div>
+            <div class="schedule-col">
+              <div class="schedule-day">木曜日</div>
+              <ul class="schedule-dates">
+                <li>6/4</li><li>6/11</li><li>6/18</li><li>6/25</li>
+              </ul>
+            </div>
+            <div class="schedule-col">
+              <div class="schedule-day">金曜日</div>
+              <ul class="schedule-dates">
+                <li>6/5</li><li>6/12</li><li>6/19</li><li>6/26</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- よしかず先生の月1レッスン -->
+        <section class="letter-card monthly-lesson-card">
+          <h3 class="card-title-row">
+            <span class="card-icon">⭐</span>よしかず先生の月1レッスン
+          </h3>
+          <div class="lesson-highlight-row">
+            <div class="lesson-highlight-item">
+              <span class="highlight-label">日程</span>
+              <span class="highlight-value">6/28(日)</span>
+            </div>
+            <div class="lesson-highlight-item">
+              <span class="highlight-label">時間</span>
+              <span class="highlight-value">16:00〜19:30</span>
+            </div>
+            <div class="lesson-highlight-item">
+              <span class="highlight-label">予約</span>
+              <span class="highlight-value line-tag">LINE要予約</span>
+            </div>
+          </div>
+          <p class="lesson-desc">生徒が来られれば終了します。早く来た順にレッスンします。順番の遅い子は、お越しいただいてから1時間後くらいになります。小3〜やる気のある子。あかげんけんはありません。</p>
+        </section>
+
+        <!-- 月謝袋について -->
+        <section class="letter-card fee-card">
+          <h3 class="card-title-row">
+            <span class="card-icon">💌</span>月謝袋について
+          </h3>
+          <ul class="notice-list">
+            <li>月謝袋は月末にお渡ししますので、帰宅後ご確認をお願いします。</li>
+            <li>初回レッスンに必ずお持ちください。</li>
+            <li>忘れた場合は日曜17:00までにとこやへ届けてください。</li>
+          </ul>
+        </section>
+
+        <!-- 夏休み絵画コンクール -->
+        <section class="letter-card contest-card">
+          <h3 class="card-title-row">
+            <span class="card-icon">🏆</span>夏休み絵画コンクール
+          </h3>
+          <p class="contest-deadline">締切予定：<strong>8月末まで</strong></p>
+          <ul class="contest-tags">
+            <li>赤い羽根ポスター</li>
+            <li>明るい選挙ポスター</li>
+            <li>家庭の日</li>
+            <li>愛鳥週間</li>
+            <li>冬の生活 表紙絵</li>
+            <li>セントレア空の絵コンテスト</li>
+            <li>ドコモ未来ミュージアム</li>
+          </ul>
+          <p class="contest-note">小1〜中3対象のものがあります。選ばれにくいので、赤い羽根か明るい選挙を描いてみるとよいでしょう。セントレア空の絵コンテストは家から提出します。ドコモ未来ミュージアムは、きららから9月初めに提出します。締切を守ってください。</p>
+        </section>
+
+        <!-- 学校提出について -->
+        <section class="letter-card school-note-card">
+          <h3 class="card-title-row">
+            <span class="card-icon">🏫</span>学校提出について
+          </h3>
+          <ul class="notice-list">
+            <li>まずは1枚、学校提出のものを描きます。</li>
+            <li>8月の出校日、または9/1(火)に学校へ提出してください。</li>
+            <li>中学生や私立中学生は、学校から出せるか先生に確認してください。</li>
+            <li>その他、学校独自の絵画コンクールや各種絵画コンクールがあれば、資料や応募用紙を必ず持参してください。応募は個人でお願いします。きららで指導します。</li>
+          </ul>
+        </section>
+
+        <!-- 持ち物 -->
+        <section class="letter-card">
+          <h3 class="card-title-row">
+            <span class="card-icon">🎒</span>持ち物
+          </h3>
+          <ul class="checklist">
+            <li><span class="check-box" aria-hidden="true"></span>月謝袋</li>
+            <li><span class="check-box" aria-hidden="true"></span>自分の描くポスターや絵の資料</li>
+            <li><span class="check-box" aria-hidden="true"></span>絵の具</li>
+            <li><span class="check-box" aria-hidden="true"></span>筆</li>
+            <li><span class="check-box" aria-hidden="true"></span>パレット</li>
+            <li><span class="check-box" aria-hidden="true"></span>ぞうきんまたはタオル</li>
+            <li><span class="check-box" aria-hidden="true"></span>チューブ絵の具の補充（白・赤・黄・青）</li>
+          </ul>
+        </section>
+
+        <!-- 先生からのお願い -->
+        <section class="letter-card teacher-note-card">
+          <h3 class="card-title-row">
+            <span class="card-icon">📝</span>資料準備のお願い
+          </h3>
+          <p class="teacher-note">人物が入っている資料は、子ども自身にポーズをとってもらって撮影したものがおすすめです。景色を組み合わせたり、何枚かの資料をLINEで送って相談してください。よしかず先生に画像生成してもらい、それを印刷して持参してください。アイデアスケッチを簡単でよいので描いたものも添えてください。</p>
+        </section>
+
+      </div>
+
+      <!-- 手書き版コンテンツ -->
+      <div class="handwritten-content hidden" id="handwritten-kaiga">
+        <div class="handwritten-inner">
+          <div class="handwritten-header">
+            <h3 class="handwritten-title">手書き版きららだより</h3>
+            <p class="handwritten-desc">先生が手書きで作成した、もとのきららだよりです。<br>デジタル版とあわせてご確認ください。</p>
+            <p class="handwritten-hint">画像が小さく見える場合は、スマホで拡大してご覧ください。</p>
+          </div>
+          <div class="handwritten-image-card">
+            <img
+              src="images/kirara-letter/2026-06-kaiga.jpg"
+              alt="2026年6月 絵画専門コース きららだより手書き版"
+              class="handwritten-img"
+              id="hw-img-kaiga"
+              loading="lazy"
+              onerror="this.closest('.handwritten-image-card').innerHTML='<p class=\'hw-unavailable\'>手書き版は現在準備中です。</p>'"
+            >
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ライトボックス -->
+  <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="画像拡大表示">
+    <button class="lightbox-close" id="lightboxClose" aria-label="閉じる">✕</button>
+    <img src="" alt="" class="lightbox-img" id="lightboxImg">
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-logo">KIRARA MUSE</p>
+    <p>© 2026 KIRARA MUSE. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js?v=2"></script>
+  <script>
+    // コース切り替え
+    const tabs = document.querySelectorAll('.course-tab');
+    const panels = document.querySelectorAll('.course-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.course;
+
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        panels.forEach(p => p.classList.add('hidden'));
+
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.getElementById('panel-' + target).classList.remove('hidden');
+
+        document.getElementById('panel-' + target).scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // デジタル版／手書き版 切り替え
+    document.querySelectorAll('.view-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const view  = btn.dataset.view;
+        const panel = btn.dataset.panel;
+
+        // 同じパネル内のボタンを更新
+        btn.closest('.view-toggle').querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const digital     = document.getElementById('digital-' + panel);
+        const handwritten = document.getElementById('handwritten-' + panel);
+
+        if (view === 'digital') {
+          digital.classList.remove('hidden');
+          handwritten.classList.add('hidden');
+        } else {
+          digital.classList.add('hidden');
+          handwritten.classList.remove('hidden');
+        }
+      });
+    });
+  </script>
+  <script>
+    // ライトボックス
+    const lightbox      = document.getElementById('lightbox');
+    const lightboxImg   = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    document.querySelectorAll('.handwritten-img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
+</body>
+</html>
