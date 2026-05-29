@@ -598,6 +598,85 @@ main { flex: 1; }
 }
 
 /* ===========================
+   AIひらめきプロモカード（トップ）
+   =========================== */
+.ai-promo-section {
+  padding-top: 0;
+  padding-bottom: 72px;
+}
+
+.ai-promo-card {
+  background: linear-gradient(135deg, #eeebf8 0%, var(--color-sky) 100%);
+  border-radius: 24px;
+  padding: 52px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-promo-body {
+  flex: 1;
+  max-width: 560px;
+}
+
+.ai-promo-badge {
+  display: inline-block;
+  background: #7c6fc4;
+  color: #fff;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  border-radius: 20px;
+  padding: 3px 12px;
+  margin-bottom: 4px;
+}
+
+.ai-promo-title {
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--color-text);
+  margin: 8px 0 14px;
+}
+
+.ai-promo-desc {
+  font-size: 0.92rem;
+  color: var(--color-text-sub);
+  line-height: 1.9;
+  margin-bottom: 28px;
+}
+
+.btn-ai-promo {
+  display: inline-block;
+  padding: 13px 32px;
+  border-radius: 40px;
+  background: #7c6fc4;
+  color: var(--color-white);
+  font-size: 0.92rem;
+  letter-spacing: 0.05em;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.btn-ai-promo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(124, 111, 196, 0.38);
+}
+
+.ai-promo-deco {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  opacity: 0.9;
+}
+
+.ai-promo-deco svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ===========================
    モバイル対応
    =========================== */
 @media (max-width: 700px) {
@@ -640,4 +719,12 @@ main { flex: 1; }
   .page-hero { padding: 44px 20px 36px; }
 
   .howto-steps { grid-template-columns: 1fr; }
+
+  .ai-promo-card {
+    flex-direction: column;
+    padding: 36px 24px;
+    text-align: center;
+  }
+
+  .ai-promo-deco { display: none; }
 }

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ひらめき画像メーカー — KIRARA MUSE</title>
+  <meta name="description" content="AIと一緒に「ひらめき画像」を作ろう。きらら・ミューズのGPTs「ひらめき画像メーカー」で、絵のアイデアのヒントになる画像を生成できます。">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+
+    /* ===== ページヒーロー ===== */
+    .ai-hero {
+      background: linear-gradient(145deg, #e8e4f6 0%, var(--color-white) 45%, var(--color-sky) 100%);
+      padding: 72px 24px 60px;
+      text-align: center;
+    }
+
+    .ai-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--color-lavender);
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      color: #6b60b0;
+      margin-bottom: 20px;
+    }
+
+    .ai-hero-badge svg {
+      width: 14px;
+      height: 14px;
+      stroke: #6b60b0;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .ai-hero-title {
+      font-size: clamp(1.7rem, 4.5vw, 2.6rem);
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      line-height: 1.5;
+      color: var(--color-text);
+      margin-bottom: 20px;
+    }
+
+    .ai-hero-lead {
+      font-size: 1rem;
+      line-height: 2;
+      color: var(--color-text-sub);
+      max-width: 580px;
+      margin: 0 auto 40px;
+    }
+
+    .btn-cta-large {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #7c6fc4;
+      color: var(--color-white);
+      padding: 18px 44px;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      letter-spacing: 0.05em;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .btn-cta-large:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(124, 111, 196, 0.40);
+    }
+
+    .btn-cta-large svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    /* ===== 2カラム情報エリア ===== */
+    .ai-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-bottom: 48px;
+    }
+
+    /* ===== 汎用インフォカード ===== */
+    .info-card {
+      background: var(--color-white);
+      border-radius: var(--radius-card);
+      padding: 40px 36px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .info-card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .info-card-icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.7;
+    }
+
+    .info-card-icon--lavender {
+      background: var(--color-lavender);
+      color: #6b60b0;
+    }
+
+    .info-card-icon--gold {
+      background: var(--color-gold-light);
+      color: var(--color-gold);
+    }
+
+    .info-card-icon--sky {
+      background: var(--color-sky);
+      color: #4a8fab;
+    }
+
+    .info-card-title {
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--color-text);
+      letter-spacing: 0.04em;
+    }
+
+    .info-card ul {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .info-card li {
+      font-size: 0.88rem;
+      color: var(--color-text-sub);
+      line-height: 1.75;
+      padding-left: 22px;
+      position: relative;
+    }
+
+    .info-card li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: var(--color-gold);
+      font-size: 0.65rem;
+      top: 4px;
+    }
+
+    /* ===== できることリスト（全幅） ===== */
+    .features-card {
+      background: var(--color-gold-light);
+      border-radius: var(--radius-card);
+      padding: 40px 36px;
+      margin-bottom: 28px;
+    }
+
+    .features-card .info-card-title {
+      margin-bottom: 24px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .feature-item {
+      background: var(--color-white);
+      border-radius: 14px;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .feature-item-icon {
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .feature-item-text {
+      font-size: 0.88rem;
+      color: var(--color-text);
+      line-height: 1.7;
+      font-weight: 500;
+    }
+
+    .feature-item-sub {
+      font-size: 0.78rem;
+      color: var(--color-text-sub);
+      line-height: 1.7;
+    }
+
+    /* ===== 注意事項カード ===== */
+    .notice-card {
+      background: #f0eef8;
+      border: 1.5px solid #d6cef0;
+      border-radius: var(--radius-card);
+      padding: 40px 36px;
+      margin-bottom: 28px;
+    }
+
+    .notice-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .notice-card-header svg {
+      width: 22px;
+      height: 22px;
+      stroke: #6b60b0;
+      fill: none;
+      stroke-width: 2;
+      flex-shrink: 0;
+    }
+
+    .notice-card-title {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--color-text);
+    }
+
+    .notice-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .notice-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .notice-item-bullet {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--color-lavender);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #6b60b0;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+
+    .notice-item-text {
+      font-size: 0.88rem;
+      color: var(--color-text-sub);
+      line-height: 1.8;
+      flex: 1;
+    }
+
+    .notice-item-text strong {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+
+    /* ===== 対象年齢バッジ ===== */
+    .age-badges {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px dashed #c4bde8;
+    }
+
+    .age-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-white);
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 0.82rem;
+      color: var(--color-text-sub);
+      line-height: 1.6;
+    }
+
+    .age-badge-icon {
+      font-size: 1.2rem;
+    }
+
+    /* ===== CTAブロック ===== */
+    .ai-cta-block {
+      background: linear-gradient(135deg, #e8e4f6 0%, var(--color-sky) 100%);
+      border-radius: 24px;
+      padding: 64px 24px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .ai-cta-label {
+      font-family: var(--font-en);
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      color: #6b60b0;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .ai-cta-title {
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--color-text);
+      margin-bottom: 12px;
+    }
+
+    .ai-cta-desc {
+      font-size: 0.9rem;
+      color: var(--color-text-sub);
+      margin-bottom: 36px;
+      line-height: 1.9;
+    }
+
+    .ai-cta-note {
+      margin-top: 20px;
+      font-size: 0.78rem;
+      color: var(--color-text-sub);
+    }
+
+    /* ===== モバイル ===== */
+    @media (max-width: 700px) {
+      .ai-hero { padding: 52px 20px 44px; }
+      .btn-cta-large { padding: 16px 32px; font-size: 1rem; }
+      .ai-info-grid { grid-template-columns: 1fr; }
+      .info-card { padding: 28px 22px; }
+      .features-card { padding: 28px 22px; }
+      .notice-card { padding: 28px 22px; }
+      .ai-cta-block { padding: 48px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        KIRARA MUSE
+        <span>きらら・ミューズ</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="global-nav" id="globalNav">
+        <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="works.html">ひらめき作品</a></li>
+          <li><a href="images.html">ひらめき画像</a></li>
+          <li><a href="themes.html">テーマで探す</a></li>
+          <li><a href="howto.html">使い方</a></li>
+          <li><a href="ai-inspiration.html" class="active">AIひらめき</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ヒーロー -->
+    <section class="ai-hero">
+      <div class="ai-hero-badge">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        AI SUPPORT TOOL
+      </div>
+      <h1 class="ai-hero-title">
+        きらら Muse<br>ひらめき画像メーカー
+      </h1>
+      <p class="ai-hero-lead">
+        AIと会話しながら、描きたい絵のイメージをかたちにしてみよう。<br>
+        「どんな色がいいかな」「どんな場所を描こうかな」<br>
+        ことばで伝えると、絵のヒントになる画像が生まれます。
+      </p>
+      <a
+        href="https://chatgpt.com/g/g-6a180c33d46c8191a7493c1e66ca82d2-kiraramuse-hiramekihua-xiang-meka"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-cta-large"
+      >
+        ひらめき画像メーカーを開く
+        <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </section>
+
+    <div class="section">
+
+      <!-- できること -->
+      <div class="features-card">
+        <p class="section-label">WHAT YOU CAN DO</p>
+        <h2 class="info-card-title">できること</h2>
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-item-icon">🎨</div>
+            <div class="feature-item-text">描きたい色・雰囲気をリクエスト</div>
+            <div class="feature-item-sub">「秋っぽい色で」「夜みたいな雰囲気」など、イメージを言葉で伝えよう</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-item-icon">🌿</div>
+            <div class="feature-item-text">自然・動物・まちの参考画像を生成</div>
+            <div class="feature-item-sub">描きたいモチーフの参考になる画像を一緒に考えます</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-item-icon">💬</div>
+            <div class="feature-item-text">AIとの会話でアイデアを広げる</div>
+            <div class="feature-item-sub">「もっとにぎやかにして」「違う角度は？」と会話しながら深められます</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-item-icon">✏️</div>
+            <div class="feature-item-text">絵の構図・テーマのヒントをもらう</div>
+            <div class="feature-item-sub">何を描こうか迷ったときのブレインストーミングにも使えます</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 使い方 + 注意事項 -->
+      <div class="ai-info-grid">
+
+        <!-- 使い方 -->
+        <div class="info-card">
+          <div class="info-card-icon info-card-icon--lavender">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </div>
+          <h2 class="info-card-title">使い方</h2>
+          <ul>
+            <li>「ひらめき画像メーカーを開く」ボタンから ChatGPT のページを開きます</li>
+            <li>チャット欄に「こんな絵を描きたい」「こんなものを参考にしたい」と入力してください</li>
+            <li>AIが画像やアドバイスを返してくれます</li>
+            <li>気に入った画像は保存して、絵を描くときのメモにしましょう</li>
+            <li>保護者・先生と一緒に使うのがおすすめです</li>
+          </ul>
+        </div>
+
+        <!-- 注意事項 -->
+        <div class="notice-card">
+          <div class="notice-card-header">
+            <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <h2 class="notice-card-title">注意事項</h2>
+          </div>
+          <div class="notice-list">
+            <div class="notice-item">
+              <div class="notice-item-bullet">1</div>
+              <p class="notice-item-text">このツールは<strong>完成した作品をAIに作らせるものではありません。</strong>制作のきっかけや発想を広げるためのサポートツールです。</p>
+            </div>
+            <div class="notice-item">
+              <div class="notice-item-bullet">2</div>
+              <p class="notice-item-text">生成された画像はあくまで<strong>参考・インスピレーション用</strong>です。そのまま作品として提出しないでください。</p>
+            </div>
+            <div class="notice-item">
+              <div class="notice-item-bullet">3</div>
+              <p class="notice-item-text">チャット欄に<strong>名前・学校名・住所などの個人情報は入力しないでください。</strong></p>
+            </div>
+          </div>
+          <div class="age-badges">
+            <div class="age-badge">
+              <span class="age-badge-icon">👤</span>
+              <span><strong>13歳以上</strong>向けのツールです</span>
+            </div>
+            <div class="age-badge">
+              <span class="age-badge-icon">👨‍👩‍👧</span>
+              <span>13〜18歳は<strong>保護者または管理者の同意</strong>のもとでご利用ください</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CTAブロック -->
+      <div class="ai-cta-block">
+        <span class="ai-cta-label">AI INSPIRATION MAKER</span>
+        <h2 class="ai-cta-title">さあ、AIとひらめきを見つけよう</h2>
+        <p class="ai-cta-desc">
+          ChatGPTのページが開きます。<br>
+          描きたいことを自由に話しかけてみてください。
+        </p>
+        <a
+          href="https://chatgpt.com/g/g-6a180c33d46c8191a7493c1e66ca82d2-kiraramuse-hiramekihua-xiang-meka"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-cta-large"
+        >
+          ひらめき画像メーカーを開く
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+        <p class="ai-cta-note">※ ChatGPT (OpenAI) のサービスに移動します。利用にはアカウントが必要な場合があります。</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-logo">KIRARA MUSE</p>
+    <p>© 2026 KIRARA MUSE. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js?v=2"></script>
+</body>
+</html>
