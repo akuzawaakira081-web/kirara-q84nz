@@ -727,4 +727,97 @@ main { flex: 1; }
   }
 
   .ai-promo-deco { display: none; }
+
+  .letter-promo-card {
+    flex-direction: column;
+    padding: 36px 24px;
+    text-align: center;
+  }
+
+  .letter-promo-deco { display: none; }
+}
+
+/* ===========================
+   きららだより 案内カード
+   =========================== */
+.letter-promo-section {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.letter-promo-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  background: linear-gradient(135deg, #fdf3e0 0%, #fef9f0 50%, #f0f8ee 100%);
+  border-radius: 24px;
+  padding: 52px 56px;
+  text-decoration: none;
+  color: inherit;
+  border: 2px solid #f0d890;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.letter-promo-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 36px rgba(201, 168, 76, 0.22);
+}
+
+.letter-promo-body {
+  flex: 1;
+  max-width: 560px;
+}
+
+.letter-promo-badge {
+  display: inline-block;
+  background: #c9a84c;
+  color: #fff;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  border-radius: 20px;
+  padding: 3px 12px;
+  margin-bottom: 4px;
+}
+
+.letter-promo-title {
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  margin: 8px 0 14px;
+}
+
+.letter-promo-desc {
+  font-size: 0.92rem;
+  color: var(--color-text-sub);
+  line-height: 1.9;
+  margin-bottom: 28px;
+}
+
+.btn-letter-promo {
+  display: inline-block;
+  padding: 13px 32px;
+  border-radius: 40px;
+  background: #c9a84c;
+  color: #fff;
+  font-size: 0.92rem;
+  letter-spacing: 0.05em;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.letter-promo-card:hover .btn-letter-promo {
+  box-shadow: 0 6px 22px rgba(201, 168, 76, 0.38);
+}
+
+.letter-promo-deco {
+  flex-shrink: 0;
+  width: 90px;
+  height: 90px;
+  font-size: 72px;
+  line-height: 1;
+  opacity: 0.25;
+  user-select: none;
 }
