@@ -404,6 +404,51 @@
 }
 
 /* ===========================
+   ステップ内 持ち物メモ
+   =========================== */
+.step-materials {
+  margin-top: 12px;
+  background: var(--color-gold-light);
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.step-materials-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--letter-gold);
+  white-space: nowrap;
+  padding-top: 1px;
+  letter-spacing: 0.05em;
+}
+
+.step-materials ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.step-materials ul li {
+  font-size: 0.85rem;
+  color: var(--color-text);
+  padding-left: 10px;
+  position: relative;
+}
+
+.step-materials ul li::before {
+  content: "・";
+  position: absolute;
+  left: 0;
+  color: var(--letter-gold);
+}
+
+/* ===========================
    コンクールカード
    =========================== */
 .contest-card {
