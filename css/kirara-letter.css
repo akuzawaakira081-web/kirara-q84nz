@@ -456,6 +456,14 @@
   border: 1px solid #f0d890;
 }
 
+.contest-step-nums {
+  margin-left: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--letter-zoukei);
+  letter-spacing: 0.05em;
+}
+
 .contest-deadline {
   font-size: 0.82rem;
   color: var(--letter-accent);
