@@ -4,369 +4,554 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ひらめき色彩パレット — KIRARA MUSE</title>
-  <meta name="description" content="きみの気持ちは、どんな色？感情を選ぶと、ぴったりの色彩パレットが見つかります。色で遊びながら、絵のひらめきを育てよう。">
+  <meta name="description" content="きみの気持ちは、どんな色？感情やテーマを選ぶと、ぴったりの色彩パレットと作品アイデアが見つかります。">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* ===== ひらめき色彩パレット専用スタイル ===== */
+/* =============================================
+   ひらめき色彩パレット v2 専用スタイル
+   ============================================= */
 
-    /* ヒーロー */
-    .palette-hero {
-      background: linear-gradient(135deg, #fff8f0 0%, #f0eaff 50%, #e8f5ff 100%);
-      text-align: center;
-      padding: 72px 24px 56px;
-    }
-    .palette-hero-badge {
-      display: inline-block;
-      background: var(--color-gold);
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      padding: 4px 14px;
-      border-radius: 20px;
-      margin-bottom: 20px;
-    }
-    .palette-hero-title {
-      font-size: clamp(1.6rem, 5vw, 2.6rem);
-      font-weight: 700;
-      color: var(--color-text);
-      line-height: 1.3;
-      margin-bottom: 12px;
-    }
-    .palette-hero-catch {
-      font-size: clamp(1rem, 3vw, 1.3rem);
-      color: #7c6fc4;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-    .palette-hero-lead {
-      font-size: 0.95rem;
-      color: var(--color-text-sub);
-      line-height: 1.9;
-      max-width: 520px;
-      margin: 0 auto;
-    }
+/* ヒーロー */
+.palette-hero {
+  background: linear-gradient(135deg, #fff8f0 0%, #f0eaff 50%, #e8f5ff 100%);
+  text-align: center;
+  padding: 64px 24px 48px;
+}
+.palette-hero-badge {
+  display: inline-block;
+  background: var(--color-gold);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+.palette-hero-title {
+  font-size: clamp(1.5rem, 5vw, 2.4rem);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+.palette-hero-catch {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  color: #7c6fc4;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.palette-hero-lead {
+  font-size: 0.92rem;
+  color: var(--color-text-sub);
+  line-height: 1.9;
+  max-width: 500px;
+  margin: 0 auto;
+}
 
-    /* 感情選択エリア */
-    .emotion-section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 56px 24px 40px;
-    }
-    .section-heading {
-      text-align: center;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--color-text-sub);
-      letter-spacing: 0.06em;
-      margin-bottom: 32px;
-    }
-    .emotion-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 14px;
-    }
-    .emotion-card {
-      background: var(--color-white);
-      border: 2px solid var(--color-border);
-      border-radius: 20px;
-      padding: 18px 12px;
-      text-align: center;
-      cursor: pointer;
-      transition: all var(--transition);
-      box-shadow: var(--shadow-card);
-      user-select: none;
-    }
-    .emotion-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-hover);
-      border-color: var(--color-gold);
-    }
-    .emotion-card.active {
-      border-color: #7c6fc4;
-      background: linear-gradient(135deg, #f5f0ff, #ffe8f5);
-      box-shadow: 0 6px 24px rgba(124, 111, 196, 0.25);
-      transform: translateY(-4px);
-    }
-    .emotion-card-icon {
-      font-size: 2rem;
-      display: block;
-      margin-bottom: 8px;
-      line-height: 1;
-    }
-    .emotion-card-name {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--color-text);
-    }
-    .emotion-card-desc {
-      font-size: 0.7rem;
-      color: var(--color-text-sub);
-      margin-top: 4px;
-      line-height: 1.4;
-    }
+/* =====================
+   色彩ミッションカード
+   ===================== */
+.mission-section {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 24px 0;
+}
+.mission-card {
+  background: linear-gradient(135deg, #fff9e6, #f5f0ff);
+  border: 2px solid var(--color-gold-light);
+  border-radius: 20px;
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow-card);
+}
+.mission-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-gold);
+  background: var(--color-gold-light);
+  padding: 3px 10px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+.mission-body { flex: 1; }
+.mission-icon { font-size: 1.8rem; flex-shrink: 0; }
+.mission-text {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+.mission-hint {
+  font-size: 0.78rem;
+  color: var(--color-text-sub);
+  margin-top: 4px;
+  line-height: 1.6;
+}
+.btn-mission-next {
+  flex-shrink: 0;
+  background: none;
+  border: 2px solid var(--color-gold);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  font-family: var(--font-main);
+}
+.btn-mission-next:hover { background: var(--color-gold); color: #fff; }
 
-    /* パレット表示エリア */
-    .palette-result {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 24px 80px;
-      display: none;
-    }
-    .palette-result.visible {
-      display: block;
-    }
+/* =====================
+   タブ切り替え
+   ===================== */
+.tab-section {
+  max-width: 860px;
+  margin: 32px auto 0;
+  padding: 0 24px;
+}
+.tab-bar {
+  display: flex;
+  gap: 8px;
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: 0;
+  margin-bottom: 28px;
+}
+.tab-btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 12px 12px 0 0;
+  background: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text-sub);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: var(--font-main);
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tab-btn:hover { color: var(--color-gold); }
+.tab-btn.active {
+  color: var(--color-gold);
+  border-bottom-color: var(--color-gold);
+  background: var(--color-gold-light);
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
 
-    /* セクションカード共通 */
-    .result-card {
-      background: var(--color-white);
-      border-radius: 24px;
-      box-shadow: var(--shadow-card);
-      padding: 36px;
-      margin-bottom: 24px;
-    }
-    .result-card-title {
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      color: var(--color-gold);
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .result-card-title::before {
-      content: '';
-      display: inline-block;
-      width: 3px;
-      height: 16px;
-      background: var(--color-gold);
-      border-radius: 2px;
-    }
+/* =====================
+   配色レベル
+   ===================== */
+.tone-section {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.tone-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-text-sub);
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+.tone-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.tone-btn {
+  padding: 8px 18px;
+  border-radius: 30px;
+  border: 2px solid var(--color-border);
+  background: var(--color-white);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--color-text-sub);
+  transition: all var(--transition);
+  font-family: var(--font-main);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.tone-btn:hover { border-color: var(--color-gold); color: var(--color-gold); }
+.tone-btn.active {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: #fff;
+}
 
-    /* 感情タイトル */
-    .emotion-title-area {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-    .emotion-title-icon {
-      font-size: 3rem;
-      display: block;
-      margin-bottom: 8px;
-    }
-    .emotion-title-name {
-      font-size: 1.7rem;
-      font-weight: 700;
-      color: var(--color-text);
-    }
-    .emotion-title-desc {
-      font-size: 0.9rem;
-      color: var(--color-text-sub);
-      margin-top: 6px;
-    }
+/* =====================
+   感情・テーマ カードグリッド
+   ===================== */
+.emotion-grid, .theme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 12px;
+}
+.theme-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
 
-    /* 5色チップ */
-    .color-chips {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-      margin: 24px 0;
-    }
-    @media (max-width: 600px) {
-      .color-chips {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-    .color-chip {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-    .color-swatch {
-      width: 100%;
-      aspect-ratio: 1;
-      border-radius: 16px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
-      border: 1px solid rgba(0,0,0,0.06);
-      transition: transform var(--transition);
-      cursor: pointer;
-      position: relative;
-    }
-    .color-swatch:hover {
-      transform: scale(1.06);
-    }
-    .color-swatch .copy-hex-hint {
-      position: absolute;
-      bottom: 6px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.55);
-      color: #fff;
-      font-size: 0.6rem;
-      padding: 2px 7px;
-      border-radius: 8px;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.18s;
-      pointer-events: none;
-    }
-    .color-swatch:hover .copy-hex-hint {
-      opacity: 1;
-    }
-    .color-chip-name {
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--color-text);
-      text-align: center;
-    }
-    .color-chip-hex {
-      font-size: 0.7rem;
-      color: var(--color-text-sub);
-      font-family: monospace;
-      letter-spacing: 0.05em;
-    }
-    .color-chip-role {
-      font-size: 0.68rem;
-      background: var(--color-gold-light);
-      color: var(--color-gold);
-      padding: 2px 8px;
-      border-radius: 10px;
-      font-weight: 700;
-    }
+.sel-card {
+  background: var(--color-white);
+  border: 2px solid var(--color-border);
+  border-radius: 18px;
+  padding: 16px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-card);
+  user-select: none;
+}
+.sel-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--color-gold);
+}
+.sel-card.active {
+  border-color: #7c6fc4;
+  background: linear-gradient(135deg, #f5f0ff, #ffe8f5);
+  box-shadow: 0 6px 24px rgba(124,111,196,0.22);
+  transform: translateY(-3px);
+}
+.sel-card-icon  { font-size: 1.8rem; display: block; margin-bottom: 6px; line-height: 1; }
+.sel-card-name  { font-size: 0.82rem; font-weight: 700; color: var(--color-text); }
+.sel-card-sub   { font-size: 0.66rem; color: var(--color-text-sub); margin-top: 3px; line-height: 1.4; }
 
-    /* コピーボタン行 */
-    .copy-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-    .btn-copy {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 10px 20px;
-      border-radius: 30px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      cursor: pointer;
-      border: 2px solid var(--color-gold);
-      background: transparent;
-      color: var(--color-gold);
-      transition: all var(--transition);
-      font-family: var(--font-main);
-    }
-    .btn-copy:hover {
-      background: var(--color-gold);
-      color: #fff;
-    }
-    .btn-copy.copied {
-      background: #4caf50;
-      border-color: #4caf50;
-      color: #fff;
-    }
+/* =====================
+   結果エリア
+   ===================== */
+.palette-result {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  display: none;
+}
+.palette-result.visible {
+  display: block;
+  animation: fadeSlideIn 0.4s ease forwards;
+}
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.result-divider {
+  border: none;
+  border-top: 2px dashed var(--color-border);
+  margin: 32px 0;
+}
 
-    /* 解説テキスト */
-    .explanation-text {
-      font-size: 1rem;
-      line-height: 1.9;
-      color: var(--color-text);
-    }
-    .theory-text {
-      font-size: 0.88rem;
-      line-height: 1.8;
-      color: var(--color-text-sub);
-      margin-top: 12px;
-      padding: 12px 16px;
-      background: #f9f6ff;
-      border-left: 3px solid #c4bde8;
-      border-radius: 0 8px 8px 0;
-    }
+/* =====================
+   共通カードスタイル
+   ===================== */
+.r-card {
+  background: var(--color-white);
+  border-radius: 22px;
+  box-shadow: var(--shadow-card);
+  padding: 30px;
+  margin-bottom: 20px;
+}
+.r-card-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-gold);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.r-card-label::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 14px;
+  background: var(--color-gold);
+  border-radius: 2px;
+}
 
-    /* 作品アイデア */
-    .idea-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .idea-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 14px 16px;
-      background: #fafaf8;
-      border-radius: 12px;
-      border: 1px solid var(--color-border);
-    }
-    .idea-num {
-      flex-shrink: 0;
-      width: 26px;
-      height: 26px;
-      background: linear-gradient(135deg, #c9a84c, #e0c060);
-      color: #fff;
-      font-size: 0.78rem;
-      font-weight: 700;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .idea-text {
-      font-size: 0.92rem;
-      color: var(--color-text);
-      line-height: 1.5;
-    }
+/* =====================
+   感情タイトル
+   ===================== */
+.emotion-title-area { text-align: center; margin-bottom: 24px; }
+.emotion-title-icon { font-size: 2.8rem; display: block; margin-bottom: 6px; line-height: 1; }
+.emotion-title-name { font-size: 1.5rem; font-weight: 700; color: var(--color-text); }
+.emotion-title-desc { font-size: 0.88rem; color: var(--color-text-sub); margin-top: 4px; }
+.emotion-title-tone {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: #f0ebff;
+  color: #7c6fc4;
+  padding: 3px 12px;
+  border-radius: 14px;
+  margin-top: 8px;
+}
 
-    /* プロンプトエリア */
-    .prompt-box {
-      background: #f4f0ff;
-      border: 1px solid #c4bde8;
-      border-radius: 14px;
-      padding: 20px;
-      font-size: 0.88rem;
-      line-height: 1.85;
-      color: var(--color-text);
-      margin-bottom: 16px;
-      word-break: break-all;
-    }
+/* =====================
+   5色チップ
+   ===================== */
+.color-chips {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+@media (max-width: 560px) { .color-chips { grid-template-columns: repeat(3, 1fr); } }
+.color-chip { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.color-swatch {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.10);
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: transform var(--transition);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.color-swatch:hover { transform: scale(1.07); }
+.copy-hex-hint {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 0.58rem;
+  padding: 2px 6px;
+  border-radius: 7px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+.color-swatch:hover .copy-hex-hint { opacity: 1; }
+.color-chip-name { font-size: 0.75rem; font-weight: 700; color: var(--color-text); text-align: center; }
+.color-chip-hex  { font-size: 0.68rem; color: var(--color-text-sub); font-family: monospace; letter-spacing: 0.04em; }
+.color-chip-role { font-size: 0.64rem; background: var(--color-gold-light); color: var(--color-gold); padding: 2px 7px; border-radius: 9px; font-weight: 700; text-align: center; }
 
-    /* トースト通知 */
-    .toast {
-      position: fixed;
-      bottom: 28px;
-      left: 50%;
-      transform: translateX(-50%) translateY(80px);
-      background: #333;
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 30px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      z-index: 9999;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-      opacity: 0;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
+/* =====================
+   コピーボタン
+   ===================== */
+.copy-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+.btn-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 9px 18px;
+  border-radius: 28px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 2px solid var(--color-gold);
+  background: transparent;
+  color: var(--color-gold);
+  transition: all var(--transition);
+  font-family: var(--font-main);
+}
+.btn-copy:hover { background: var(--color-gold); color: #fff; }
+.btn-copy.copied { background: #4caf50; border-color: #4caf50; color: #fff; }
 
-    /* スクロールアニメーション */
-    .palette-result.visible {
-      animation: fadeSlideIn 0.4s ease forwards;
-    }
-    @keyframes fadeSlideIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+/* 保存ボタン */
+.btn-save-palette {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 9px 18px;
+  border-radius: 28px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 2px solid #e8a0c4;
+  background: transparent;
+  color: #c45c8a;
+  transition: all var(--transition);
+  font-family: var(--font-main);
+}
+.btn-save-palette:hover { background: #fce8f3; }
+.btn-save-palette.saved { background: #fce8f3; border-color: #c45c8a; }
+
+/* =====================
+   解説テキスト
+   ===================== */
+.explanation-text { font-size: 0.98rem; line-height: 1.9; color: var(--color-text); }
+.theory-box {
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: var(--color-text-sub);
+  margin-top: 12px;
+  padding: 12px 16px;
+  background: #f9f6ff;
+  border-left: 3px solid #c4bde8;
+  border-radius: 0 8px 8px 0;
+}
+.tone-desc-box {
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: #5a4fcf;
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: #f0ebff;
+  border-left: 3px solid #9b8de0;
+  border-radius: 0 8px 8px 0;
+}
+
+/* =====================
+   作品アイデアカード
+   ===================== */
+.composition-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+@media (max-width: 560px) { .composition-grid { grid-template-columns: 1fr; } }
+.comp-item {
+  background: #fafaf8;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.comp-item.full-width { grid-column: 1 / -1; }
+.comp-item-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-gold);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.comp-item-text { font-size: 0.9rem; color: var(--color-text); line-height: 1.6; }
+.tip-box {
+  background: linear-gradient(135deg, #fff8e6, #fff0f8);
+  border: 1px solid var(--color-gold-light);
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 10px;
+}
+.tip-star { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+.tip-text { font-size: 0.88rem; color: var(--color-text); line-height: 1.7; }
+
+/* =====================
+   プロンプトカード
+   ===================== */
+.prompt-box {
+  background: #f4f0ff;
+  border: 1px solid #c4bde8;
+  border-radius: 12px;
+  padding: 18px;
+  font-size: 0.86rem;
+  line-height: 1.85;
+  color: var(--color-text);
+  margin-bottom: 14px;
+  word-break: break-all;
+}
+
+/* =====================
+   お気に入りエリア
+   ===================== */
+.fav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.fav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #fafaf8;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  transition: box-shadow var(--transition);
+}
+.fav-item:hover { box-shadow: var(--shadow-card); }
+.fav-swatches {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.fav-swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.fav-info { flex: 1; min-width: 0; }
+.fav-name { font-size: 0.88rem; font-weight: 700; color: var(--color-text); }
+.fav-date { font-size: 0.7rem; color: var(--color-text-sub); margin-top: 1px; }
+.fav-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.btn-fav-load, .btn-fav-del {
+  padding: 5px 12px;
+  border-radius: 16px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font-main);
+  transition: all var(--transition);
+}
+.btn-fav-load { border: 1.5px solid var(--color-gold); color: var(--color-gold); background: transparent; }
+.btn-fav-load:hover { background: var(--color-gold); color: #fff; }
+.btn-fav-del { border: 1.5px solid #ddd; color: #aaa; background: transparent; }
+.btn-fav-del:hover { border-color: #e57373; color: #e57373; }
+.fav-empty { font-size: 0.88rem; color: var(--color-text-sub); text-align: center; padding: 24px 0; }
+
+/* =====================
+   トースト
+   ===================== */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(70px);
+  background: #333;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 28px;
+  font-size: 0.83rem;
+  font-weight: 700;
+  z-index: 9999;
+  transition: transform 0.28s ease, opacity 0.28s ease;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* =====================
+   スマホ調整
+   ===================== */
+@media (max-width: 640px) {
+  .r-card { padding: 22px 18px; }
+  .tab-btn { padding: 8px 14px; font-size: 0.82rem; }
+  .tone-btn { padding: 7px 13px; font-size: 0.78rem; }
+  .mission-card { flex-wrap: wrap; }
+  .fav-actions { flex-direction: column; }
+}
   </style>
 </head>
 <body>
 
+  <!-- ヘッダー -->
   <header class="site-header">
     <div class="header-inner">
       <a href="index.html" class="site-logo">
@@ -393,67 +578,120 @@
 
   <main>
 
-    <!-- ヒーローエリア -->
+    <!-- ヒーロー -->
     <section class="palette-hero">
       <span class="palette-hero-badge">COLOR PALETTE</span>
       <h1 class="palette-hero-title">ひらめき色彩パレット</h1>
       <p class="palette-hero-catch">きみの気持ちは、どんな色？</p>
       <p class="palette-hero-lead">
-        感情をえらぶと、ぴったりの色彩パレットが見つかる。<br>
+        感情やテーマをえらぶと、ぴったりの色彩パレットと<br>
+        作品づくりのアイデアが見つかる。<br>
         色であそびながら、絵のひらめきを育てよう。
       </p>
     </section>
 
-    <!-- 感情選択エリア -->
-    <section class="emotion-section">
-      <p class="section-heading">✦ 今の気持ちをえらんでね ✦</p>
-      <div class="emotion-grid" id="emotionGrid"></div>
+    <!-- 色彩ミッション -->
+    <section class="mission-section" id="missionSection">
+      <div class="mission-card">
+        <span class="mission-icon" id="missionIcon">🌞</span>
+        <div class="mission-body">
+          <div style="margin-bottom:6px;"><span class="mission-badge">🎯 今日の色彩ミッション</span></div>
+          <div class="mission-text" id="missionText">読み込み中...</div>
+          <div class="mission-hint" id="missionHint"></div>
+        </div>
+        <button class="btn-mission-next" onclick="nextMission()" title="次のミッション">▶</button>
+      </div>
     </section>
 
-    <!-- パレット結果エリア -->
-    <div class="palette-result" id="paletteResult">
+    <!-- 配色レベル -->
+    <section class="tone-section" style="margin-top:32px;">
+      <div class="tone-label">🎨 配色レベルをえらんでね</div>
+      <div class="tone-buttons" id="toneButtons"></div>
+    </section>
 
-      <!-- 色彩パレット表示 -->
-      <div class="result-card">
+    <!-- タブ + カード選択 -->
+    <section class="tab-section">
+      <div class="tab-bar">
+        <button class="tab-btn active" id="tabEmotion" onclick="switchTab('emotion')">
+          😊 感情から選ぶ
+        </button>
+        <button class="tab-btn" id="tabTheme" onclick="switchTab('theme')">
+          🎨 テーマから選ぶ
+        </button>
+        <button class="tab-btn" id="tabFav" onclick="switchTab('fav')">
+          ♡ お気に入り
+        </button>
+      </div>
+
+      <!-- 感情パネル -->
+      <div class="tab-panel active" id="panelEmotion">
+        <p style="font-size:0.88rem;color:var(--color-text-sub);margin-bottom:20px;text-align:center;">
+          今の気持ちをえらんでね
+        </p>
+        <div class="emotion-grid" id="emotionGrid"></div>
+      </div>
+
+      <!-- テーマパネル -->
+      <div class="tab-panel" id="panelTheme">
+        <p style="font-size:0.88rem;color:var(--color-text-sub);margin-bottom:20px;text-align:center;">
+          作品のテーマをえらんでね
+        </p>
+        <div class="theme-grid" id="themeGrid"></div>
+      </div>
+
+      <!-- お気に入りパネル -->
+      <div class="tab-panel" id="panelFav">
+        <div class="r-card">
+          <div class="r-card-label">保存したパレット</div>
+          <div id="favList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 結果エリア -->
+    <section class="palette-result" id="paletteResult" style="margin-top:16px;">
+      <hr class="result-divider">
+
+      <!-- パレットカード -->
+      <div class="r-card">
         <div class="emotion-title-area">
           <span class="emotion-title-icon" id="resultIcon"></span>
-          <div class="emotion-title-name" id="resultEmotion"></div>
+          <div class="emotion-title-name" id="resultName"></div>
           <div class="emotion-title-desc" id="resultDesc"></div>
+          <span class="emotion-title-tone" id="resultToneLabel"></span>
         </div>
-        <div class="result-card-title">5色の色彩パレット</div>
+        <div class="r-card-label">5色の色彩パレット</div>
         <div class="color-chips" id="colorChips"></div>
         <div class="copy-row">
-          <button class="btn-copy" id="copyPaletteBtn" onclick="copyPalette()">
-            🎨 配色をコピーする
-          </button>
+          <button class="btn-copy" id="copyPaletteBtn" onclick="copyPalette()">🎨 配色をコピー</button>
+          <button class="btn-save-palette" id="savePaletteBtn" onclick="savePalette()">♡ このパレットを保存</button>
         </div>
       </div>
 
-      <!-- 色彩解説 -->
-      <div class="result-card">
-        <div class="result-card-title">色の解説</div>
+      <!-- 色彩解説カード -->
+      <div class="r-card">
+        <div class="r-card-label">色の解説</div>
         <p class="explanation-text" id="childExplanation"></p>
-        <p class="theory-text" id="colorTheory"></p>
+        <div class="tone-desc-box" id="toneDescBox"></div>
+        <div class="theory-box" id="colorTheory"></div>
       </div>
 
-      <!-- 作品アイデア -->
-      <div class="result-card">
-        <div class="result-card-title">この色で描ける絵のアイデア</div>
-        <div class="idea-list" id="artworkIdeas"></div>
+      <!-- 作品アイデアカード -->
+      <div class="r-card">
+        <div class="r-card-label">作品づくりのアイデア</div>
+        <div class="composition-grid" id="compositionGrid"></div>
       </div>
 
-      <!-- 画像生成プロンプト -->
-      <div class="result-card">
-        <div class="result-card-title">画像生成に使える配色説明文</div>
-        <div class="prompt-box" id="promptText"></div>
+      <!-- プロンプト生成カード -->
+      <div class="r-card">
+        <div class="r-card-label">画像生成に使える配色説明文</div>
+        <div class="prompt-box" id="promptBox"></div>
         <div class="copy-row">
-          <button class="btn-copy" id="copyPromptBtn" onclick="copyPrompt()">
-            📋 プロンプトをコピーする
-          </button>
+          <button class="btn-copy" id="copyPromptBtn" onclick="copyPrompt()">📋 プロンプトをコピー</button>
         </div>
       </div>
 
-    </div>
+    </section>
 
   </main>
 
@@ -466,120 +704,350 @@
 
   <script src="js/main.js?v=2"></script>
   <script type="module">
-    import { emotionPalettes } from './data/emotionPalettes.js';
+import { emotionPalettes } from './data/emotionPalettes.js';
+import { themePalettes   } from './data/themePalettes.js';
+import { toneLevels      } from './data/toneLevels.js';
+import { colorMissions   } from './data/colorMissions.js';
 
-    let currentPalette = null;
+/* =====================
+   状態管理
+   ===================== */
+let currentPalette  = null;   // 選択中パレットオブジェクト
+let currentType     = 'emotion'; // 'emotion' | 'theme'
+let currentToneId   = 'standard';
+let missionIndex    = Math.floor(Math.random() * colorMissions.length);
+const FAV_KEY       = 'kirara-muse-favorites';
 
-    // 感情カード生成
-    const grid = document.getElementById('emotionGrid');
-    emotionPalettes.forEach(p => {
-      const card = document.createElement('button');
-      card.className = 'emotion-card';
-      card.dataset.id = p.id;
-      card.innerHTML = `
-        <span class="emotion-card-icon">${p.icon}</span>
-        <span class="emotion-card-name">${p.emotion}</span>
-        <span class="emotion-card-desc">${p.description}</span>
-      `;
-      card.addEventListener('click', () => selectEmotion(p, card));
-      grid.appendChild(card);
+/* =====================
+   初期化
+   ===================== */
+buildToneButtons();
+buildEmotionGrid();
+buildThemeGrid();
+showMission();
+renderFavList();
+
+/* =====================
+   配色レベルボタン
+   ===================== */
+function buildToneButtons() {
+  const wrap = document.getElementById('toneButtons');
+  toneLevels.forEach(t => {
+    const btn = document.createElement('button');
+    btn.className = 'tone-btn' + (t.id === 'standard' ? ' active' : '');
+    btn.dataset.id = t.id;
+    btn.innerHTML = `${t.icon} ${t.label}`;
+    btn.title = t.detail;
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentToneId = t.id;
+      if (currentPalette) renderResult();
     });
+    wrap.appendChild(btn);
+  });
+}
 
-    function selectEmotion(palette, cardEl) {
-      // アクティブ切り替え
-      document.querySelectorAll('.emotion-card').forEach(c => c.classList.remove('active'));
-      cardEl.classList.add('active');
+/* =====================
+   タブ切り替え
+   ===================== */
+window.switchTab = function(tab) {
+  ['emotion','theme','fav'].forEach(id => {
+    document.getElementById('tab'   + id.charAt(0).toUpperCase() + id.slice(1))
+            .classList.toggle('active', id === tab);
+    document.getElementById('panel' + id.charAt(0).toUpperCase() + id.slice(1))
+            .classList.toggle('active', id === tab);
+  });
+  if (tab === 'fav') renderFavList();
+};
 
-      currentPalette = palette;
-      renderPalette(palette);
+/* =====================
+   感情グリッド
+   ===================== */
+function buildEmotionGrid() {
+  const grid = document.getElementById('emotionGrid');
+  emotionPalettes.forEach(p => {
+    grid.appendChild(makeSelCard(p.icon, p.emotion, p.description, () => {
+      clearActiveCards();
+      event.currentTarget.classList.add('active');
+      currentPalette = p;
+      currentType    = 'emotion';
+      renderResult();
+    }));
+  });
+}
 
-      // スクロール
-      setTimeout(() => {
-        document.getElementById('paletteResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
-    }
+/* =====================
+   テーマグリッド
+   ===================== */
+function buildThemeGrid() {
+  const grid = document.getElementById('themeGrid');
+  themePalettes.forEach(p => {
+    grid.appendChild(makeSelCard(p.icon, p.themeName, p.mainEmotion, () => {
+      clearActiveCards();
+      event.currentTarget.classList.add('active');
+      currentPalette = p;
+      currentType    = 'theme';
+      renderResult();
+    }));
+  });
+}
 
-    function renderPalette(p) {
-      const result = document.getElementById('paletteResult');
+function makeSelCard(icon, name, sub, onClick) {
+  const card = document.createElement('button');
+  card.className = 'sel-card';
+  card.innerHTML = `
+    <span class="sel-card-icon">${icon}</span>
+    <span class="sel-card-name">${name}</span>
+    <span class="sel-card-sub">${sub}</span>
+  `;
+  card.addEventListener('click', onClick);
+  return card;
+}
 
-      document.getElementById('resultIcon').textContent = p.icon;
-      document.getElementById('resultEmotion').textContent = p.emotion;
-      document.getElementById('resultDesc').textContent = p.description;
+function clearActiveCards() {
+  document.querySelectorAll('.sel-card').forEach(c => c.classList.remove('active'));
+}
 
-      // 色チップ
-      document.getElementById('colorChips').innerHTML = p.colors.map(c => `
-        <div class="color-chip">
-          <div class="color-swatch" style="background:${c.hex};" title="${c.name} ${c.hex}" onclick="copyHex('${c.hex}')">
-            <span class="copy-hex-hint">タップでコピー</span>
-          </div>
-          <span class="color-chip-name">${c.name}</span>
-          <span class="color-chip-hex">${c.hex}</span>
-          <span class="color-chip-role">${c.role}</span>
-        </div>
-      `).join('');
+/* =====================
+   結果レンダリング
+   ===================== */
+function renderResult() {
+  const p     = currentPalette;
+  const tone  = toneLevels.find(t => t.id === currentToneId);
+  const isTheme = currentType === 'theme';
 
-      document.getElementById('childExplanation').textContent = p.childExplanation;
-      document.getElementById('colorTheory').textContent = p.colorTheory;
+  // ヘッダー
+  document.getElementById('resultIcon').textContent = p.icon;
+  document.getElementById('resultName').textContent = isTheme ? p.themeName : p.emotion;
+  document.getElementById('resultDesc').textContent = isTheme ? p.mainEmotion : p.description;
+  document.getElementById('resultToneLabel').textContent = `${tone.icon} ${tone.label}`;
 
-      document.getElementById('artworkIdeas').innerHTML = p.artworkIdeas.map((idea, i) => `
-        <div class="idea-item">
-          <span class="idea-num">${i + 1}</span>
-          <span class="idea-text">${idea}</span>
-        </div>
-      `).join('');
+  // 色チップ
+  document.getElementById('colorChips').innerHTML = p.colors.map(c => `
+    <div class="color-chip">
+      <div class="color-swatch" style="background:${c.hex};" onclick="copyHex('${c.hex}')">
+        <span class="copy-hex-hint">コピー</span>
+      </div>
+      <span class="color-chip-name">${c.name}</span>
+      <span class="color-chip-hex">${c.hex}</span>
+      <span class="color-chip-role">${c.role}</span>
+    </div>
+  `).join('');
 
-      document.getElementById('promptText').textContent = p.promptText;
+  // 解説
+  document.getElementById('childExplanation').textContent = p.childExplanation;
+  document.getElementById('toneDescBox').textContent     = `【${tone.label}モード】${tone.detail}`;
+  document.getElementById('colorTheory').textContent     = p.colorTheory;
 
-      // 表示
-      result.classList.add('visible');
+  // 作品アイデア
+  const ci = p.compositionIdeas;
+  const compItems = ci ? [
+    { label: '🎭 主役',       text: ci.mainSubject },
+    { label: '🌅 背景',       text: ci.background  },
+    { label: '🎨 色の使い方', text: ci.colorUsage  },
+    { label: '✨ 見せ場',     text: ci.highlight   },
+  ] : [];
+  document.getElementById('compositionGrid').innerHTML = compItems.map(item => `
+    <div class="comp-item">
+      <div class="comp-item-label">${item.label}</div>
+      <div class="comp-item-text">${item.text}</div>
+    </div>
+  `).join('') + (ci?.tip ? `
+    <div class="comp-item full-width">
+      <div class="tip-box">
+        <span class="tip-star">💡</span>
+        <span class="tip-text"><strong>ひと工夫：</strong>${ci.tip}</span>
+      </div>
+    </div>
+  ` : '');
 
-      // コピーボタンをリセット
-      document.getElementById('copyPaletteBtn').classList.remove('copied');
-      document.getElementById('copyPaletteBtn').textContent = '🎨 配色をコピーする';
-      document.getElementById('copyPromptBtn').classList.remove('copied');
-      document.getElementById('copyPromptBtn').textContent = '📋 プロンプトをコピーする';
-    }
+  // プロンプト生成
+  const generatedPrompt = buildPrompt(p, tone, isTheme);
+  document.getElementById('promptBox').textContent = generatedPrompt;
 
-    // コピー機能
-    window.copyHex = function(hex) {
-      navigator.clipboard.writeText(hex).then(() => showToast(`${hex} をコピーしました`));
-    };
+  // 保存ボタンリセット
+  const saveBtn = document.getElementById('savePaletteBtn');
+  saveBtn.classList.remove('saved');
+  saveBtn.textContent = '♡ このパレットを保存';
 
-    window.copyPalette = function() {
-      if (!currentPalette) return;
-      const text = currentPalette.colors.map(c => `${c.name} ${c.hex} (${c.role})`).join('\n');
-      navigator.clipboard.writeText(text).then(() => {
-        const btn = document.getElementById('copyPaletteBtn');
-        btn.classList.add('copied');
-        btn.textContent = '✓ コピーしました！';
-        showToast('配色をコピーしました');
-        setTimeout(() => {
-          btn.classList.remove('copied');
-          btn.textContent = '🎨 配色をコピーする';
-        }, 2500);
-      });
-    };
+  // 表示
+  const result = document.getElementById('paletteResult');
+  result.classList.remove('visible');
+  void result.offsetWidth;
+  result.classList.add('visible');
 
-    window.copyPrompt = function() {
-      if (!currentPalette) return;
-      navigator.clipboard.writeText(currentPalette.promptText).then(() => {
-        const btn = document.getElementById('copyPromptBtn');
-        btn.classList.add('copied');
-        btn.textContent = '✓ コピーしました！';
-        showToast('プロンプトをコピーしました');
-        setTimeout(() => {
-          btn.classList.remove('copied');
-          btn.textContent = '📋 プロンプトをコピーする';
-        }, 2500);
-      });
-    };
+  setTimeout(() => result.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+}
 
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2200);
-    }
+/* =====================
+   プロンプト生成
+   ===================== */
+function buildPrompt(p, tone, isTheme) {
+  const nameLabel = isTheme ? `テーマ「${p.themeName}」` : `感情「${p.emotion}」`;
+  const colorList = p.colors.map(c => `${c.name}(${c.hex})`).join('・');
+  const ci = p.compositionIdeas;
+  const compText = ci
+    ? `主役は「${ci.mainSubject}」。背景は「${ci.background}」。`
+    : '';
+
+  return `【${nameLabel}の色彩パレット】配色レベル：${tone.label}
+使用色：${colorList}
+${compText}
+${p.promptText}
+${tone.promptSuffix}
+画風：子どもらしい丁寧なタッチ、温かみのある絵の具風。光と影をしっかり描き込む。`;
+}
+
+/* =====================
+   コピー機能
+   ===================== */
+window.copyHex = function(hex) {
+  navigator.clipboard.writeText(hex).then(() => showToast(`${hex} をコピーしました`));
+};
+
+window.copyPalette = function() {
+  if (!currentPalette) return;
+  const text = currentPalette.colors.map(c => `${c.name}　${c.hex}　（${c.role}）`).join('\n');
+  navigator.clipboard.writeText(text).then(() => {
+    flashBtn('copyPaletteBtn', '✓ コピーしました！', '🎨 配色をコピー');
+    showToast('配色をコピーしました');
+  });
+};
+
+window.copyPrompt = function() {
+  const text = document.getElementById('promptBox').textContent;
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    flashBtn('copyPromptBtn', '✓ コピーしました！', '📋 プロンプトをコピー');
+    showToast('プロンプトをコピーしました');
+  });
+};
+
+function flashBtn(id, onText, offText) {
+  const btn = document.getElementById(id);
+  btn.classList.add('copied');
+  btn.textContent = onText;
+  setTimeout(() => { btn.classList.remove('copied'); btn.textContent = offText; }, 2400);
+}
+
+/* =====================
+   お気に入り保存
+   ===================== */
+window.savePalette = function() {
+  if (!currentPalette) return;
+  const favs  = getFavs();
+  const tone  = toneLevels.find(t => t.id === currentToneId);
+  const isTheme = currentType === 'theme';
+  const name  = isTheme ? currentPalette.themeName : currentPalette.emotion;
+
+  const entry = {
+    id:       Date.now(),
+    type:     currentType,
+    paletteId: currentPalette.id,
+    toneId:   currentToneId,
+    name,
+    icon:     currentPalette.icon,
+    toneName: tone.label,
+    colors:   currentPalette.colors,
+    prompt:   document.getElementById('promptBox').textContent,
+    savedAt:  new Date().toLocaleDateString('ja-JP', { month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' })
+  };
+
+  favs.unshift(entry);
+  if (favs.length > 20) favs.pop();
+  localStorage.setItem(FAV_KEY, JSON.stringify(favs));
+
+  const saveBtn = document.getElementById('savePaletteBtn');
+  saveBtn.classList.add('saved');
+  saveBtn.textContent = '♡ 保存しました！';
+  showToast('お気に入りに保存しました');
+};
+
+function getFavs() {
+  try { return JSON.parse(localStorage.getItem(FAV_KEY)) || []; }
+  catch { return []; }
+}
+
+function renderFavList() {
+  const favs = getFavs();
+  const wrap = document.getElementById('favList');
+  if (!favs.length) {
+    wrap.innerHTML = '<div class="fav-empty">まだ保存したパレットがありません。<br>気に入ったパレットを♡ボタンで保存しよう！</div>';
+    return;
+  }
+  wrap.innerHTML = favs.map(f => `
+    <div class="fav-item" data-id="${f.id}">
+      <div class="fav-swatches">
+        ${f.colors.slice(0,5).map(c => `<div class="fav-swatch" style="background:${c.hex};"></div>`).join('')}
+      </div>
+      <div class="fav-info">
+        <div class="fav-name">${f.icon} ${f.name} <span style="font-weight:400;font-size:0.72rem;color:var(--color-text-sub);">／${f.toneName}</span></div>
+        <div class="fav-date">${f.savedAt}</div>
+      </div>
+      <div class="fav-actions">
+        <button class="btn-fav-load" onclick="loadFav(${f.id})">再表示</button>
+        <button class="btn-fav-del"  onclick="deleteFav(${f.id})">削除</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+window.loadFav = function(id) {
+  const favs = getFavs();
+  const f    = favs.find(x => x.id === id);
+  if (!f) return;
+
+  const allPalettes = [...emotionPalettes, ...themePalettes];
+  const p = allPalettes.find(x => x.id === f.paletteId);
+  if (!p) { showToast('パレットデータが見つかりません'); return; }
+
+  currentPalette = p;
+  currentType    = f.type;
+  currentToneId  = f.toneId;
+
+  // タブ切り替えとカードアクティブ
+  switchTab(f.type);
+  document.querySelectorAll('.tone-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.id === f.toneId);
+  });
+  clearActiveCards();
+
+  renderResult();
+  showToast('パレットを再表示しました');
+};
+
+window.deleteFav = function(id) {
+  let favs = getFavs().filter(x => x.id !== id);
+  localStorage.setItem(FAV_KEY, JSON.stringify(favs));
+  renderFavList();
+  showToast('削除しました');
+};
+
+/* =====================
+   色彩ミッション
+   ===================== */
+function showMission() {
+  const m = colorMissions[missionIndex];
+  document.getElementById('missionIcon').textContent = m.icon;
+  document.getElementById('missionText').textContent = m.text;
+  document.getElementById('missionHint').textContent = m.hint;
+}
+
+window.nextMission = function() {
+  missionIndex = (missionIndex + 1) % colorMissions.length;
+  showMission();
+};
+
+/* =====================
+   トースト
+   ===================== */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
   </script>
 </body>
 </html>

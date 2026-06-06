@@ -5,16 +5,23 @@ export const emotionPalettes = [
     icon: "😊",
     description: "心がぱっと明るくなる気持ち",
     colors: [
-      { name: "ひまわり黄", hex: "#FFD700", role: "主役の明るさ" },
+      { name: "ひまわり黄",     hex: "#FFD700", role: "主役の明るさ" },
       { name: "ピーチオレンジ", hex: "#FFAA5C", role: "あたたかさ" },
       { name: "ライムグリーン", hex: "#A8E063", role: "元気" },
-      { name: "スカイブルー", hex: "#87CEEB", role: "さわやか" },
-      { name: "クリーム白", hex: "#FFFBE6", role: "土台の明るさ" }
+      { name: "スカイブルー",   hex: "#87CEEB", role: "さわやか" },
+      { name: "クリーム白",     hex: "#FFFBE6", role: "土台の明るさ" }
     ],
     childExplanation:
       "太陽みたいな黄色と、オレンジ・みどりを組み合わせた、元気いっぱいの配色です。見るだけでにっこりしてしまうような、あかるい絵が描けます。",
     colorTheory:
       "高明度・高彩度の暖色系でまとめた配色。ひまわり黄をベースカラーに、オレンジで温かみを足し、黄緑でアクセントをつけています。",
+    compositionIdeas: {
+      mainSubject: "笑顔の人物・ひまわり・動物など、喜びを表すもの",
+      background: "明るい空・花畑・虹",
+      colorUsage: "主役を鮮やかな黄色で描き、周りをオレンジとみどりで囲む",
+      highlight: "笑顔の表情・花の中心の輝き",
+      tip: "画面いっぱいに色を広げると、喜びのエネルギーが伝わりやすいよ"
+    },
     artworkIdeas: [
       "笑顔いっぱいのひまわり畑",
       "お誕生日パーティーの飾り付け",
@@ -31,16 +38,23 @@ export const emotionPalettes = [
     icon: "⚡",
     description: "何かが起こりそうなドキドキ感",
     colors: [
-      { name: "ビビッドオレンジ", hex: "#FF6B2B", role: "エネルギー" },
+      { name: "ビビッドオレンジ",     hex: "#FF6B2B", role: "エネルギー" },
       { name: "エレクトリックブルー", hex: "#0099FF", role: "スピード感" },
-      { name: "ネオンイエロー", hex: "#FFE000", role: "ひらめき" },
-      { name: "マゼンタ", hex: "#FF3399", role: "おどろき" },
-      { name: "ディープパープル", hex: "#5C2D91", role: "神秘の土台" }
+      { name: "ネオンイエロー",       hex: "#FFE000", role: "ひらめき" },
+      { name: "マゼンタ",             hex: "#FF3399", role: "おどろき" },
+      { name: "ディープパープル",     hex: "#5C2D91", role: "神秘の土台" }
     ],
     childExplanation:
       "はっきりした色をいくつも組み合わせた、元気爆発の配色です。見ているだけでドキドキしてくる、冒険や祭りの絵にぴったりです。",
     colorTheory:
       "補色関係にあるオレンジ×ブルー、黄×紫を組み合わせた高彩度配色。互いに目立たせあう色の組み合わせでエネルギー感を最大化しています。",
+    compositionIdeas: {
+      mainSubject: "走る・飛ぶ・叫ぶなど、動きのある人物や乗り物",
+      background: "爆発するような光・花火・スピード線",
+      colorUsage: "対角線に補色を配置してエネルギー感を最大にする",
+      highlight: "動きの中心から広がる光・爆発のエフェクト",
+      tip: "背景に曲線や斜めの線を描くと、動きとスピード感が出るよ"
+    },
     artworkIdeas: [
       "夜空に打ち上がる花火",
       "スーパーヒーローの登場シーン",
@@ -57,16 +71,23 @@ export const emotionPalettes = [
     icon: "🌸",
     description: "ふんわりあたたかい気持ち",
     colors: [
-      { name: "桜ピンク", hex: "#FFD6E0", role: "やさしさの土台" },
-      { name: "ラベンダー", hex: "#E6DEFF", role: "おだやか" },
+      { name: "桜ピンク",     hex: "#FFD6E0", role: "やさしさの土台" },
+      { name: "ラベンダー",   hex: "#E6DEFF", role: "おだやか" },
       { name: "ミルクホワイト", hex: "#FFF8F0", role: "清潔感" },
       { name: "ミントグリーン", hex: "#C8F0E8", role: "さわやか" },
-      { name: "ピーチ", hex: "#FFB6A3", role: "ぬくもり" }
+      { name: "ピーチ",       hex: "#FFB6A3", role: "ぬくもり" }
     ],
     childExplanation:
       "やわらかいピンクやラベンダーを使った、ほんわか優しい配色です。ふわっとした雰囲気の絵や、だれかへのプレゼントの絵にぴったりです。",
     colorTheory:
       "彩度を抑えたペールトーンで統一した類似色配色。暖色（ピンク・ピーチ）と寒色（ラベンダー・ミント）をやさしく混ぜて、柔らかい印象にしています。",
+    compositionIdeas: {
+      mainSubject: "花・動物・笑顔の子ども・ぬいぐるみ",
+      background: "花畑・春の公園・ふわふわした雲",
+      colorUsage: "全体を淡いペールトーンでまとめ、主役だけすこし濃くして目立たせる",
+      highlight: "花びらの先・ほほの色・やさしい光",
+      tip: "丸い形をたくさん使うと、やさしさがより伝わるよ"
+    },
     artworkIdeas: [
       "桜の花びらが舞う春の道",
       "おかあさんに渡すプレゼント",
@@ -84,15 +105,22 @@ export const emotionPalettes = [
     description: "胸がしんとなる気持ち",
     colors: [
       { name: "スレートブルー", hex: "#6A8CAF", role: "静けさ" },
-      { name: "グレーブルー", hex: "#9BB0C1", role: "心の重さ" },
-      { name: "淡い水色", hex: "#D4E8F5", role: "涙のしずく" },
-      { name: "モーブグレー", hex: "#B8ADBF", role: "さみしさ" },
-      { name: "霧白", hex: "#EFF3F7", role: "静寂の背景" }
+      { name: "グレーブルー",   hex: "#9BB0C1", role: "心の重さ" },
+      { name: "淡い水色",       hex: "#D4E8F5", role: "涙のしずく" },
+      { name: "モーブグレー",   hex: "#B8ADBF", role: "さみしさ" },
+      { name: "霧白",           hex: "#EFF3F7", role: "静寂の背景" }
     ],
     childExplanation:
       "すこし暗めの青やグレーを使った、しずかな配色です。かなしい気持ちや、ひとりでいる場面の絵を描くとき、気持ちが伝わってきます。",
     colorTheory:
       "低彩度の寒色系で統一したトーンオントーン配色。明度に差をつけることで単調にならず、感情の深みを表現しています。",
+    compositionIdeas: {
+      mainSubject: "うつむく人物・雨に濡れた窓・一人でいる子ども",
+      background: "曇り空・雨の街・薄暗い部屋",
+      colorUsage: "全体を青みがかったグレーでまとめ、涙や雨のしずくだけ明るい水色にする",
+      highlight: "涙のしずく・雨粒・窓ガラスの光の反射",
+      tip: "人物を画面の隅に小さく置くと、孤独感が伝わりやすいよ"
+    },
     artworkIdeas: [
       "雨の窓ガラスに映る街並み",
       "一人でベンチに座る子ども",
@@ -111,14 +139,21 @@ export const emotionPalettes = [
     colors: [
       { name: "ミッドナイトブルー", hex: "#1E3A5F", role: "夜の深さ" },
       { name: "スモーキーパープル", hex: "#7A6B8A", role: "心の影" },
-      { name: "シルバーグレー", hex: "#B0B8C1", role: "月明かり" },
-      { name: "ダスティブルー", hex: "#8AAFC0", role: "遠さ" },
-      { name: "薄藤色", hex: "#CFC6DC", role: "記憶のかすれ" }
+      { name: "シルバーグレー",     hex: "#B0B8C1", role: "月明かり" },
+      { name: "ダスティブルー",     hex: "#8AAFC0", role: "遠さ" },
+      { name: "薄藤色",             hex: "#CFC6DC", role: "記憶のかすれ" }
     ],
     childExplanation:
       "夜の空のような深い青と、うすむらさきを使った配色です。夜ひとりでいる場面や、遠くを見つめる絵を描くと、さみしさがしっかり伝わります。",
     colorTheory:
       "暗めのトーン（ダーク・グレイッシュ）でまとめた寒色配色。シルバーをアクセントに使うことで、暗い中に月明かりのような光を感じさせます。",
+    compositionIdeas: {
+      mainSubject: "夜空を見上げる一人の人物・後ろ姿",
+      background: "月明かりの夜空・誰もいない夜の道",
+      colorUsage: "暗い青紫の中に、月の光だけシルバーで明るく描く",
+      highlight: "月・星・窓から差し込む光",
+      tip: "後ろ姿で描くと、見る人が自分を重ねてさみしさを感じやすいよ"
+    },
     artworkIdeas: [
       "夜空をひとりで見上げる子",
       "誰もいない教室の夕暮れ",
@@ -135,16 +170,23 @@ export const emotionPalettes = [
     icon: "🦁",
     description: "こわくても前へ進む強い気持ち",
     colors: [
-      { name: "バーミリオン", hex: "#E8391E", role: "力強さ" },
-      { name: "ゴールド", hex: "#D4AF37", role: "誇り" },
+      { name: "バーミリオン",   hex: "#E8391E", role: "力強さ" },
+      { name: "ゴールド",       hex: "#D4AF37", role: "誇り" },
       { name: "コバルトブルー", hex: "#0047AB", role: "意志の強さ" },
-      { name: "ブラック", hex: "#1A1A1A", role: "覚悟" },
+      { name: "ブラック",       hex: "#1A1A1A", role: "覚悟" },
       { name: "クリームホワイト", hex: "#FFF8E7", role: "清潔な誠実さ" }
     ],
     childExplanation:
       "赤とゴールドと青を組み合わせた、力強くかっこいい配色です。ヒーローや戦士、強い気持ちで挑む場面の絵にぴったりです。",
     colorTheory:
       "高彩度の暖色（赤・金）と寒色（青）をコントラスト強めに組み合わせたトライアド配色。黒を土台にすることで各色が際立ちます。",
+    compositionIdeas: {
+      mainSubject: "走り出す・立ち向かう・前へ進む人物やヒーロー",
+      background: "炎・嵐・暗い空など、困難を表す場面",
+      colorUsage: "黒い背景に赤とゴールドを際立たせ、主役の力強さを表現する",
+      highlight: "拳・炎・武器・立ち向かう目",
+      tip: "人物を下から見上げるアングルにすると、より大きく勇敢に見えるよ"
+    },
     artworkIdeas: [
       "炎の中を走り抜けるヒーロー",
       "高い山のてっぺんに立つ人物",
@@ -161,16 +203,23 @@ export const emotionPalettes = [
     icon: "✨",
     description: "未来へ進む明るい気持ち",
     colors: [
-      { name: "空色", hex: "#87CEEB", role: "広がり" },
-      { name: "白", hex: "#FFFFFF", role: "清潔感" },
-      { name: "若葉色", hex: "#A8D08D", role: "成長" },
+      { name: "空色",           hex: "#87CEEB", role: "広がり" },
+      { name: "白",             hex: "#FFFFFF", role: "清潔感" },
+      { name: "若葉色",         hex: "#A8D08D", role: "成長" },
       { name: "レモンイエロー", hex: "#FFF176", role: "明るさ" },
-      { name: "金色", hex: "#D4AF37", role: "特別な光" }
+      { name: "金色",           hex: "#D4AF37", role: "特別な光" }
     ],
     childExplanation:
       "空がひろがるような色と、光のような黄色を合わせた配色です。新しいことを始める絵や、未来を描く絵にぴったりです。",
     colorTheory:
       "高明度の空色と白をベースに、若葉色と黄色で成長や希望を表す配色です。金色をアクセントにして、特別な光を感じさせます。",
+    compositionIdeas: {
+      mainSubject: "前を向いて歩く人・芽吹く植物・光に向かって手を伸ばす子ども",
+      background: "朝日が差し込む空・大きく広がる雲・光のトンネル",
+      colorUsage: "空色と白をベースに、手前の主役に金色の光を当てる",
+      highlight: "朝日の光・新芽の輝き・光のトンネルの出口",
+      tip: "光の方向をそろえると、絵全体に統一感と希望感が生まれるよ"
+    },
     artworkIdeas: [
       "朝日に向かって歩く子ども",
       "未来へ続く白い道",
@@ -187,16 +236,23 @@ export const emotionPalettes = [
     icon: "🕊️",
     description: "しずかで穏やかな気持ち",
     colors: [
-      { name: "アクアブルー", hex: "#7EC8C8", role: "静けさ" },
-      { name: "セージグリーン", hex: "#9DC88D", role: "自然の安らぎ" },
-      { name: "サンドベージュ", hex: "#E8D5B7", role: "温かみの土台" },
-      { name: "ソフトホワイト", hex: "#F5F5F0", role: "清潔な静寂" },
-      { name: "スカイラベンダー", hex: "#C5C8E8", role: "穏やかなアクセント" }
+      { name: "アクアブルー",       hex: "#7EC8C8", role: "静けさ" },
+      { name: "セージグリーン",     hex: "#9DC88D", role: "自然の安らぎ" },
+      { name: "サンドベージュ",     hex: "#E8D5B7", role: "温かみの土台" },
+      { name: "ソフトホワイト",     hex: "#F5F5F0", role: "清潔な静寂" },
+      { name: "スカイラベンダー",   hex: "#C5C8E8", role: "穏やかなアクセント" }
     ],
     childExplanation:
       "やさしい水色と自然のみどりを組み合わせた、ほっとする配色です。静かな湖や緑の丘など、のんびりできる場所の絵を描くときにぴったりです。",
     colorTheory:
       "中明度・低彩度の類似色配色（青緑系）。彩度を抑えることで、目に優しく穏やかな印象を作ります。ベージュで温もりを補っています。",
+    compositionIdeas: {
+      mainSubject: "水辺の白鳥・静かな草原・穏やかな海",
+      background: "なだらかな丘・静かな湖・穏やかな空",
+      colorUsage: "全体を低彩度でまとめ、水面や空だけ少し明るい水色にする",
+      highlight: "水面の光・静かな湖の反射・草の露",
+      tip: "水平線を画面の低い位置に置くと、広がりと静けさが生まれるよ"
+    },
     artworkIdeas: [
       "静かな湖と白鳥",
       "花畑に寝転ぶ子ども",
@@ -213,16 +269,23 @@ export const emotionPalettes = [
     icon: "🔮",
     description: "なんだろう？と気になる気持ち",
     colors: [
-      { name: "インディゴ", hex: "#4B0082", role: "深い謎" },
-      { name: "ターコイズ", hex: "#40E0D0", role: "不思議な光" },
-      { name: "ゴールデンイエロー", hex: "#FFD700", role: "ひらめき" },
-      { name: "ミステリーパープル", hex: "#8B5CF6", role: "魔法の色" },
-      { name: "スターダストグレー", hex: "#C0C0D8", role: "宇宙の煙" }
+      { name: "インディゴ",           hex: "#4B0082", role: "深い謎" },
+      { name: "ターコイズ",           hex: "#40E0D0", role: "不思議な光" },
+      { name: "ゴールデンイエロー",   hex: "#FFD700", role: "ひらめき" },
+      { name: "ミステリーパープル",   hex: "#8B5CF6", role: "魔法の色" },
+      { name: "スターダストグレー",   hex: "#C0C0D8", role: "宇宙の煙" }
     ],
     childExplanation:
       "深い紫とターコイズブルーを使った、ふしぎな世界の配色です。魔法や宇宙、夢の中の場面など、想像力を使う絵にぴったりです。",
     colorTheory:
       "補色に近いインディゴ×ターコイズに、黄色を三角配色で加えた配色。彩度の高い寒色をベースに、金色で神秘的な光をアクセントにしています。",
+    compositionIdeas: {
+      mainSubject: "魔法使い・謎の生き物・宇宙人・ふしぎな扉",
+      background: "深い宇宙・魔法の森・夢の中の迷路",
+      colorUsage: "暗い紫を背景に、主役だけターコイズと金色の光で浮かび上がらせる",
+      highlight: "魔法のエフェクト・光る目・輝く宝石",
+      tip: "光が届く範囲だけ明るくすると、ふしぎな雰囲気が出るよ"
+    },
     artworkIdeas: [
       "魔法の本から飛び出す生き物",
       "深海に光る謎の生物",
@@ -240,20 +303,27 @@ export const emotionPalettes = [
     description: "ドキッとするおそろしい気持ち",
     colors: [
       { name: "ジェットブラック", hex: "#0A0A0A", role: "恐怖の闇" },
-      { name: "ブラッドレッド", hex: "#8B0000", role: "危険な色" },
-      { name: "グロウグリーン", hex: "#39FF14", role: "不気味な光" },
-      { name: "アッシュグレー", hex: "#808080", role: "不安のかすみ" },
+      { name: "ブラッドレッド",   hex: "#8B0000", role: "危険な色" },
+      { name: "グロウグリーン",   hex: "#39FF14", role: "不気味な光" },
+      { name: "アッシュグレー",   hex: "#808080", role: "不安のかすみ" },
       { name: "ゴーストホワイト", hex: "#F8F8FF", role: "幽霊のような白" }
     ],
     childExplanation:
       "黒と暗い赤、光る緑を組み合わせた、ドキドキこわい配色です。ホラーやおばけ、ハロウィンの絵を描くときにぴったりです。",
     colorTheory:
       "暗明度の無彩色（黒・グレー）をベースに、補色関係に近い赤と緑を高コントラストで配した配色。明度差を最大化することで恐怖感を演出しています。",
+    compositionIdeas: {
+      mainSubject: "おばけ・魔物・ハロウィンのかぼちゃ・暗闇の目",
+      background: "暗い夜の森・お化け屋敷・霧の墓地",
+      colorUsage: "ほぼ黒一色の背景に、主役だけグロウグリーンや血のような赤で浮かび上がらせる",
+      highlight: "おばけの光る目・かぼちゃの炎・月の光",
+      tip: "光源を1か所だけにすると、影が長く伸びてこわさが増すよ"
+    },
     artworkIdeas: [
       "暗い森の中を歩くシーン",
       "ハロウィンのかぼちゃと月夜",
       "お化け屋敷から出てくるゴースト",
-      "暗闇で光る目が見えるシーン",
+      "暗闘で光る目が見えるシーン",
       "古い墓地と霧の夜"
     ],
     promptText:
@@ -266,15 +336,22 @@ export const emotionPalettes = [
     description: "草や土や空の気持ちよさ",
     colors: [
       { name: "フォレストグリーン", hex: "#228B22", role: "豊かな緑" },
-      { name: "アーストーン", hex: "#8B6914", role: "大地の温もり" },
-      { name: "天空ブルー", hex: "#5B9BD5", role: "空の広がり" },
+      { name: "アーストーン",       hex: "#8B6914", role: "大地の温もり" },
+      { name: "天空ブルー",         hex: "#5B9BD5", role: "空の広がり" },
       { name: "サンライトイエロー", hex: "#F4C842", role: "太陽の光" },
-      { name: "モスグリーン", hex: "#8A9A5B", role: "苔と影" }
+      { name: "モスグリーン",       hex: "#8A9A5B", role: "苔と影" }
     ],
     childExplanation:
       "森のみどりと土のブラウン、空の青を合わせた、自然たっぷりの配色です。森や野原、山や海など、外の世界を描く絵にぴったりです。",
     colorTheory:
       "自然界に多い緑・茶・青の類似色配色。アーストーンを使うことで有機的な印象を強め、黄で太陽の光を象徴するアクセントにしています。",
+    compositionIdeas: {
+      mainSubject: "大きな木・川・野生の動物・草花",
+      background: "空のグラデーションと山・森",
+      colorUsage: "手前は濃い緑・茶色で、空に向かって薄い青に変化させて奥行きを出す",
+      highlight: "木漏れ日・水面のきらめき・動物の目",
+      tip: "前景・中景・背景の3層で描くと、自然の奥行きが出るよ"
+    },
     artworkIdeas: [
       "深い森の中の木漏れ日",
       "川のそばで遊ぶ動物たち",
@@ -292,15 +369,22 @@ export const emotionPalettes = [
     description: "感謝の気持ちでいっぱい",
     colors: [
       { name: "サンフラワーゴールド", hex: "#F5C842", role: "感謝の輝き" },
-      { name: "ウォームオレンジ", hex: "#FF9F5B", role: "温かい気持ち" },
-      { name: "ローズピンク", hex: "#FF91A4", role: "愛情" },
-      { name: "クリーミーホワイト", hex: "#FFFDF0", role: "純粋さ" },
-      { name: "アンバーブラウン", hex: "#C68B3A", role: "誠実な深み" }
+      { name: "ウォームオレンジ",     hex: "#FF9F5B", role: "温かい気持ち" },
+      { name: "ローズピンク",         hex: "#FF91A4", role: "愛情" },
+      { name: "クリーミーホワイト",   hex: "#FFFDF0", role: "純粋さ" },
+      { name: "アンバーブラウン",     hex: "#C68B3A", role: "誠実な深み" }
     ],
     childExplanation:
       "金色とオレンジとピンクを合わせた、ありがとうの気持ちがあふれる配色です。お礼のカードや、大切な人への絵を描くときにぴったりです。",
     colorTheory:
       "暖色系の類似色（黄・橙・ピンク）でまとめた配色。いずれも明度が高く、高揚感と温かさを表現します。アンバーブラウンが重心を与えます。",
+    compositionIdeas: {
+      mainSubject: "花束を渡す手・笑顔の人物・感謝のメッセージ",
+      background: "やさしいゴールドのグラデーション・花畑の夕暮れ",
+      colorUsage: "渡す花や主役を鮮やかに、背景はクリームで温かくまとめる",
+      highlight: "花の輝き・笑顔・ありがとうの文字の光",
+      tip: "手から手へ何かを渡すシーンは、感謝が一番伝わる構図だよ"
+    },
     artworkIdeas: [
       "花束を渡すシーン",
       "みんなで作った料理を囲む食卓",
