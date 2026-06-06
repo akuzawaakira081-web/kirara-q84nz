@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ひらめき色彩パレット — KIRARA MUSE</title>
+  <meta name="description" content="きみの気持ちは、どんな色？感情を選ぶと、ぴったりの色彩パレットが見つかります。色で遊びながら、絵のひらめきを育てよう。">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ===== ひらめき色彩パレット専用スタイル ===== */
+
+    /* ヒーロー */
+    .palette-hero {
+      background: linear-gradient(135deg, #fff8f0 0%, #f0eaff 50%, #e8f5ff 100%);
+      text-align: center;
+      padding: 72px 24px 56px;
+    }
+    .palette-hero-badge {
+      display: inline-block;
+      background: var(--color-gold);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .palette-hero-title {
+      font-size: clamp(1.6rem, 5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+    .palette-hero-catch {
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      color: #7c6fc4;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .palette-hero-lead {
+      font-size: 0.95rem;
+      color: var(--color-text-sub);
+      line-height: 1.9;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* 感情選択エリア */
+    .emotion-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 56px 24px 40px;
+    }
+    .section-heading {
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-text-sub);
+      letter-spacing: 0.06em;
+      margin-bottom: 32px;
+    }
+    .emotion-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 14px;
+    }
+    .emotion-card {
+      background: var(--color-white);
+      border: 2px solid var(--color-border);
+      border-radius: 20px;
+      padding: 18px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition);
+      box-shadow: var(--shadow-card);
+      user-select: none;
+    }
+    .emotion-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--color-gold);
+    }
+    .emotion-card.active {
+      border-color: #7c6fc4;
+      background: linear-gradient(135deg, #f5f0ff, #ffe8f5);
+      box-shadow: 0 6px 24px rgba(124, 111, 196, 0.25);
+      transform: translateY(-4px);
+    }
+    .emotion-card-icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+    .emotion-card-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+    .emotion-card-desc {
+      font-size: 0.7rem;
+      color: var(--color-text-sub);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    /* パレット表示エリア */
+    .palette-result {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+      display: none;
+    }
+    .palette-result.visible {
+      display: block;
+    }
+
+    /* セクションカード共通 */
+    .result-card {
+      background: var(--color-white);
+      border-radius: 24px;
+      box-shadow: var(--shadow-card);
+      padding: 36px;
+      margin-bottom: 24px;
+    }
+    .result-card-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--color-gold);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .result-card-title::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 16px;
+      background: var(--color-gold);
+      border-radius: 2px;
+    }
+
+    /* 感情タイトル */
+    .emotion-title-area {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .emotion-title-icon {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .emotion-title-name {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+    .emotion-title-desc {
+      font-size: 0.9rem;
+      color: var(--color-text-sub);
+      margin-top: 6px;
+    }
+
+    /* 5色チップ */
+    .color-chips {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin: 24px 0;
+    }
+    @media (max-width: 600px) {
+      .color-chips {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .color-chip {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .color-swatch {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 16px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: transform var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+    .color-swatch:hover {
+      transform: scale(1.06);
+    }
+    .color-swatch .copy-hex-hint {
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      font-size: 0.6rem;
+      padding: 2px 7px;
+      border-radius: 8px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.18s;
+      pointer-events: none;
+    }
+    .color-swatch:hover .copy-hex-hint {
+      opacity: 1;
+    }
+    .color-chip-name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--color-text);
+      text-align: center;
+    }
+    .color-chip-hex {
+      font-size: 0.7rem;
+      color: var(--color-text-sub);
+      font-family: monospace;
+      letter-spacing: 0.05em;
+    }
+    .color-chip-role {
+      font-size: 0.68rem;
+      background: var(--color-gold-light);
+      color: var(--color-gold);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    /* コピーボタン行 */
+    .copy-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .btn-copy {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 2px solid var(--color-gold);
+      background: transparent;
+      color: var(--color-gold);
+      transition: all var(--transition);
+      font-family: var(--font-main);
+    }
+    .btn-copy:hover {
+      background: var(--color-gold);
+      color: #fff;
+    }
+    .btn-copy.copied {
+      background: #4caf50;
+      border-color: #4caf50;
+      color: #fff;
+    }
+
+    /* 解説テキスト */
+    .explanation-text {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--color-text);
+    }
+    .theory-text {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: var(--color-text-sub);
+      margin-top: 12px;
+      padding: 12px 16px;
+      background: #f9f6ff;
+      border-left: 3px solid #c4bde8;
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* 作品アイデア */
+    .idea-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .idea-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      background: #fafaf8;
+      border-radius: 12px;
+      border: 1px solid var(--color-border);
+    }
+    .idea-num {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      background: linear-gradient(135deg, #c9a84c, #e0c060);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .idea-text {
+      font-size: 0.92rem;
+      color: var(--color-text);
+      line-height: 1.5;
+    }
+
+    /* プロンプトエリア */
+    .prompt-box {
+      background: #f4f0ff;
+      border: 1px solid #c4bde8;
+      border-radius: 14px;
+      padding: 20px;
+      font-size: 0.88rem;
+      line-height: 1.85;
+      color: var(--color-text);
+      margin-bottom: 16px;
+      word-break: break-all;
+    }
+
+    /* トースト通知 */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #333;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      z-index: 9999;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* スクロールアニメーション */
+    .palette-result.visible {
+      animation: fadeSlideIn 0.4s ease forwards;
+    }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        KIRARA MUSE
+        <span>きらら・ミューズ</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="global-nav" id="globalNav">
+        <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="works.html">ひらめき作品</a></li>
+          <li><a href="images.html">ひらめき画像</a></li>
+          <li><a href="themes.html">テーマで探す</a></li>
+          <li><a href="howto.html">使い方</a></li>
+          <li><a href="ai-inspiration.html">AIひらめき</a></li>
+          <li><a href="color-palette.html" class="active">色彩パレット</a></li>
+          <li><a href="kirara-letter.html">きららだより</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ヒーローエリア -->
+    <section class="palette-hero">
+      <span class="palette-hero-badge">COLOR PALETTE</span>
+      <h1 class="palette-hero-title">ひらめき色彩パレット</h1>
+      <p class="palette-hero-catch">きみの気持ちは、どんな色？</p>
+      <p class="palette-hero-lead">
+        感情をえらぶと、ぴったりの色彩パレットが見つかる。<br>
+        色であそびながら、絵のひらめきを育てよう。
+      </p>
+    </section>
+
+    <!-- 感情選択エリア -->
+    <section class="emotion-section">
+      <p class="section-heading">✦ 今の気持ちをえらんでね ✦</p>
+      <div class="emotion-grid" id="emotionGrid"></div>
+    </section>
+
+    <!-- パレット結果エリア -->
+    <div class="palette-result" id="paletteResult">
+
+      <!-- 色彩パレット表示 -->
+      <div class="result-card">
+        <div class="emotion-title-area">
+          <span class="emotion-title-icon" id="resultIcon"></span>
+          <div class="emotion-title-name" id="resultEmotion"></div>
+          <div class="emotion-title-desc" id="resultDesc"></div>
+        </div>
+        <div class="result-card-title">5色の色彩パレット</div>
+        <div class="color-chips" id="colorChips"></div>
+        <div class="copy-row">
+          <button class="btn-copy" id="copyPaletteBtn" onclick="copyPalette()">
+            🎨 配色をコピーする
+          </button>
+        </div>
+      </div>
+
+      <!-- 色彩解説 -->
+      <div class="result-card">
+        <div class="result-card-title">色の解説</div>
+        <p class="explanation-text" id="childExplanation"></p>
+        <p class="theory-text" id="colorTheory"></p>
+      </div>
+
+      <!-- 作品アイデア -->
+      <div class="result-card">
+        <div class="result-card-title">この色で描ける絵のアイデア</div>
+        <div class="idea-list" id="artworkIdeas"></div>
+      </div>
+
+      <!-- 画像生成プロンプト -->
+      <div class="result-card">
+        <div class="result-card-title">画像生成に使える配色説明文</div>
+        <div class="prompt-box" id="promptText"></div>
+        <div class="copy-row">
+          <button class="btn-copy" id="copyPromptBtn" onclick="copyPrompt()">
+            📋 プロンプトをコピーする
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-logo">KIRARA MUSE</p>
+    <p>© 2026 KIRARA MUSE. All rights reserved.</p>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/main.js?v=2"></script>
+  <script type="module">
+    import { emotionPalettes } from './data/emotionPalettes.js';
+
+    let currentPalette = null;
+
+    // 感情カード生成
+    const grid = document.getElementById('emotionGrid');
+    emotionPalettes.forEach(p => {
+      const card = document.createElement('button');
+      card.className = 'emotion-card';
+      card.dataset.id = p.id;
+      card.innerHTML = `
+        <span class="emotion-card-icon">${p.icon}</span>
+        <span class="emotion-card-name">${p.emotion}</span>
+        <span class="emotion-card-desc">${p.description}</span>
+      `;
+      card.addEventListener('click', () => selectEmotion(p, card));
+      grid.appendChild(card);
+    });
+
+    function selectEmotion(palette, cardEl) {
+      // アクティブ切り替え
+      document.querySelectorAll('.emotion-card').forEach(c => c.classList.remove('active'));
+      cardEl.classList.add('active');
+
+      currentPalette = palette;
+      renderPalette(palette);
+
+      // スクロール
+      setTimeout(() => {
+        document.getElementById('paletteResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+
+    function renderPalette(p) {
+      const result = document.getElementById('paletteResult');
+
+      document.getElementById('resultIcon').textContent = p.icon;
+      document.getElementById('resultEmotion').textContent = p.emotion;
+      document.getElementById('resultDesc').textContent = p.description;
+
+      // 色チップ
+      document.getElementById('colorChips').innerHTML = p.colors.map(c => `
+        <div class="color-chip">
+          <div class="color-swatch" style="background:${c.hex};" title="${c.name} ${c.hex}" onclick="copyHex('${c.hex}')">
+            <span class="copy-hex-hint">タップでコピー</span>
+          </div>
+          <span class="color-chip-name">${c.name}</span>
+          <span class="color-chip-hex">${c.hex}</span>
+          <span class="color-chip-role">${c.role}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('childExplanation').textContent = p.childExplanation;
+      document.getElementById('colorTheory').textContent = p.colorTheory;
+
+      document.getElementById('artworkIdeas').innerHTML = p.artworkIdeas.map((idea, i) => `
+        <div class="idea-item">
+          <span class="idea-num">${i + 1}</span>
+          <span class="idea-text">${idea}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('promptText').textContent = p.promptText;
+
+      // 表示
+      result.classList.add('visible');
+
+      // コピーボタンをリセット
+      document.getElementById('copyPaletteBtn').classList.remove('copied');
+      document.getElementById('copyPaletteBtn').textContent = '🎨 配色をコピーする';
+      document.getElementById('copyPromptBtn').classList.remove('copied');
+      document.getElementById('copyPromptBtn').textContent = '📋 プロンプトをコピーする';
+    }
+
+    // コピー機能
+    window.copyHex = function(hex) {
+      navigator.clipboard.writeText(hex).then(() => showToast(`${hex} をコピーしました`));
+    };
+
+    window.copyPalette = function() {
+      if (!currentPalette) return;
+      const text = currentPalette.colors.map(c => `${c.name} ${c.hex} (${c.role})`).join('\n');
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copyPaletteBtn');
+        btn.classList.add('copied');
+        btn.textContent = '✓ コピーしました！';
+        showToast('配色をコピーしました');
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.textContent = '🎨 配色をコピーする';
+        }, 2500);
+      });
+    };
+
+    window.copyPrompt = function() {
+      if (!currentPalette) return;
+      navigator.clipboard.writeText(currentPalette.promptText).then(() => {
+        const btn = document.getElementById('copyPromptBtn');
+        btn.classList.add('copied');
+        btn.textContent = '✓ コピーしました！';
+        showToast('プロンプトをコピーしました');
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.textContent = '📋 プロンプトをコピーする';
+        }, 2500);
+      });
+    };
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+  </script>
+</body>
+</html>
