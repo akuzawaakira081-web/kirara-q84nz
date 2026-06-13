@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="color-scheme" content="light">
+  <title>ひらめき技法マチエール — KIRARA MUSE</title>
+  <meta name="description" content="参考画像から色とマチエールをひろって、そのままキャンバスに描こう。">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/matiere.css?v=5">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        KIRARA MUSE
+        <span>きらら・ミューズ</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="global-nav" id="globalNav">
+        <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="works.html">ひらめき作品</a></li>
+          <li><a href="images.html">ひらめき画像</a></li>
+          <li><a href="themes.html">テーマで探す</a></li>
+          <li><a href="howto.html">使い方</a></li>
+          <li><a href="ai-inspiration.html">AIひらめき</a></li>
+          <li><a href="color-palette.html">色彩パレット</a></li>
+          <li><a href="kirara-letter.html">きららだより</a></li>
+          <li><a href="technique-matiere.html" aria-current="page">技法マチエール</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mc-layout" id="mcApp">
+
+    <!-- 参考画像セクション（折りたたみ可能） -->
+    <section class="mc-ref-section" id="mcRefSection" aria-label="参考画像">
+      <div class="mc-ref-header">
+        <p class="mc-ref-label">
+          <span class="mc-ref-label-icon" aria-hidden="true">👆</span>
+          絵をタップして色を選ぼう
+        </p>
+        <button id="mcRefToggle" class="mc-ref-toggle-btn" aria-label="参考画像を折りたたむ">▲ 小さくする</button>
+      </div>
+      <div class="mc-ref-wrap" id="mcRefWrap">
+        <img
+          id="mcRefImage"
+          class="mc-ref-img"
+          src="images/matiere/sky-reference.png"
+          alt="夕暮れの空 — タップして色とマチエールを選ぼう"
+          draggable="false"
+        />
+        <div class="mc-ref-placeholder" id="mcRefPlaceholder">
+          <span class="mc-ref-placeholder-icon" aria-hidden="true">🌅</span>
+          <span>参考画像を読み込み中...</span>
+        </div>
+        <div id="mcTapMarker"  class="mc-tap-marker"  aria-hidden="true"></div>
+        <div id="mcAreaLabel"  class="mc-area-label"  aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- カラーパレット -->
+    <section class="mc-palette-section" aria-label="カラーパレット">
+      <div id="mcPaletteSwatches" class="mc-palette-swatches">
+        <p class="mc-palette-hint-text">絵をタップして色を選ぼう</p>
+      </div>
+    </section>
+
+    <!-- ブラシ情報パネル -->
+    <section class="mc-brush-panel" id="mcBrushPanel" aria-label="現在のブラシ">
+      <div class="mc-brush-main">
+        <div>
+          <p class="mc-brush-name"   id="mcBrushName">空の流れ</p>
+          <p class="mc-matiere-name" id="mcMatiereName">平筆スウィープ</p>
+        </div>
+      </div>
+      <p class="mc-hint-text" id="mcHintText">絵をタップして色を選ぼう！</p>
+    </section>
+
+    <!-- お絵かきキャンバスセクション -->
+    <section class="mc-canvas-section" aria-label="お絵かきキャンバス">
+      <!-- フローティングオーバーレイ（色ドット + ブラシ名） -->
+      <div class="mc-canvas-overlay" aria-hidden="true">
+        <div class="mc-canvas-info">
+          <div id="mcCurrentColorDot" class="mc-info-color"></div>
+          <span id="mcBrushNameSmall" class="mc-info-name">空の流れ</span>
+        </div>
+      </div>
+      <canvas
+        id="mcCanvas"
+        class="mc-canvas"
+        role="img"
+        aria-label="お絵かきキャンバス — 指やマウスで描いてください"
+      ></canvas>
+    </section>
+
+    <!-- ツールバー（6ボタン） -->
+    <div class="mc-toolbar" role="toolbar" aria-label="描画ツール">
+      <button class="mc-tool-btn" id="mcUndo" aria-label="一歩もどる">
+        <span class="mc-tool-icon" aria-hidden="true">↩</span>
+        <span class="mc-tool-label">もどる</span>
+      </button>
+      <button class="mc-tool-btn" id="mcEraser" aria-pressed="false" aria-label="消しゴム">
+        <span class="mc-tool-icon" aria-hidden="true">⊗</span>
+        <span class="mc-tool-label">けす</span>
+      </button>
+      <button class="mc-tool-btn mc-tool-btn--danger" id="mcClear" aria-label="ぜんぶけす">
+        <span class="mc-tool-icon" aria-hidden="true">🗑</span>
+        <span class="mc-tool-label">ぜんぶ</span>
+      </button>
+      <button class="mc-tool-btn mc-tool-btn--save" id="mcSave" aria-label="画像として保存する">
+        <span class="mc-tool-icon" aria-hidden="true">💾</span>
+        <span class="mc-tool-label">ほぞん</span>
+      </button>
+      <button class="mc-tool-btn" id="mcOpenSettings" aria-label="ブラシ設定を開く">
+        <span class="mc-tool-icon" aria-hidden="true">⚙</span>
+        <span class="mc-tool-label">ブラシ設定</span>
+      </button>
+      <button class="mc-tool-btn" id="mcFullscreen" aria-pressed="false" aria-label="大きく描く">
+        <span class="mc-tool-icon" aria-hidden="true">⤢</span>
+        <span class="mc-tool-label">大きく</span>
+      </button>
+    </div>
+
+  </main>
+
+  <!-- ボトムシート（mc-layout の外で z-index 管理） -->
+  <div class="mc-sheet-backdrop" id="mcSheetBackdrop"></div>
+  <div class="mc-bottom-sheet" id="mcBottomSheet" role="dialog" aria-modal="true" aria-label="ブラシ設定">
+
+    <div class="mc-sheet-top">
+      <div class="mc-sheet-handle" aria-hidden="true"></div>
+      <div class="mc-sheet-header">
+        <span class="mc-sheet-title">ブラシ設定</span>
+        <button id="mcSheetClose" class="mc-sheet-close" aria-label="閉じる">✕</button>
+      </div>
+    </div>
+
+    <div class="mc-sheet-body">
+
+      <!-- ブラシ形状セレクター -->
+      <div class="mc-brushtype-section">
+        <p class="mc-section-label">ブラシ形状</p>
+        <div class="mc-brushtype-row" id="mcBrushTypeRow" role="group" aria-label="ブラシ形状の選択">
+          <button class="mc-brushtype-btn mc-brushtype-btn--active" data-type="flatBrush"    aria-pressed="true">平筆</button>
+          <button class="mc-brushtype-btn" data-type="dryFlatBrush" aria-pressed="false">硬い平刷毛</button>
+          <button class="mc-brushtype-btn" data-type="roundBrush"   aria-pressed="false">丸筆</button>
+          <button class="mc-brushtype-btn" data-type="spongeBrush"  aria-pressed="false">スポンジ</button>
+          <button class="mc-brushtype-btn" data-type="paletteKnife" aria-pressed="false">パレットナイフ</button>
+        </div>
+      </div>
+
+      <!-- ブラシプレビュー -->
+      <div class="mc-preview-wrap" aria-hidden="true">
+        <canvas id="mcBrushPreview" class="mc-brush-preview"></canvas>
+      </div>
+
+      <!-- サイズ -->
+      <div class="mc-slider-row">
+        <label class="mc-slider-label" for="mcSliderSize">サイズ</label>
+        <div class="mc-slider-col">
+          <input type="range" id="mcSliderSize" class="mc-slider" min="2" max="160" step="1" value="72" aria-label="ブラシサイズ">
+          <span id="mcValSize" class="mc-slider-val">72</span>
+        </div>
+      </div>
+
+      <!-- 濃さ -->
+      <div class="mc-slider-row">
+        <label class="mc-slider-label" for="mcSliderOpacity">濃さ</label>
+        <div class="mc-slider-col">
+          <input type="range" id="mcSliderOpacity" class="mc-slider" min="0.05" max="1" step="0.01" value="0.55" aria-label="ブラシの濃さ">
+          <span id="mcValOpacity" class="mc-slider-val">55%</span>
+        </div>
+      </div>
+
+      <!-- やわらかさ -->
+      <div class="mc-slider-row">
+        <label class="mc-slider-label" for="mcSliderSoftness">やわらかさ</label>
+        <div class="mc-slider-col">
+          <input type="range" id="mcSliderSoftness" class="mc-slider" min="0" max="1" step="0.01" value="0.25" aria-label="ブラシのやわらかさ">
+          <span id="mcValSoftness" class="mc-slider-val">25%</span>
+        </div>
+      </div>
+
+      <!-- 絵の具量 -->
+      <div class="mc-slider-row">
+        <label class="mc-slider-label" for="mcSliderPaintLoad">絵の具量</label>
+        <div class="mc-slider-col">
+          <input type="range" id="mcSliderPaintLoad" class="mc-slider" min="0.05" max="1" step="0.01" value="0.65" aria-label="絵の具の量">
+          <span id="mcValPaintLoad" class="mc-slider-val">65%</span>
+        </div>
+      </div>
+
+      <!-- 詳細設定（折りたたみ） -->
+      <details class="mc-advanced-panel">
+        <summary class="mc-advanced-summary">
+          詳細設定
+          <span class="mc-controls-summary-arrow" aria-hidden="true"></span>
+        </summary>
+        <div class="mc-advanced-body">
+
+          <div class="mc-slider-row">
+            <label class="mc-slider-label" for="mcSliderTexture">かすれ</label>
+            <div class="mc-slider-col">
+              <input type="range" id="mcSliderTexture" class="mc-slider" min="0" max="1" step="0.01" value="0.28" aria-label="かすれの強さ">
+              <span id="mcValTexture" class="mc-slider-val">28%</span>
+            </div>
+          </div>
+
+          <div class="mc-slider-row">
+            <label class="mc-slider-label" for="mcSliderColorVar">色の揺らぎ</label>
+            <div class="mc-slider-col">
+              <input type="range" id="mcSliderColorVar" class="mc-slider" min="0" max="1" step="0.01" value="0.12" aria-label="色の揺らぎ">
+              <span id="mcValColorVar" class="mc-slider-val">12%</span>
+            </div>
+          </div>
+
+          <div class="mc-slider-row">
+            <label class="mc-slider-label" for="mcSliderSpacing">間隔</label>
+            <div class="mc-slider-col">
+              <input type="range" id="mcSliderSpacing" class="mc-slider" min="0.04" max="1" step="0.01" value="0.06" aria-label="スタンプ間隔">
+              <span id="mcValSpacing" class="mc-slider-val">6%</span>
+            </div>
+          </div>
+
+          <div class="mc-color-adj-header">
+            <span class="mc-color-adj-title">色の調整</span>
+            <div id="mcColorAdjPreview" class="mc-color-adj-preview" aria-hidden="true"></div>
+            <button id="mcColorReset" class="mc-color-reset-btn">元の色に戻す</button>
+          </div>
+
+          <div class="mc-slider-row">
+            <label class="mc-slider-label" for="mcSliderHue">色合い</label>
+            <div class="mc-slider-col">
+              <input type="range" id="mcSliderHue" class="mc-slider mc-slider--hue" min="-180" max="180" step="1" value="0" aria-label="色相のシフト">
+              <span id="mcValHue" class="mc-slider-val">+0°</span>
+            </div>
+          </div>
+
+          <div class="mc-slider-row">
+            <label class="mc-slider-label" for="mcSliderSat">あざやかさ</label>
+            <div class="mc-slider-col">
+              <input type="range" id="mcSliderSat" class="mc-slider" min="-1" max="1" step="0.01" value="0" aria-label="彩度の調整">
+              <span id="mcValSat" class="mc-slider-val">+0%</span>
+            </div>
+          </div>
+
+          <div class="mc-slider-row">
+            <label class="mc-slider-label" for="mcSliderLight">明るさ</label>
+            <div class="mc-slider-col">
+              <input type="range" id="mcSliderLight" class="mc-slider" min="-0.5" max="0.5" step="0.01" value="0" aria-label="明度の調整">
+              <span id="mcValLight" class="mc-slider-val">+0%</span>
+            </div>
+          </div>
+
+          <div class="mc-slider-row">
+            <label class="mc-slider-label" for="mcSliderAlpha">透明さ</label>
+            <div class="mc-slider-col">
+              <input type="range" id="mcSliderAlpha" class="mc-slider" min="0.05" max="1" step="0.01" value="1" aria-label="透明度">
+              <span id="mcValAlpha" class="mc-slider-val">100%</span>
+            </div>
+          </div>
+
+        </div><!-- /.mc-advanced-body -->
+      </details>
+
+    </div><!-- /.mc-sheet-body -->
+  </div><!-- /.mc-bottom-sheet -->
+
+  <script src="js/main.js?v=2"></script>
+  <script src="js/matiere-data.js?v=3"></script>
+  <script src="js/matiere-color-sampler.js?v=1"></script>
+  <script src="js/matiere-picker.js?v=1"></script>
+  <script src="js/brush-engine.js?v=2"></script>
+  <script src="js/matiere-canvas.js?v=4"></script>
+  <script src="js/matiere-controls.js?v=3"></script>
+  <script src="js/matiere.js?v=3"></script>
+  <script>
+    try { localStorage.removeItem('tm_state'); } catch (e) {}
+  </script>
+
+</body>
+</html>
