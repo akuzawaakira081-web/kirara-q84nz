@@ -308,6 +308,30 @@ main { flex: 1; }
   transform: scale(1.04);
 }
 
+/* 縦長（ポスター等）作品 — 縦長コンテナ＋全体表示 */
+.card-image-wrap.portrait {
+  aspect-ratio: 3 / 4;
+  background: #f0ede8;
+}
+.card-image-wrap.portrait img {
+  object-fit: contain;
+}
+.card:hover .card-image-wrap.portrait img {
+  transform: scale(1.02);
+}
+
+/* 横長画像（image-card の 1:1 コンテナ対策） */
+.image-card .card-image-wrap.landscape {
+  aspect-ratio: 4 / 3;
+  background: #f0ede8;
+}
+.image-card .card-image-wrap.landscape img {
+  object-fit: contain;
+}
+.card:hover .image-card .card-image-wrap.landscape img {
+  transform: scale(1.02);
+}
+
 /* 画像がない場合のプレースホルダー */
 .card-placeholder {
   width: 100%;

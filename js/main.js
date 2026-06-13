@@ -57,11 +57,21 @@ function placeholderSVG(label = '') {
     </div>`;
 }
 
+// 縦長・横長画像を検出してcontainに切り替える
+function onImageLoad(img) {
+  const wrap = img.closest('.card-image-wrap');
+  if (img.naturalHeight > img.naturalWidth) {
+    wrap.classList.add('portrait');
+  } else if (img.naturalWidth > img.naturalHeight) {
+    wrap.classList.add('landscape');
+  }
+}
+
 // 画像エリアHTML（画像あり／なし判定）
 function imageAreaHTML(src, alt) {
   if (src) {
     return `
-      <img src="${src}" alt="${alt}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <img src="${src}" alt="${alt}" loading="lazy" onload="onImageLoad(this)" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <div class="card-placeholder" style="display:none">
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="4" y="8" width="32" height="24" rx="3" stroke="currentColor" stroke-width="1.5"/>

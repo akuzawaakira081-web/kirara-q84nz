@@ -6,7 +6,12 @@
   <meta name="color-scheme" content="light">
   <title>ひらめき作品 — KIRARA MUSE</title>
   <meta name="description" content="子どもたちの絵のアイデアになる参考作品を集めました。テーマで絞り込んで探せます。">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <style>
+    .card-image-wrap.portrait { aspect-ratio: 3/4; background: #f0ede8; }
+    .card-image-wrap.portrait img { object-fit: contain; }
+    .card:hover .card-image-wrap.portrait img { transform: scale(1.02); }
+  </style>
 </head>
 <body>
 
@@ -57,7 +62,7 @@
     <p>© 2026 KIRARA MUSE. All rights reserved.</p>
   </footer>
 
-  <script src="js/main.js?v=2"></script>
+  <script src="js/main.js?v=3"></script>
   <script src="js/works.js"></script>
 </body>
 </html>

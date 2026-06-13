@@ -6,7 +6,15 @@
   <meta name="color-scheme" content="light">
   <title>ひらめき画像 — KIRARA MUSE</title>
   <meta name="description" content="自然・まち・生きものの観察画像を集めました。じっくり見て、絵のヒントを見つけよう。">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <style>
+    .card-image-wrap.portrait { aspect-ratio: 3/4; background: #f0ede8; }
+    .card-image-wrap.portrait img { object-fit: contain; }
+    .card:hover .card-image-wrap.portrait img { transform: scale(1.02); }
+    .image-card .card-image-wrap.landscape { aspect-ratio: 4/3; background: #f0ede8; }
+    .image-card .card-image-wrap.landscape img { object-fit: contain; }
+    .card:hover .image-card .card-image-wrap.landscape img { transform: scale(1.02); }
+  </style>
 </head>
 <body>
 
@@ -57,7 +65,7 @@
     <p>© 2026 KIRARA MUSE. All rights reserved.</p>
   </footer>
 
-  <script src="js/main.js?v=2"></script>
+  <script src="js/main.js?v=3"></script>
   <script src="js/images.js?v=2"></script>
 </body>
 </html>
