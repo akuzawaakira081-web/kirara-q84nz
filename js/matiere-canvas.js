@@ -5,10 +5,11 @@
   'use strict';
 
   var _canvas = null, _ctx = null, _dpr = 1;
-  var _brush     = null;
-  var _overrides = {};
-  var _isEraser  = false;
-  var _drawing   = false;
+  var _brush       = null;
+  var _overrides   = {};
+  var _isEraser    = false;
+  var _drawing     = false;
+  var _secondColor = null;
 
   /* 生座標（消しゴム用） */
   var _lastX = 0, _lastY = 0;
@@ -20,13 +21,14 @@
 
   var _undoStack = [], MAX_UNDO = 20;
 
-  /* ブラシ種別ごとの平滑化係数 */
+  /* ブラシ種別ごとの平滑化係数（小さいほど滑らか・遅延大） */
   var SMOOTH_FACTORS = {
-    flatBrush:    0.22,
-    dryFlatBrush: 0.28,
-    roundBrush:   0.30,
-    spongeBrush:  0.40,
-    paletteKnife: 0.18
+    flatBrush:    0.05,
+    dryFlatBrush: 0.06,
+    roundBrush:   0.05,
+    spongeBrush:  0.09,
+    paletteKnife: 0.04,
+    dualBrush:    0.05
   };
 
   /* ---- init ---- */
@@ -112,10 +114,77 @@
   }
 
   /* ---- pointer handlers ---- */
+  function _isBlurMode() {
+    return _getParams().brushType === 'blurBrush';
+  }
+
+  function _applyBlur(x, y) {
+    var params = _getParams();
+    var size   = params.size || 30;
+    var radius = Math.round(size * _dpr * 0.5);
+    /* カーネルをサイズに比例させる（最低4px） */
+    var kr     = Math.max(4, Math.round(radius * 0.18));
+    var passes = 2 + Math.round((params.softness || 0.25) * 2); /* 2〜4パス */
+    var cx = Math.round(x * _dpr);
+    var cy = Math.round(y * _dpr);
+
+    var ix = cx - radius, iy = cy - radius;
+    var iw = radius * 2,  ih = radius * 2;
+    if (ix < 0) { iw += ix; ix = 0; }
+    if (iy < 0) { ih += iy; iy = 0; }
+    iw = Math.min(iw, _canvas.width  - ix);
+    ih = Math.min(ih, _canvas.height - iy);
+    if (iw <= 2 || ih <= 2) return;
+
+    var data = _ctx.getImageData(ix, iy, iw, ih);
+    for (var p = 0; p < passes; p++) {
+      data = _boxBlur(data, kr);
+    }
+    _ctx.putImageData(data, ix, iy);
+  }
+
+  function _boxBlur(imageData, kr) {
+    var w = imageData.width, h = imageData.height;
+    var src = imageData.data;
+    var tmp = new Uint8ClampedArray(src.length);
+    var dst = new Uint8ClampedArray(src.length);
+    var xi, yi, kx, ky, nx, ny, ii, oi, r, g, b, a, n;
+
+    /* 水平方向 */
+    for (yi = 0; yi < h; yi++) {
+      for (xi = 0; xi < w; xi++) {
+        r=0; g=0; b=0; a=0; n=0;
+        for (kx = -kr; kx <= kr; kx++) {
+          nx = xi + kx;
+          if (nx < 0 || nx >= w) continue;
+          ii = (yi * w + nx) * 4;
+          r += src[ii]; g += src[ii+1]; b += src[ii+2]; a += src[ii+3]; n++;
+        }
+        oi = (yi * w + xi) * 4;
+        tmp[oi]=r/n; tmp[oi+1]=g/n; tmp[oi+2]=b/n; tmp[oi+3]=a/n;
+      }
+    }
+    /* 垂直方向 */
+    for (yi = 0; yi < h; yi++) {
+      for (xi = 0; xi < w; xi++) {
+        r=0; g=0; b=0; a=0; n=0;
+        for (ky = -kr; ky <= kr; ky++) {
+          ny = yi + ky;
+          if (ny < 0 || ny >= h) continue;
+          ii = (ny * w + xi) * 4;
+          r += tmp[ii]; g += tmp[ii+1]; b += tmp[ii+2]; a += tmp[ii+3]; n++;
+        }
+        oi = (yi * w + xi) * 4;
+        dst[oi]=r/n; dst[oi+1]=g/n; dst[oi+2]=b/n; dst[oi+3]=a/n;
+      }
+    }
+    return new ImageData(dst, w, h);
+  }
+
   function _onDown(e) {
     e.preventDefault();
     _drawing = true;
-    _canvas.setPointerCapture(e.pointerId);
+    try { _canvas.setPointerCapture(e.pointerId); } catch (_) {}
     _saveSnapshot();
     var p = _pos(e);
     _lastX = p.x; _lastY = p.y;
@@ -125,10 +194,12 @@
 
     if (_isEraser) {
       _eraseAt(p.x, p.y);
+    } else if (_isBlurMode()) {
+      _applyBlur(p.x, p.y);
     } else if (typeof BrushEngine !== 'undefined') {
       var params = _getParams();
       BrushEngine.beginStroke(params);
-      BrushEngine.strokeTo(_ctx, p.x, p.y, 0, 0, params, _getActiveColor(), _getEffectiveAlpha());
+      BrushEngine.strokeTo(_ctx, p.x, p.y, 0, 0, params, _getActiveColor(), _getEffectiveAlpha(), _secondColor);
     }
   }
 
@@ -150,10 +221,12 @@
 
     if (_isEraser) {
       _eraseStroke(_lastX, _lastY, raw.x, raw.y);
+    } else if (_isBlurMode()) {
+      _applyBlur(raw.x, raw.y);
     } else if (typeof BrushEngine !== 'undefined') {
       BrushEngine.strokeTo(
         _ctx, _smoothX, _smoothY, angle, speed,
-        _getParams(), _getActiveColor(), _getEffectiveAlpha()
+        _getParams(), _getActiveColor(), _getEffectiveAlpha(), _secondColor
       );
     }
 
@@ -163,10 +236,10 @@
   }
 
   function _onUp() {
-    if (_drawing && !_isEraser && typeof BrushEngine !== 'undefined') {
+    if (_drawing && !_isEraser && !_isBlurMode() && typeof BrushEngine !== 'undefined') {
       BrushEngine.endStroke(
         _ctx, _smoothX, _smoothY, _lastAngle,
-        _getParams(), _getActiveColor(), _getEffectiveAlpha()
+        _getParams(), _getActiveColor(), _getEffectiveAlpha(), _secondColor
       );
     }
     _drawing = false;
@@ -233,8 +306,10 @@
     _overrides.satMul     = 0;
     _overrides.lightShift = 0;
   }
-  function setEraser(on)      { _isEraser = on; }
-  function getActiveColor()   { return _getActiveColor(); }
+  function setEraser(on)         { _isEraser = on; }
+  function setSecondColor(color) { _secondColor = color; }
+  function getSecondColor()      { return _secondColor; }
+  function getActiveColor()      { return _getActiveColor(); }
   function getParams()        { return _getParams(); }
   function isDrawing()        { return _drawing; }
   function undo() {
@@ -255,6 +330,7 @@
 
   window.MatiereCanvas = {
     init: init, setBrush: setBrush, setParam: setParam, setColor: setColor,
+    setSecondColor: setSecondColor, getSecondColor: getSecondColor,
     setEraser: setEraser, getActiveColor: getActiveColor, getParams: getParams,
     isDrawing: isDrawing, undo: undo, clear: clear, saveAsImage: saveAsImage
   };

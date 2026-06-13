@@ -142,6 +142,9 @@
       },
       function (color) {
         if (typeof MatiereCanvas !== 'undefined') MatiereCanvas.setColor(color);
+      },
+      function (color) {
+        if (typeof MatiereCanvas !== 'undefined') MatiereCanvas.setSecondColor(color);
       }
     );
   }
@@ -203,7 +206,7 @@
     if (typeof MatiereCanvas !== 'undefined' && !MatiereCanvas.isDrawing()) {
       if (typeof BrushEngine !== 'undefined') {
         var canvas = document.getElementById('mcBrushPreview');
-        if (canvas) BrushEngine.drawPreview(canvas, MatiereCanvas.getParams(), MatiereCanvas.getActiveColor());
+        if (canvas) BrushEngine.drawPreview(canvas, MatiereCanvas.getParams(), MatiereCanvas.getActiveColor(), MatiereCanvas.getSecondColor());
       }
     }
   }

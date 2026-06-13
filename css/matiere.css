@@ -171,6 +171,45 @@
   max-width: 100%;
 }
 
+.mc-palette-header {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.mc-color-slot {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px 3px 5px;
+  border: 1.5px solid var(--mc-border);
+  border-radius: 20px;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.65rem;
+  color: var(--mc-sub);
+  transition: border-color 0.12s, background 0.12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.mc-color-slot--active {
+  border-color: var(--mc-gold);
+  background: #fff4e0;
+  color: #c07010;
+  font-weight: 700;
+}
+.mc-color-slot-dot {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0,0,0,.12);
+  flex-shrink: 0;
+  background: #aaa;
+}
+.mc-color-slot-dot--empty {
+  background: repeating-linear-gradient(
+    45deg, #ddd 0px, #ddd 3px, #fff 3px, #fff 6px
+  );
+}
+
 .mc-palette-swatches {
   display: flex;
   align-items: center;
@@ -385,6 +424,83 @@
 .mc-tool-btn--active .mc-tool-label { color: #d08020; }
 .mc-tool-btn--danger:active { background-color: #fff0f0; }
 .mc-tool-btn--save:active   { background-color: #f0fff4; }
+
+/* ============================================================
+   サイズ素早切り替えバー
+   ============================================================ */
+.mc-sizebar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  background: var(--mc-white);
+  border-top: 1px solid var(--mc-border);
+}
+.mc-sizebar-label {
+  font-size: 0.62rem;
+  color: var(--mc-sub);
+  white-space: nowrap;
+  margin-right: 2px;
+  flex-shrink: 0;
+}
+.mc-size-btn {
+  flex: 1;
+  padding: 5px 2px;
+  border: 1.5px solid var(--mc-border);
+  border-radius: var(--mc-radius-s);
+  background: none;
+  font-size: 0.70rem;
+  color: var(--mc-sub);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.12s, border-color 0.12s, color 0.12s;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 32px;
+}
+.mc-size-btn:active { background: var(--mc-cream); }
+.mc-size-btn--active {
+  background: #fff4e0;
+  border-color: var(--mc-gold);
+  color: #c07010;
+  font-weight: 700;
+}
+body.mc-fullscreen-mode .mc-sizebar  { display: none; }
+
+/* ============================================================
+   ブラシ種別素早切り替えバー
+   ============================================================ */
+.mc-brushbar {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 5px;
+  padding: 6px 10px;
+  background: var(--mc-white);
+  border-top: 1px solid var(--mc-border);
+}
+.mc-brush-quick-btn {
+  flex: 1;
+  padding: 6px 2px;
+  border: 1.5px solid var(--mc-border);
+  border-radius: var(--mc-radius-s);
+  background: none;
+  font-size: 0.68rem;
+  color: var(--mc-sub);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.12s, border-color 0.12s, color 0.12s;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 32px;
+  white-space: nowrap;
+}
+.mc-brush-quick-btn:active { background: var(--mc-cream); }
+.mc-brush-quick-btn--active {
+  background: #fff4e0;
+  border-color: var(--mc-gold);
+  color: #c07010;
+  font-weight: 700;
+}
+body.mc-fullscreen-mode .mc-brushbar { display: none; }
 
 /* ============================================================
    ボトムシート

@@ -70,13 +70,12 @@
   /* ================================================================
      strokeTo — 平滑化済み座標を受け取りスタンプを打つ
   ================================================================ */
-  function strokeTo(ctx, x, y, angle, speed, params, color, alpha) {
+  function strokeTo(ctx, x, y, angle, speed, params, color, alpha, secondColor) {
     if (_lastStampX === null) {
-      /* 最初のスタンプ */
       _lastStampX = x;
       _lastStampY = y;
       _lastAngle  = angle;
-      _stampBrush(ctx, x, y, angle, 0, speed, params, color, alpha, true);
+      _stampBrush(ctx, x, y, angle, 0, speed, params, color, alpha, true, secondColor);
       return;
     }
 
@@ -95,7 +94,7 @@
         ctx,
         _lastStampX + dx * t,
         _lastStampY + dy * t,
-        angle, _strokeProgress, speed, params, color, alpha, false
+        angle, _strokeProgress, speed, params, color, alpha, false, secondColor
       );
     }
 
@@ -107,25 +106,73 @@
   /* ================================================================
      endStroke — 筆の抜き（テーパー）
   ================================================================ */
-  function endStroke(ctx, x, y, angle, params, color, alpha) {
-    var steps = 6;
+  function endStroke(ctx, x, y, angle, params, color, alpha, secondColor) {
+    var isRound  = (params.brushType === 'roundBrush');
+    var steps    = isRound ? 3  : 12;
+    var exponent = isRound ? 4.0 : 1.8;
+    var stepDist = Math.max(1.2, params.size * (params.spacing || 0.06) * 0.5);
     for (var i = 0; i < steps; i++) {
-      var fade = 1 - (i + 1) / (steps + 1);
-      var ex   = x + Math.cos(angle) * i * 3.5;
-      var ey   = y + Math.sin(angle) * i * 3.5;
+      var t    = (i + 1) / steps;
+      var fade = Math.pow(1 - t, exponent);
+      var ex   = x + Math.cos(angle) * i * stepDist;
+      var ey   = y + Math.sin(angle) * i * stepDist;
       var mp   = _mergeParams(params, {
-        size:    params.size * (0.12 + fade * 0.88),
+        size:    params.size * (0.06 + fade * 0.94),
         opacity: params.opacity * fade
       });
-      _strokeProgress += 3.5;
-      _stampBrush(ctx, ex, ey, angle, _strokeProgress, 25, mp, color, alpha * fade * 0.55, false);
+      _strokeProgress += stepDist;
+      _stampBrush(ctx, ex, ey, angle, _strokeProgress, 25, mp, color, alpha * fade, false, secondColor);
+    }
+
+    /* 丸筆：毛先のかすれ（筆を離す瞬間に毛が広がる） */
+    if (isRound) {
+      _roundBrushTipFraying(ctx, x, y, angle, params, color, alpha);
+    }
+  }
+
+  function _roundBrushTipFraying(ctx, x, y, angle, params, color, alpha) {
+    var size     = params.size;
+    var texture  = params.texture || 0.22;
+    var colorVar = params.colorVariation || 0.08;
+    var baseOp   = params.opacity * alpha;
+    var count    = Math.max(5, Math.round(size * 0.22 + texture * 12));
+    var normalX  = -Math.sin(angle);
+    var normalY  =  Math.cos(angle);
+
+    for (var i = 0; i < count; i++) {
+      var spread   = (Math.random() - 0.5) * size * 0.9;
+      var bx0      = x + normalX * spread;
+      var by0      = y + normalY * spread;
+      /* 毛先を長く伸ばす */
+      var len      = size * (0.65 + Math.random() * 1.10);  /* 長く */
+      var edgeFade = Math.max(0, 1 - Math.abs(spread) / (size * 0.5));
+      var baseW    = size * (0.018 + Math.random() * 0.022); /* 根元の太さ */
+      var bAlpha   = Math.max(0, baseOp * (0.18 + Math.random() * 0.32) * edgeFade);
+      var jColor   = _jitterHsl(color, colorVar * 5, colorVar * 0.06, (Math.random() - 0.5) * 0.14);
+
+      /* 根元→先端を10セグメントで極端にとがらせる */
+      var segs = 10;
+      for (var s = 0; s < segs; s++) {
+        var t0    = s / segs, t1 = (s + 1) / segs;
+        var taper = Math.pow(1 - t1, 3.5);           /* 指数を大きくして先端を極細に */
+        ctx.save();
+        ctx.globalAlpha = bAlpha * Math.pow(1 - t1, 0.6);
+        ctx.strokeStyle = jColor;
+        ctx.lineWidth   = Math.max(0.15, baseW * taper);
+        ctx.lineCap     = s === segs - 1 ? 'round' : 'butt';
+        ctx.beginPath();
+        ctx.moveTo(bx0 + Math.cos(angle) * len * t0, by0 + Math.sin(angle) * len * t0);
+        ctx.lineTo(bx0 + Math.cos(angle) * len * t1, by0 + Math.sin(angle) * len * t1);
+        ctx.stroke();
+        ctx.restore();
+      }
     }
   }
 
   /* ================================================================
      ディスパッチ
   ================================================================ */
-  function _stampBrush(ctx, x, y, angle, progress, speed, params, color, alpha, isFirst) {
+  function _stampBrush(ctx, x, y, angle, progress, speed, params, color, alpha, isFirst, secondColor) {
     var type = params.brushType || 'flatBrush';
     switch (type) {
       case 'flatBrush':    _flatBrush   (ctx, x, y, angle, progress, speed, params, color, alpha, isFirst); break;
@@ -133,6 +180,7 @@
       case 'roundBrush':   _roundBrush  (ctx, x, y, angle, progress, speed, params, color, alpha); break;
       case 'spongeBrush':  _spongeBrush (ctx, x, y, angle, progress, speed, params, color, alpha); break;
       case 'paletteKnife': _paletteKnife(ctx, x, y, angle, progress, speed, params, color, alpha); break;
+      case 'dualBrush':    _dualBrush   (ctx, x, y, angle, progress, speed, params, color, alpha, isFirst, secondColor || color); break;
       default:             _flatBrush   (ctx, x, y, angle, progress, speed, params, color, alpha, isFirst);
     }
   }
@@ -401,47 +449,138 @@
     var colorVar  = params.colorVariation || 0.06;
 
     var startTaper  = Math.min(1.0, progress / Math.max(1, size * 0.25));
-    var baseOpacity = params.opacity * alpha * (0.62 + startTaper * 0.38);
+    var baseOpacity = params.opacity * alpha * (0.78 + startTaper * 0.22);
 
-    var spacingPx = Math.max(0.5, size * (params.spacing || 0.12) * 0.5);
-    var knifeW    = spacingPx * 3.2;
-    var knifeH    = size * (0.07 + Math.random() * 0.05);
+    /* サイズに比例した幅と厚み */
+    var knifeW = size * (0.55 + Math.random() * 0.14);
+    var knifeH = size * (0.13 + Math.random() * 0.05);
 
-    var mainColor = _jitterHsl(color, colorVar * 3, colorVar * 0.05, colorVar * 0.05);
-    var edgeColor = _lightenOrDarken(mainColor, -0.08);
+    var mainColor   = _jitterHsl(color, colorVar * 3, colorVar * 0.05, colorVar * 0.04);
+    var brightEdge  = _lightenOrDarken(mainColor,  0.13);
+    var darkEdge    = _lightenOrDarken(mainColor, -0.10);
+
+    /* 連続ストローク（隙間をなくす） */
+    if (_baseX !== null) {
+      ctx.save();
+      ctx.globalAlpha = Math.min(0.94, baseOpacity * 0.88 * paintLoad);
+      ctx.strokeStyle = mainColor;
+      ctx.lineWidth   = knifeH * 0.88;
+      ctx.lineCap     = 'butt';
+      ctx.lineJoin    = 'miter';
+      ctx.beginPath();
+      ctx.moveTo(_baseX, _baseY);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      ctx.restore();
+    }
+    _baseX = x;
+    _baseY = y;
 
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(angle);
 
-    ctx.globalAlpha = Math.min(0.96, baseOpacity * 0.88);
+    /* メイン面（高不透明） */
+    ctx.globalAlpha = Math.min(0.96, baseOpacity * paintLoad);
     ctx.fillStyle   = mainColor;
     ctx.beginPath();
-    ctx.rect(-knifeW * 0.46, -knifeH * 0.5, knifeW * 0.92, knifeH);
+    ctx.rect(-knifeW * 0.5, -knifeH * 0.5, knifeW, knifeH);
     ctx.fill();
 
-    ctx.globalAlpha = Math.min(0.96, baseOpacity);
-    ctx.strokeStyle = edgeColor;
-    ctx.lineWidth   = Math.max(0.8, knifeH * 0.25);
+    /* 上エッジ（明るい反射） */
+    ctx.globalAlpha = Math.min(0.92, baseOpacity * 0.80);
+    ctx.strokeStyle = brightEdge;
+    ctx.lineWidth   = Math.max(1.0, knifeH * 0.20);
     ctx.lineCap     = 'square';
-    ctx.beginPath(); ctx.moveTo(-knifeW * 0.46, -knifeH * 0.5); ctx.lineTo(knifeW * 0.46, -knifeH * 0.5); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(-knifeW * 0.46,  knifeH * 0.5); ctx.lineTo(knifeW * 0.46,  knifeH * 0.5); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-knifeW * 0.5, -knifeH * 0.5); ctx.lineTo(knifeW * 0.5, -knifeH * 0.5); ctx.stroke();
 
-    if (texture > 0.25 && Math.random() < texture * 0.38) {
-      var scrY = (Math.random() - 0.5) * knifeH * 0.55;
-      ctx.globalAlpha = baseOpacity * 0.26;
-      ctx.strokeStyle = _jitterHsl(color, colorVar * 5, 0, 0);
-      ctx.lineWidth   = 0.5 + Math.random() * 1.2;
-      ctx.beginPath(); ctx.moveTo(-knifeW * 0.38, scrY); ctx.lineTo(knifeW * 0.38, scrY); ctx.stroke();
+    /* 下エッジ（影） */
+    ctx.globalAlpha = Math.min(0.88, baseOpacity * 0.72);
+    ctx.strokeStyle = darkEdge;
+    ctx.beginPath(); ctx.moveTo(-knifeW * 0.5, knifeH * 0.5); ctx.lineTo(knifeW * 0.5, knifeH * 0.5); ctx.stroke();
+
+    /* かき取り跡（テクスチャ） */
+    if (texture > 0.15) {
+      var scratchCount = Math.max(1, Math.floor(texture * 6 * Math.random()));
+      for (var s = 0; s < scratchCount; s++) {
+        var scrY = (Math.random() - 0.5) * knifeH * 0.72;
+        ctx.globalAlpha = baseOpacity * texture * (0.25 + Math.random() * 0.25);
+        ctx.strokeStyle = _lightenOrDarken(color, (Math.random() - 0.5) * 0.18);
+        ctx.lineWidth   = 0.5 + Math.random() * 1.2;
+        ctx.beginPath(); ctx.moveTo(-knifeW * 0.46, scrY); ctx.lineTo(knifeW * 0.46, scrY); ctx.stroke();
+      }
     }
 
     ctx.restore();
   }
 
   /* ================================================================
+     dualBrush — 二色ブラシ（平筆ベース・左右で色分け）
+  ================================================================ */
+  function _dualBrush(ctx, x, y, angle, progress, speed, params, color, alpha, isFirst, secondColor) {
+    var size      = params.size;
+    var paintLoad = params.paintLoad !== undefined ? params.paintLoad : 0.65;
+    var texture   = params.texture   || 0.28;
+    var softness  = params.softness  || 0.25;
+    var n         = _bristleCount || 6;
+
+    var normalX = -Math.sin(angle);
+    var normalY =  Math.cos(angle);
+    var speedFactor = Math.max(0.55, Math.min(1.15, 1.0 - speed * 0.011));
+    var startTaper  = Math.min(1.0, progress / Math.max(1, size * 0.5));
+    var baseOpacity = params.opacity * alpha * (0.38 + startTaper * 0.62) * speedFactor;
+
+    /* ソフトベース */
+    if (paintLoad > 0.35 && !isFirst && _baseX !== null) {
+      ctx.save();
+      ctx.globalAlpha = Math.min(0.09, baseOpacity * 0.07 * paintLoad);
+      ctx.strokeStyle = color;
+      ctx.lineWidth   = size * 0.82;
+      ctx.lineCap = ctx.lineJoin = 'round';
+      ctx.beginPath(); ctx.moveTo(_baseX, _baseY); ctx.lineTo(x, y); ctx.stroke();
+      ctx.restore();
+    }
+    _baseX = x; _baseY = y;
+
+    for (var b = 0; b < n; b++) {
+      var noise = _bristleNoise[b] || { skip:false, widthMul:0.7, alphaMul:0.8, hShift:0, sShift:0, lShift:0 };
+      if (noise.skip) continue;
+
+      var t = n > 1 ? (b / (n - 1)) - 0.5 : 0;   /* -0.5〜0.5 */
+
+      /* 中央の細い帯(±12%)だけブレンド、左右は純色 */
+      var raw    = t + 0.5;                /* 0〜1 */
+      var blend  = Math.max(0, Math.min(1, (raw - 0.38) / 0.24));
+      var mixed  = _lerpColor(color, secondColor, blend);
+      var bColor = _applyHslShift(mixed, noise.hShift, noise.sShift, noise.lShift);
+
+      var jitter    = (Math.random() - 0.5) * size * 0.022 * texture;
+      var bx        = x + normalX * (t * size + jitter);
+      var by        = y + normalY * (t * size + jitter);
+      var edgeFade  = 1 - Math.abs(t) * (0.28 + texture * 0.22);
+      var bAlpha    = Math.min(0.95, baseOpacity * noise.alphaMul * edgeFade * (0.70 + Math.random() * 0.30));
+      var bWidth    = (size / n) * noise.widthMul * (0.45 + Math.random() * 0.55) * speedFactor;
+
+      ctx.save();
+      ctx.globalAlpha = bAlpha;
+      ctx.lineWidth   = bWidth;
+      ctx.lineCap     = 'round';
+      if (_bristlePos[b] && !isFirst) {
+        ctx.strokeStyle = bColor;
+        ctx.beginPath(); ctx.moveTo(_bristlePos[b].x, _bristlePos[b].y); ctx.lineTo(bx, by); ctx.stroke();
+      } else if (isFirst) {
+        ctx.fillStyle = bColor;
+        ctx.beginPath(); ctx.arc(bx, by, bWidth / 2, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.restore();
+      _bristlePos[b] = { x: bx, y: by };
+    }
+  }
+
+  /* ================================================================
      drawPreview — コントロールパネル内プレビュー (S字カーブ)
   ================================================================ */
-  function drawPreview(canvas, params, color) {
+  function drawPreview(canvas, params, color, secondColor) {
     if (!canvas || !params || !color) return;
 
     /* ストローク状態を保存 */
@@ -478,11 +617,11 @@
       var dx = pts[i].x - pts[i-1].x;
       var dy = pts[i].y - pts[i-1].y;
       var spd = Math.sqrt(dx*dx + dy*dy);
-      strokeTo(ctx, pts[i].x, pts[i].y, Math.atan2(dy, dx), spd, pParams, color, 1.0);
+      strokeTo(ctx, pts[i].x, pts[i].y, Math.atan2(dy, dx), spd, pParams, color, 1.0, secondColor);
     }
     var last = pts[pts.length - 1];
     var prev = pts[pts.length - 2];
-    endStroke(ctx, last.x, last.y, Math.atan2(last.y - prev.y, last.x - prev.x), pParams, color, 1.0);
+    endStroke(ctx, last.x, last.y, Math.atan2(last.y - prev.y, last.x - prev.x), pParams, color, 1.0, secondColor);
 
     /* ストローク状態を復元 */
     _strokeProgress = sv.prog;
@@ -575,6 +714,15 @@
       Math.max(0,Math.min(1,hsl[1]+sShift)),
       Math.max(0,Math.min(1,hsl[2]+lShift))
     );
+  }
+  function _lerpColor(hex1, hex2, t) {
+    hex1 = hex1.replace('#',''); hex2 = hex2.replace('#','');
+    if (hex1.length===3) hex1=hex1[0]+hex1[0]+hex1[1]+hex1[1]+hex1[2]+hex1[2];
+    if (hex2.length===3) hex2=hex2[0]+hex2[0]+hex2[1]+hex2[1]+hex2[2]+hex2[2];
+    var r1=parseInt(hex1.substr(0,2),16), g1=parseInt(hex1.substr(2,2),16), b1=parseInt(hex1.substr(4,2),16);
+    var r2=parseInt(hex2.substr(0,2),16), g2=parseInt(hex2.substr(2,2),16), b2=parseInt(hex2.substr(4,2),16);
+    var r=Math.round(r1+(r2-r1)*t), g=Math.round(g1+(g2-g1)*t), b=Math.round(b1+(b2-b1)*t);
+    return '#'+[r,g,b].map(function(v){return('0'+v.toString(16)).slice(-2);}).join('');
   }
   function _lightenOrDarken(hex, amt) {
     var hsl=_hexToHsl(hex);

@@ -4,17 +4,25 @@
 (function () {
   'use strict';
 
-  var _onParamChange = null;
-  var _onColorSelect = null;
-  var _palette       = [];
-  var _selectedIdx   = 0;
-  var _previewTimer  = null;
+  var _onParamChange   = null;
+  var _onColorSelect   = null;
+  var _onColor2Select  = null;
+  var _palette         = [];
+  var _selectedIdx     = 0;
+  var _previewTimer    = null;
+  var _colorSlot       = 1;   /* 1 or 2 */
 
-  function init(onParamChange, onColorSelect) {
-    _onParamChange = onParamChange;
-    _onColorSelect = onColorSelect;
+  var SIZE_PRESETS = [6, 14, 30, 55, 100];
+
+  function init(onParamChange, onColorSelect, onColor2Select) {
+    _onParamChange  = onParamChange;
+    _onColorSelect  = onColorSelect;
+    _onColor2Select = onColor2Select;
     _wireSliders();
     _wireBrushTypeButtons();
+    _wireBrushBar();
+    _wireSizeBar();
+    _wireColorSlots();
     _wireResetBtn();
     setTimeout(_refreshPreview, 150);
   }
@@ -44,10 +52,73 @@
   }
 
   /* ================================================================
+     サイズ素早切り替えバー
+  ================================================================ */
+  function _wireColorSlots() {
+    var s1 = document.getElementById('mcColorSlot1');
+    var s2 = document.getElementById('mcColorSlot2');
+    if (s1) s1.addEventListener('click', function () { _setColorSlot(1); });
+    if (s2) s2.addEventListener('click', function () { _setColorSlot(2); });
+  }
+
+  function _setColorSlot(n) {
+    _colorSlot = n;
+    var s1 = document.getElementById('mcColorSlot1');
+    var s2 = document.getElementById('mcColorSlot2');
+    if (s1) { s1.classList.toggle('mc-color-slot--active', n === 1); s1.setAttribute('aria-pressed', n===1); }
+    if (s2) { s2.classList.toggle('mc-color-slot--active', n === 2); s2.setAttribute('aria-pressed', n===2); }
+  }
+
+  function _wireBrushBar() {
+    var btns = document.querySelectorAll('.mc-brush-quick-btn');
+    btns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var type = btn.dataset.type;
+        _setBrushBarActive(type);
+        _setBrushTypeActive(type);   /* ボトムシート内のボタンも同期 */
+        _onParamChange('brushType', type);
+        _refreshPreview();
+      });
+    });
+  }
+
+  function _setBrushBarActive(type) {
+    document.querySelectorAll('.mc-brush-quick-btn').forEach(function (btn) {
+      var active = btn.dataset.type === type;
+      btn.classList.toggle('mc-brush-quick-btn--active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    });
+  }
+
+  function _wireSizeBar() {
+    var btns = document.querySelectorAll('.mc-size-btn');
+    btns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var size = parseInt(btn.dataset.size, 10);
+        _setVal('mcSliderSize', size);
+        _onParamChange('size', size);
+        _setSizeBarActive(size);
+        _refreshPreview();
+      });
+    });
+  }
+
+  function _setSizeBarActive(size) {
+    var btns = document.querySelectorAll('.mc-size-btn');
+    /* 最も近いプリセットをアクティブに */
+    var closest = SIZE_PRESETS.reduce(function (prev, cur) {
+      return Math.abs(cur - size) < Math.abs(prev - size) ? cur : prev;
+    });
+    btns.forEach(function (btn) {
+      btn.classList.toggle('mc-size-btn--active', parseInt(btn.dataset.size, 10) === closest);
+    });
+  }
+
+  /* ================================================================
      スライダー
   ================================================================ */
   function _wireSliders() {
-    _wire('mcSliderSize',      function (v) { _onParamChange('size', +v);            _refreshPreview(); });
+    _wire('mcSliderSize',      function (v) { _onParamChange('size', +v); _setSizeBarActive(+v); _refreshPreview(); });
     _wire('mcSliderOpacity',   function (v) { _onParamChange('opacity', +v);         _refreshPreview(); });
     _wire('mcSliderSoftness',  function (v) { _onParamChange('softness', +v);        _refreshPreview(); });
     _wire('mcSliderPaintLoad', function (v) { _onParamChange('paintLoad', +v);       _refreshPreview(); });
@@ -159,6 +230,8 @@
     _setVal('mcSliderAlpha',     1.0);
 
     _setBrushTypeActive(brush.brushType || 'flatBrush');
+    _setBrushBarActive(brush.brushType || 'flatBrush');
+    _setSizeBarActive(p.size);
 
     var nameEl  = document.getElementById('mcBrushName');
     var matEl   = document.getElementById('mcMatiereName');
@@ -218,11 +291,21 @@
       btn.addEventListener('click', function () {
         _selectedIdx = parseInt(btn.dataset.idx, 10);
         var item = _palette[_selectedIdx];
-        if (item && _onColorSelect) {
-          _onColorSelect(item.color);
+        if (!item) return;
+        if (_colorSlot === 2) {
+          /* 2色目に設定 */
+          if (_onColor2Select) _onColor2Select(item.color);
+          var dot2 = document.getElementById('mcSlot2Dot');
+          if (dot2) { dot2.style.background = item.color; dot2.classList.remove('mc-color-slot-dot--empty'); }
+          _setColorSlot(1); /* 設定後は1色目に戻す */
+        } else {
+          /* 1色目に設定 */
+          if (_onColorSelect) _onColorSelect(item.color);
           _refreshColorPreview();
           var panelEl = document.getElementById('mcBrushPanel');
           if (panelEl) panelEl.style.setProperty('--mc-accent', item.color);
+          var dot1 = document.getElementById('mcSlot1Dot');
+          if (dot1) dot1.style.background = item.color;
         }
         _renderPalette();
       });
