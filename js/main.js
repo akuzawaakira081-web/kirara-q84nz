@@ -2,6 +2,17 @@
    KIRARA MUSE — 共通スクリプト
    =========================== */
 
+// LINEブラウザ検出 → 外部ブラウザ（Safari/Chrome）で開き直す
+(function () {
+  if (/Line\//i.test(navigator.userAgent)) {
+    var url = new URL(window.location.href);
+    if (!url.searchParams.get('openExternalBrowser')) {
+      url.searchParams.set('openExternalBrowser', '1');
+      window.location.replace(url.toString());
+    }
+  }
+})();
+
 // ナビゲーション：現在ページにactiveクラス付与
 (function () {
   const links = document.querySelectorAll('.global-nav a');
