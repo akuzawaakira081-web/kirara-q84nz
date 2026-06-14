@@ -27,7 +27,7 @@
     dryFlatBrush: 0.06,
     roundBrush:   0.05,
     spongeBrush:  0.09,
-    paletteKnife: 0.04,
+    poshBrush:    0.07,
     dualBrush:    0.05
   };
 

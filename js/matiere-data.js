@@ -45,16 +45,16 @@ var MATIERE_CONFIG = {
       params: { size:52, opacity:0.48, softness:0.58, paintLoad:0.58, texture:0.72, colorVariation:0.14, spacing:0.20 }
     },
 
-    /* ── 光の帯: パレットナイフで厚塗り ── */
+    /* ── 光の帯: ポッシュでしぶき ── */
     'light-band': {
       id:          'light-band',
       name:        '光の帯',
-      matiereName: 'パレットナイフ',
-      brushType:   'paletteKnife',
+      matiereName: 'ポッシュ',
+      brushType:   'poshBrush',
       primaryColor:'#F5B842',
       swatchColors:['#F5D068','#F5A030','#F5C898'],
-      hint:        'すーっと引くと光の帯になるよ！',
-      params: { size:40, opacity:0.82, softness:0.04, paintLoad:0.90, texture:0.45, colorVariation:0.06, spacing:0.12 }
+      hint:        '歯ブラシをはじくように、絵の具のしぶきを広げよう！',
+      params: { size:36, opacity:0.8, softness:0.04, density:28, spread:45, colorVariation:0.10, spacing:0.16 }
     },
 
     /* ── 紫の影: ドライフラットブラシでかすれ ── */

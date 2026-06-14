@@ -179,7 +179,7 @@
       case 'dryFlatBrush': _dryFlatBrush(ctx, x, y, angle, progress, speed, params, color, alpha, isFirst); break;
       case 'roundBrush':   _roundBrush  (ctx, x, y, angle, progress, speed, params, color, alpha); break;
       case 'spongeBrush':  _spongeBrush (ctx, x, y, angle, progress, speed, params, color, alpha); break;
-      case 'paletteKnife': _paletteKnife(ctx, x, y, angle, progress, speed, params, color, alpha); break;
+      case 'poshBrush':    _poshBrush   (ctx, x, y, angle, progress, speed, params, color, alpha); break;
       case 'dualBrush':    _dualBrush   (ctx, x, y, angle, progress, speed, params, color, alpha, isFirst, secondColor || color); break;
       default:             _flatBrush   (ctx, x, y, angle, progress, speed, params, color, alpha, isFirst);
     }
@@ -440,78 +440,114 @@
   }
 
   /* ================================================================
-     paletteKnife — パレットナイフ
+     poshBrush — ポッシュ（歯ブラシしぶきブラシ）
+     歯ブラシの毛先を弾いたときの飛沫・しぶきを再現する
   ================================================================ */
-  function _paletteKnife(ctx, x, y, angle, progress, speed, params, color, alpha) {
-    var size      = params.size;
-    var paintLoad = params.paintLoad !== undefined ? params.paintLoad : 0.90;
-    var texture   = params.texture   || 0.45;
-    var colorVar  = params.colorVariation || 0.06;
 
-    var startTaper  = Math.min(1.0, progress / Math.max(1, size * 0.25));
-    var baseOpacity = params.opacity * alpha * (0.78 + startTaper * 0.22);
+  /* ポッシュ定数 */
+  var POSH_MAX_PARTICLES   = 90;
+  var POSH_DEFAULT_SIZE    = 36;
+  var POSH_DEFAULT_DENSITY = 28;
+  var POSH_DEFAULT_SPREAD  = 45;
+  var POSH_PARTICLE_VAR    = 0.65;
 
-    /* サイズに比例した幅と厚み */
-    var knifeW = size * (0.55 + Math.random() * 0.14);
-    var knifeH = size * (0.13 + Math.random() * 0.05);
+  function _clamp(v, mn, mx) { return Math.min(Math.max(v, mn), mx); }
+  function _randBetween(mn, mx, rng) { return mn + (rng ? rng() : Math.random()) * (mx - mn); }
 
-    var mainColor   = _jitterHsl(color, colorVar * 3, colorVar * 0.05, colorVar * 0.04);
-    var brightEdge  = _lightenOrDarken(mainColor,  0.13);
-    var darkEdge    = _lightenOrDarken(mainColor, -0.10);
+  /* 粒のサイズを大中小微細でランダムに決める */
+  function _poshParticleRadius(baseSize, rng) {
+    var roll = rng();
+    var r;
+    if (roll < 0.60)      r = _randBetween(baseSize * 0.015, baseSize * 0.055, rng);
+    else if (roll < 0.86) r = _randBetween(baseSize * 0.050, baseSize * 0.100, rng);
+    else if (roll < 0.97) r = _randBetween(baseSize * 0.100, baseSize * 0.180, rng);
+    else                  r = _randBetween(baseSize * 0.180, baseSize * 0.300, rng);
+    return Math.max(0.5, r);
+  }
 
-    /* 連続ストローク（隙間をなくす） */
-    if (_baseX !== null) {
-      ctx.save();
-      ctx.globalAlpha = Math.min(0.94, baseOpacity * 0.88 * paintLoad);
-      ctx.strokeStyle = mainColor;
-      ctx.lineWidth   = knifeH * 0.88;
-      ctx.lineCap     = 'butt';
-      ctx.lineJoin    = 'miter';
-      ctx.beginPath();
-      ctx.moveTo(_baseX, _baseY);
-      ctx.lineTo(x, y);
-      ctx.stroke();
-      ctx.restore();
-    }
-    _baseX = x;
-    _baseY = y;
-
+  /* 1粒を描画（丸 or 楕円） */
+  function _poshDrawParticle(ctx, px, py, radius, rotation, useEllipse, opacity, color, rng) {
     ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(angle);
-
-    /* メイン面（高不透明） */
-    ctx.globalAlpha = Math.min(0.96, baseOpacity * paintLoad);
-    ctx.fillStyle   = mainColor;
-    ctx.beginPath();
-    ctx.rect(-knifeW * 0.5, -knifeH * 0.5, knifeW, knifeH);
-    ctx.fill();
-
-    /* 上エッジ（明るい反射） */
-    ctx.globalAlpha = Math.min(0.92, baseOpacity * 0.80);
-    ctx.strokeStyle = brightEdge;
-    ctx.lineWidth   = Math.max(1.0, knifeH * 0.20);
-    ctx.lineCap     = 'square';
-    ctx.beginPath(); ctx.moveTo(-knifeW * 0.5, -knifeH * 0.5); ctx.lineTo(knifeW * 0.5, -knifeH * 0.5); ctx.stroke();
-
-    /* 下エッジ（影） */
-    ctx.globalAlpha = Math.min(0.88, baseOpacity * 0.72);
-    ctx.strokeStyle = darkEdge;
-    ctx.beginPath(); ctx.moveTo(-knifeW * 0.5, knifeH * 0.5); ctx.lineTo(knifeW * 0.5, knifeH * 0.5); ctx.stroke();
-
-    /* かき取り跡（テクスチャ） */
-    if (texture > 0.15) {
-      var scratchCount = Math.max(1, Math.floor(texture * 6 * Math.random()));
-      for (var s = 0; s < scratchCount; s++) {
-        var scrY = (Math.random() - 0.5) * knifeH * 0.72;
-        ctx.globalAlpha = baseOpacity * texture * (0.25 + Math.random() * 0.25);
-        ctx.strokeStyle = _lightenOrDarken(color, (Math.random() - 0.5) * 0.18);
-        ctx.lineWidth   = 0.5 + Math.random() * 1.2;
-        ctx.beginPath(); ctx.moveTo(-knifeW * 0.46, scrY); ctx.lineTo(knifeW * 0.46, scrY); ctx.stroke();
-      }
+    ctx.globalAlpha = _clamp(opacity, 0, 1);
+    ctx.fillStyle   = color;
+    if (useEllipse) {
+      ctx.translate(px, py);
+      ctx.rotate(rotation);
+      ctx.beginPath();
+      ctx.ellipse(0, 0,
+        radius * _randBetween(1.2, 2.3, rng),
+        radius * _randBetween(0.55, 1.0, rng),
+        0, 0, Math.PI * 2);
+      ctx.fill();
+    } else {
+      ctx.beginPath();
+      ctx.arc(px, py, radius, 0, Math.PI * 2);
+      ctx.fill();
     }
-
     ctx.restore();
+  }
+
+  function _poshBrush(ctx, x, y, angle, progress, speed, params, color, alpha) {
+    var size     = params.size     || POSH_DEFAULT_SIZE;
+    var opacity  = params.opacity  !== undefined ? params.opacity  : 0.8;
+    var density  = params.density  !== undefined ? params.density  : POSH_DEFAULT_DENSITY;
+    var spread   = params.spread   !== undefined ? params.spread   : POSH_DEFAULT_SPREAD;
+    var colorVar = params.colorVariation || 0.10;
+
+    /* ドラッグ速度（0〜1） */
+    var velocity = _clamp(speed / 1.5, 0, 1);
+
+    /* 速いほど粒が広がり細かくなる、遅いほどまとまって大きめ */
+    var spreadMod = spread * (0.70 + velocity * 0.60);
+    var sizeMod   = size   * (1.00 - velocity * 0.30);
+
+    /* 粒数 */
+    var requested     = Math.round(density * (0.75 + velocity * 0.50) * (0.80 + Math.random() * 0.40));
+    var particleCount = Math.min(requested, POSH_MAX_PARTICLES);
+
+    /* 移動方向ベクトル（正規化） */
+    var dirLen = Math.max(0.001, Math.sqrt(
+      Math.cos(angle) * Math.cos(angle) + Math.sin(angle) * Math.sin(angle)
+    ));
+    var dirX = Math.cos(angle) / dirLen;
+    var dirY = Math.sin(angle) / dirLen;
+
+    /* シードランダム（ストローク中は安定した結果を得るため） */
+    var rng = _seededRandom(_strokeSeed + Math.floor(progress * 7));
+
+    for (var i = 0; i < particleCount; i++) {
+      /* 中心ほど密な分布 */
+      var pAngle = rng() * Math.PI * 2;
+      var normDist = Math.pow(rng(), 1.7);
+      var dist     = normDist * spreadMod;
+      var offsetX  = Math.cos(pAngle) * dist;
+      var offsetY  = Math.sin(pAngle) * dist;
+
+      /* 移動方向への引き */
+      var directionalForce = velocity * spreadMod * 0.45;
+      var px = x + offsetX + dirX * directionalForce * rng();
+      var py = y + offsetY + dirY * directionalForce * rng();
+
+      /* 粒サイズ */
+      var radius = _poshParticleRadius(sizeMod, rng);
+
+      /* 楕円か丸か（12%を楕円、速いほど増える） */
+      var ellipseProb = 0.12 + velocity * 0.10;
+      var useEllipse  = rng() < ellipseProb;
+
+      /* 楕円の向きはドラッグ方向 ± 少しゆらぎ */
+      var rotation = angle + _randBetween(-0.35, 0.35, rng);
+
+      /* 粒ごとの濃淡（小さい粒は薄め） */
+      var sizeRatio       = radius / (sizeMod * 0.3 + 0.001);
+      var particleOpacity = opacity * _randBetween(0.45, 1.0, rng) * _clamp(0.5 + sizeRatio * 0.5, 0.3, 1.0);
+
+      /* 色ゆらぎ */
+      var pColor = _jitterHsl(color, colorVar * 8, colorVar * 0.12, colorVar * 0.10);
+
+      _poshDrawParticle(ctx, px, py, radius, rotation, useEllipse,
+        particleOpacity * alpha, pColor, rng);
+    }
   }
 
   /* ================================================================
