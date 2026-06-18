@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-gold: #c9a84c;
+  --color-gold-light: #f5ecd7;
+  --color-lavender: #d6cef0;
+  --color-sky: #cce8f4;
+  --color-white: #ffffff;
+  --color-bg: #fafaf8;
+  --color-text: #3a3630;
+  --color-text-sub: #7a7570;
+  --color-border: #e8e2d8;
+  --radius-card: 16px;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
