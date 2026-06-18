@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>ひらめき作品 — KIRARA MUSE</title>
+  <meta name="description" content="子どもたちの絵のアイデアになる参考作品を集めました。テーマで絞り込んで探せます。">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <style>
+    .card-image-wrap.portrait { aspect-ratio: 3/4; background: #f0ede8; }
+    .card-image-wrap.portrait img { object-fit: contain; }
+    .card:hover .card-image-wrap.portrait img { transform: scale(1.02); }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        KIRARA MUSE
+        <span>きらら・ミューズ</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="global-nav" id="globalNav">
+        <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="works.html">ひらめき作品</a></li>
+          <li><a href="images.html">ひらめき画像</a></li>
+          <li><a href="themes.html">テーマで探す</a></li>
+          <li><a href="howto.html">使い方</a></li>
+          <li><a href="ai-inspiration.html">AIひらめき</a></li>
+          <li><a href="kirara-letter.html">きららだより</a></li>
+          <li><a href="technique-matiere.html">技法マチエール</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <div class="page-hero">
+      <span class="section-label">WORKS</span>
+      <h1 class="page-title">ひらめき作品</h1>
+      <p class="page-desc">
+        さまざまな参考作品を見て、自分の絵のアイデアを見つけよう。<br>
+        気に入った作品はブックマークボタンで保存できます。
+      </p>
+    </div>
+
+    <div class="section">
+      <div class="tag-list" id="tagList"></div>
+      <div class="card-grid" id="worksGrid"></div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-logo">KIRARA MUSE</p>
+    <p>© 2026 KIRARA MUSE. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js?v=3"></script>
+  <script src="js/works.js"></script>
+</body>
+</html>

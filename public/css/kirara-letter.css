@@ -1,0 +1,802 @@
+/* ===========================
+   きららだより — ページ専用スタイル
+   =========================== */
+
+/* --- カラー変数（ページ固有） --- */
+:root {
+  --letter-bg:         #fdf8f0;
+  --letter-zoukei:     #7ab8a0;   /* 造形：やわらかグリーン */
+  --letter-zoukei-lt:  #e8f5f0;
+  --letter-kaiga:      #8fa8d0;   /* 絵画：やわらかブルー */
+  --letter-kaiga-lt:   #e8f0f8;
+  --letter-accent:     #e8975a;   /* アクセントオレンジ */
+  --letter-accent-lt:  #fef3e8;
+  --letter-gold:       #c9a84c;
+  --letter-line:       #06c755;
+}
+
+/* ===========================
+   ページヒーロー
+   =========================== */
+.letter-hero {
+  background: linear-gradient(150deg, #fdf3e7 0%, #fefcf8 40%, #eef5fb 100%);
+  padding: 56px 24px 48px;
+  text-align: center;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.letter-hero-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.letter-eyebrow {
+  font-family: var(--font-en);
+  font-size: 0.78rem;
+  letter-spacing: 0.3em;
+  color: var(--letter-gold);
+  margin-bottom: 12px;
+}
+
+.letter-title {
+  font-size: clamp(2rem, 6vw, 2.8rem);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--color-text);
+  margin-bottom: 10px;
+}
+
+.letter-subtitle {
+  font-size: 0.9rem;
+  color: var(--color-text-sub);
+  letter-spacing: 0.06em;
+  margin-bottom: 20px;
+}
+
+.letter-desc {
+  font-size: 0.88rem;
+  color: var(--color-text-sub);
+  line-height: 1.85;
+}
+
+/* ===========================
+   コース切り替えタブ
+   =========================== */
+.course-tabs-wrap {
+  position: sticky;
+  top: 64px;
+  z-index: 90;
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+  padding: 12px 24px;
+}
+
+.course-tabs {
+  display: flex;
+  gap: 10px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.course-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 16px;
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-white);
+  color: var(--color-text-sub);
+  font-family: var(--font-main);
+  font-size: 0.92rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all var(--transition);
+  min-height: 48px;  /* スマホでタップしやすい最小高さ */
+}
+
+.course-tab:hover {
+  border-color: var(--color-gold);
+  color: var(--color-text);
+  background: var(--color-gold-light);
+}
+
+.course-tab.active[data-course="zoukei"] {
+  border-color: var(--letter-zoukei);
+  background: var(--letter-zoukei-lt);
+  color: var(--letter-zoukei);
+  font-weight: 700;
+}
+
+.course-tab.active[data-course="kaiga"] {
+  border-color: var(--letter-kaiga);
+  background: var(--letter-kaiga-lt);
+  color: var(--letter-kaiga);
+  font-weight: 700;
+}
+
+.course-tab-icon {
+  font-size: 1.1rem;
+}
+
+/* ===========================
+   コースパネル
+   =========================== */
+.course-panel {
+  background: var(--letter-bg);
+  min-height: 60vh;
+  padding: 32px 16px 64px;
+}
+
+.course-panel.hidden {
+  display: none;
+}
+
+.letter-content {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===========================
+   コース見出し
+   =========================== */
+.course-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 4px 0 8px;
+}
+
+.course-heading h2 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--color-text-sub);
+  letter-spacing: 0.06em;
+}
+
+.course-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.course-badge.zoukei {
+  background: var(--letter-zoukei);
+  color: #fff;
+}
+
+.course-badge.kaiga {
+  background: var(--letter-kaiga);
+  color: #fff;
+}
+
+/* ===========================
+   共通カード
+   =========================== */
+.letter-card {
+  background: var(--color-white);
+  border-radius: 16px;
+  padding: 24px 20px;
+  box-shadow: var(--shadow-card);
+}
+
+.card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.04em;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.card-icon {
+  font-size: 1.15rem;
+}
+
+/* ===========================
+   予定表
+   =========================== */
+.schedule-note {
+  font-size: 0.82rem;
+  color: var(--color-text-sub);
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  background: var(--color-gold-light);
+  border-radius: 8px;
+  line-height: 1.65;
+}
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.schedule-col {
+  background: var(--color-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.schedule-day {
+  background: var(--color-gold);
+  color: #fff;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 7px 4px;
+  letter-spacing: 0.05em;
+}
+
+.schedule-dates {
+  padding: 10px 8px;
+  list-style: none;
+}
+
+.schedule-dates li {
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 4px 0;
+  color: var(--color-text);
+  border-bottom: 1px dotted var(--color-border);
+}
+
+.schedule-dates li:last-child {
+  border-bottom: none;
+}
+
+/* ===========================
+   月1レッスン強調カード
+   =========================== */
+.monthly-lesson-card {
+  background: linear-gradient(135deg, #fffbf0 0%, #fff8ee 100%);
+  border: 2px solid #f0d890;
+}
+
+.lesson-highlight-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.lesson-highlight-item {
+  flex: 1;
+  min-width: 80px;
+  background: var(--color-white);
+  border-radius: 10px;
+  padding: 10px 8px;
+  text-align: center;
+  border: 1px solid #f0d890;
+}
+
+.highlight-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--color-text-sub);
+  margin-bottom: 4px;
+  letter-spacing: 0.05em;
+}
+
+.highlight-value {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.line-tag {
+  color: var(--letter-line) !important;
+  font-size: 0.85rem !important;
+}
+
+.lesson-desc {
+  font-size: 0.85rem;
+  color: var(--color-text-sub);
+  line-height: 1.8;
+  background: rgba(255,255,255,0.7);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+/* ===========================
+   月謝カード
+   =========================== */
+.fee-card {
+  border-left: 4px solid var(--letter-accent);
+}
+
+/* ===========================
+   お知らせリスト
+   =========================== */
+.notice-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notice-list li {
+  padding-left: 20px;
+  position: relative;
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--color-text);
+}
+
+.notice-list li::before {
+  content: "•";
+  position: absolute;
+  left: 4px;
+  color: var(--letter-accent);
+  font-weight: 700;
+}
+
+/* ===========================
+   制作ステップ
+   =========================== */
+.lesson-step {
+  background: var(--color-bg);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.lesson-step:last-child {
+  margin-bottom: 0;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--letter-zoukei);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+#panel-kaiga .step-num {
+  background: var(--letter-kaiga);
+}
+
+.step-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.step-list {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.step-list li {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--color-text);
+}
+
+/* ===========================
+   ステップ内 持ち物メモ
+   =========================== */
+.step-materials {
+  margin-top: 12px;
+  background: var(--color-gold-light);
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.step-materials-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--letter-gold);
+  white-space: nowrap;
+  padding-top: 1px;
+  letter-spacing: 0.05em;
+}
+
+.step-materials ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.step-materials ul li {
+  font-size: 0.85rem;
+  color: var(--color-text);
+  padding-left: 10px;
+  position: relative;
+}
+
+.step-materials ul li::before {
+  content: "・";
+  position: absolute;
+  left: 0;
+  color: var(--letter-gold);
+}
+
+/* ===========================
+   コンクールカード
+   =========================== */
+.contest-card {
+  background: linear-gradient(135deg, #fefbf0 0%, #fff 100%);
+  border: 1px solid #f0d890;
+}
+
+.contest-step-nums {
+  margin-left: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--letter-zoukei);
+  letter-spacing: 0.05em;
+}
+
+.contest-deadline {
+  font-size: 0.82rem;
+  color: var(--letter-accent);
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+
+.contest-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.contest-tags li {
+  background: var(--color-gold-light);
+  color: var(--color-text);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 0.82rem;
+  border: 1px solid #e8d090;
+}
+
+.contest-note {
+  font-size: 0.82rem;
+  color: var(--color-text-sub);
+  line-height: 1.8;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 8px;
+  border-left: 3px solid var(--letter-gold);
+}
+
+/* ===========================
+   学校提出カード
+   =========================== */
+.school-note-card {
+  border-left: 4px solid var(--letter-kaiga);
+}
+
+/* ===========================
+   チェックリスト（持ち物）
+   =========================== */
+.checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.checklist li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.checklist li:last-child {
+  border-bottom: none;
+}
+
+.check-box {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-border);
+  border-radius: 5px;
+  background: var(--color-bg);
+}
+
+/* ===========================
+   先生からのメモカード
+   =========================== */
+.teacher-note-card {
+  background: linear-gradient(135deg, #f0f8ff 0%, #fff 100%);
+  border: 1px solid var(--color-sky);
+  position: relative;
+}
+
+.teacher-note {
+  font-size: 0.87rem;
+  line-height: 1.9;
+  color: var(--color-text);
+}
+
+/* ===========================
+   レスポンシブ（スマホ最優先）
+   =========================== */
+@media (max-width: 480px) {
+  .letter-hero {
+    padding: 40px 20px 36px;
+  }
+
+  .letter-desc {
+    font-size: 0.83rem;
+  }
+
+  .course-tabs-wrap {
+    padding: 10px 16px;
+  }
+
+  .course-tab {
+    font-size: 0.85rem;
+    padding: 11px 10px;
+  }
+
+  .course-panel {
+    padding: 24px 12px 56px;
+  }
+
+  .letter-card {
+    padding: 20px 16px;
+  }
+
+  .lesson-highlight-row {
+    gap: 8px;
+  }
+
+  .lesson-highlight-item {
+    min-width: 70px;
+    padding: 8px 6px;
+  }
+
+  .highlight-value {
+    font-size: 0.88rem;
+  }
+
+  .schedule-grid {
+    gap: 8px;
+  }
+
+  .schedule-day {
+    font-size: 0.78rem;
+    padding: 6px 2px;
+  }
+
+  .schedule-dates li {
+    font-size: 0.85rem;
+  }
+}
+
+/* ===========================
+   デジタル版／手書き版 トグル
+   =========================== */
+.view-toggle-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px 16px 0;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 0;
+  background: var(--color-border);
+  border-radius: 10px;
+  padding: 3px;
+}
+
+.view-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  font-family: var(--font-main);
+  font-size: 0.88rem;
+  color: var(--color-text-sub);
+  cursor: pointer;
+  transition: all var(--transition);
+  min-height: 44px;
+}
+
+.view-btn.active {
+  background: var(--color-white);
+  color: var(--color-text);
+  font-weight: 700;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.10);
+}
+
+.view-btn:not(.active):hover {
+  color: var(--color-text);
+  background: rgba(255,255,255,0.5);
+}
+
+/* ===========================
+   手書き版コンテンツ
+   =========================== */
+.handwritten-content {
+  background: var(--letter-bg);
+  padding: 24px 16px 64px;
+}
+
+.handwritten-content.hidden {
+  display: none;
+}
+
+.handwritten-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.handwritten-header {
+  background: var(--color-white);
+  border-radius: 16px;
+  padding: 20px 20px 18px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-card);
+  border-left: 4px solid var(--letter-gold);
+}
+
+.handwritten-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 10px;
+}
+
+.handwritten-desc {
+  font-size: 0.87rem;
+  color: var(--color-text-sub);
+  line-height: 1.75;
+  margin-bottom: 10px;
+}
+
+.handwritten-hint {
+  font-size: 0.78rem;
+  color: var(--letter-accent);
+  background: var(--letter-accent-lt);
+  border-radius: 6px;
+  padding: 6px 12px;
+  display: inline-block;
+}
+
+.handwritten-image-card {
+  background: var(--color-white);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.handwritten-img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+  cursor: zoom-in;
+}
+
+.hw-unavailable {
+  padding: 40px 20px;
+  color: var(--color-text-sub);
+  font-size: 0.9rem;
+  background: var(--color-bg);
+  border-radius: 10px;
+  border: 2px dashed var(--color-border);
+  text-align: center;
+}
+
+/* ===========================
+   ライトボックス（画像拡大）
+   =========================== */
+.lightbox-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  cursor: zoom-out;
+}
+
+.lightbox-overlay.open {
+  display: flex;
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+  object-fit: contain;
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+@media (max-width: 480px) {
+  .view-toggle-wrap {
+    padding: 16px 12px 0;
+  }
+
+  .view-btn {
+    font-size: 0.83rem;
+    padding: 9px 10px;
+  }
+
+  .handwritten-image-card {
+    padding: 12px;
+  }
+}
+
+@media (min-width: 640px) {
+  .course-tabs {
+    justify-content: center;
+  }
+
+  .course-tab {
+    flex: 0 0 auto;
+    min-width: 200px;
+  }
+}

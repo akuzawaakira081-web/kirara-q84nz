@@ -1,0 +1,1100 @@
+/* ===========================
+   KIRARA MUSE — 共通スタイル
+   =========================== */
+
+/* --- リセット & ベース --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  color-scheme: light;
+  --color-gold:       #c9a84c;
+  --color-gold-light: #f5ecd7;
+  --color-lavender:   #d6cef0;
+  --color-sky:        #cce8f4;
+  --color-white:      #ffffff;
+  --color-bg:         #fafaf8;
+  --color-text:       #3a3630;
+  --color-text-sub:   #7a7570;
+  --color-border:     #e8e2d8;
+
+  --radius-card: 16px;
+  --shadow-card: 0 2px 16px rgba(100, 90, 70, 0.10);
+  --shadow-hover: 0 6px 28px rgba(100, 90, 70, 0.16);
+
+  --font-main: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+  --font-en:   'Georgia', 'Times New Roman', serif;
+  --transition: 0.22s ease;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-size: 15px;
+  line-height: 1.75;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul { list-style: none; }
+
+/* --- ヘッダー --- */
+.site-header {
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.site-logo {
+  font-family: var(--font-en);
+  font-size: 1.35rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--color-gold);
+  white-space: nowrap;
+}
+
+.site-logo span {
+  display: block;
+  font-family: var(--font-main);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--color-text-sub);
+  margin-top: -2px;
+}
+
+/* --- グローバルナビ --- */
+.global-nav ul {
+  display: flex;
+  gap: 4px;
+}
+
+.global-nav a {
+  display: block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: var(--color-text-sub);
+  transition: background var(--transition), color var(--transition);
+  white-space: nowrap;
+}
+
+.global-nav a:hover,
+.global-nav a.active {
+  background: var(--color-gold-light);
+  color: var(--color-gold);
+}
+
+/* ハンバーガーメニュー（スマホ用） */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+
+/* --- メインコンテンツ --- */
+main { flex: 1; }
+
+/* --- フッター --- */
+.site-footer {
+  background: var(--color-white);
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+  padding: 32px 24px;
+  font-size: 0.8rem;
+  color: var(--color-text-sub);
+  letter-spacing: 0.05em;
+}
+
+.footer-logo {
+  font-family: var(--font-en);
+  font-size: 1.1rem;
+  color: var(--color-gold);
+  letter-spacing: 0.15em;
+  margin-bottom: 8px;
+}
+
+/* ===========================
+   トップページ — ヒーロー
+   =========================== */
+.hero {
+  background: linear-gradient(160deg, var(--color-gold-light) 0%, var(--color-white) 50%, var(--color-sky) 100%);
+  padding: 96px 24px 80px;
+  text-align: center;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-en);
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
+  color: var(--color-gold);
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  line-height: 1.45;
+  color: var(--color-text);
+  margin-bottom: 24px;
+}
+
+.hero-lead {
+  font-size: 1rem;
+  line-height: 2;
+  color: var(--color-text-sub);
+  margin-bottom: 44px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* --- ボタン --- */
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 40px;
+  font-size: 0.92rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border: none;
+  transition: box-shadow var(--transition), transform var(--transition), opacity var(--transition);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(100, 90, 70, 0.18);
+}
+
+.btn-primary {
+  background: var(--color-gold);
+  color: var(--color-white);
+}
+
+.btn-secondary {
+  background: var(--color-white);
+  color: var(--color-gold);
+  border: 1.5px solid var(--color-gold);
+}
+
+/* ===========================
+   セクション共通
+   =========================== */
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 64px 24px;
+}
+
+.section-header {
+  margin-bottom: 40px;
+}
+
+.section-label {
+  font-family: var(--font-en);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  color: var(--color-gold);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.section-desc {
+  margin-top: 12px;
+  color: var(--color-text-sub);
+  font-size: 0.9rem;
+}
+
+/* ===========================
+   カードグリッド
+   =========================== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
+}
+
+/* ===========================
+   作品カード
+   =========================== */
+.card {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition), transform var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
+}
+
+/* 画像エリア */
+.card-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--color-gold-light);
+  overflow: hidden;
+}
+
+.card-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.card:hover .card-image-wrap img {
+  transform: scale(1.04);
+}
+
+/* 縦長（ポスター等）作品 — 縦長コンテナ＋全体表示 */
+.card-image-wrap.portrait {
+  aspect-ratio: 3 / 4;
+  background: #f0ede8;
+}
+.card-image-wrap.portrait img {
+  object-fit: contain;
+}
+.card:hover .card-image-wrap.portrait img {
+  transform: scale(1.02);
+}
+
+/* 横長画像（image-card の 1:1 コンテナ対策） */
+.image-card .card-image-wrap.landscape {
+  aspect-ratio: 4 / 3;
+  background: #f0ede8;
+}
+.image-card .card-image-wrap.landscape img {
+  object-fit: contain;
+}
+.card:hover .image-card .card-image-wrap.landscape img {
+  transform: scale(1.02);
+}
+
+/* 画像がない場合のプレースホルダー */
+.card-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--color-gold);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+
+.card-placeholder svg {
+  opacity: 0.5;
+}
+
+/* 保存ボタン（カード右上） */
+.btn-save {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255,255,255,0.88);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.12);
+  transition: background var(--transition), transform var(--transition);
+  backdrop-filter: blur(4px);
+}
+
+.btn-save:hover {
+  background: var(--color-gold-light);
+  transform: scale(1.1);
+}
+
+.btn-save svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--color-gold);
+  fill: none;
+  stroke-width: 1.8;
+  transition: fill var(--transition);
+}
+
+.btn-save.saved svg {
+  fill: var(--color-gold);
+}
+
+/* キャプション（美術館風） */
+.card-caption {
+  padding: 18px 20px 20px;
+  border-top: 1px solid var(--color-border);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.card-theme {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--color-gold);
+  font-family: var(--font-en);
+  text-transform: uppercase;
+}
+
+.card-grade {
+  font-size: 0.7rem;
+  color: var(--color-text-sub);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 1px 8px;
+  letter-spacing: 0.04em;
+}
+
+.card-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.card-sub {
+  font-size: 0.78rem;
+  color: var(--color-text-sub);
+  margin-top: 2px;
+  line-height: 1.7;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.card-tag {
+  font-size: 0.68rem;
+  color: var(--color-gold);
+  background: var(--color-gold-light);
+  border-radius: 8px;
+  padding: 2px 8px;
+  letter-spacing: 0.04em;
+}
+
+/* 受賞作品カード */
+.card--award {
+  border: 1.5px solid var(--color-gold);
+  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.18);
+}
+
+.card-award {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  background: var(--color-gold-light);
+  border-radius: 8px;
+  padding: 7px 12px;
+  margin-bottom: 10px;
+}
+
+.card-award-icon {
+  font-size: 0.85rem;
+}
+
+.card-award-contest {
+  font-size: 0.72rem;
+  color: var(--color-text-sub);
+  letter-spacing: 0.04em;
+}
+
+.card-award-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  letter-spacing: 0.06em;
+}
+
+.card-critique {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--color-border);
+}
+
+.card-critique-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--color-gold);
+  font-family: var(--font-en);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.card-critique-text {
+  font-size: 0.78rem;
+  color: var(--color-text-sub);
+  line-height: 1.8;
+}
+
+/* ===========================
+   画像カード（ひらめき画像用）
+   =========================== */
+.image-card .card-image-wrap {
+  aspect-ratio: 1 / 1;
+}
+
+/* ===========================
+   テーマタグ
+   =========================== */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  background: var(--color-white);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text-sub);
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.tag:hover,
+.tag.active {
+  background: var(--color-gold-light);
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+/* ===========================
+   空状態
+   =========================== */
+.empty-state {
+  text-align: center;
+  padding: 80px 24px;
+  color: var(--color-text-sub);
+}
+
+.empty-state p {
+  font-size: 0.9rem;
+  margin-top: 12px;
+}
+
+/* ===========================
+   ページヘッダー（内部ページ用）
+   =========================== */
+.page-hero {
+  background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-white) 100%);
+  padding: 60px 24px 48px;
+  text-align: center;
+}
+
+.page-hero .section-label { margin-bottom: 10px; }
+
+.page-hero .page-title {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--color-text);
+}
+
+.page-hero .page-desc {
+  margin-top: 14px;
+  color: var(--color-text-sub);
+  font-size: 0.9rem;
+  line-height: 1.9;
+}
+
+/* ===========================
+   使い方ページ
+   =========================== */
+.howto-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
+  margin-top: 40px;
+}
+
+.howto-step {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: 36px 28px;
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.step-number {
+  font-family: var(--font-en);
+  font-size: 2.2rem;
+  color: var(--color-gold-light);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.step-title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.step-desc {
+  font-size: 0.86rem;
+  color: var(--color-text-sub);
+  line-height: 1.8;
+}
+
+/* ===========================
+   色彩パレットプロモカード（トップ）
+   =========================== */
+.palette-promo-section {
+  padding-top: 0;
+  padding-bottom: 16px;
+}
+
+.palette-promo-card {
+  background: linear-gradient(135deg, #fff4e6 0%, #f5eaff 60%, #e8f5ff 100%);
+  border-radius: 24px;
+  padding: 52px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.palette-promo-body {
+  flex: 1;
+  max-width: 560px;
+}
+
+.palette-promo-badge {
+  display: inline-block;
+  background: #e89c3a;
+  color: #fff;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  border-radius: 20px;
+  padding: 3px 12px;
+  margin-bottom: 4px;
+}
+
+.palette-promo-title {
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--color-text);
+  margin: 8px 0 14px;
+}
+
+.palette-promo-desc {
+  font-size: 0.92rem;
+  color: var(--color-text-sub);
+  line-height: 1.9;
+  margin-bottom: 28px;
+}
+
+.btn-palette-promo {
+  display: inline-block;
+  padding: 13px 32px;
+  border-radius: 40px;
+  background: var(--color-gold);
+  color: var(--color-white);
+  font-size: 0.92rem;
+  letter-spacing: 0.05em;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.btn-palette-promo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(201, 168, 76, 0.4);
+}
+
+.palette-promo-deco {
+  flex-shrink: 0;
+  font-size: 5rem;
+  opacity: 0.7;
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .palette-promo-card {
+    flex-direction: column;
+    padding: 36px 24px;
+    text-align: center;
+  }
+  .palette-promo-deco { display: none; }
+}
+
+/* ===========================
+   AIひらめきプロモカード（トップ）
+   =========================== */
+.ai-promo-section {
+  padding-top: 0;
+  padding-bottom: 72px;
+}
+
+.ai-promo-card {
+  background: linear-gradient(135deg, #eeebf8 0%, var(--color-sky) 100%);
+  border-radius: 24px;
+  padding: 52px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-promo-body {
+  flex: 1;
+  max-width: 560px;
+}
+
+.ai-promo-badge {
+  display: inline-block;
+  background: #7c6fc4;
+  color: #fff;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  border-radius: 20px;
+  padding: 3px 12px;
+  margin-bottom: 4px;
+}
+
+.ai-promo-title {
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--color-text);
+  margin: 8px 0 14px;
+}
+
+.ai-promo-desc {
+  font-size: 0.92rem;
+  color: var(--color-text-sub);
+  line-height: 1.9;
+  margin-bottom: 28px;
+}
+
+.btn-ai-promo {
+  display: inline-block;
+  padding: 13px 32px;
+  border-radius: 40px;
+  background: #7c6fc4;
+  color: var(--color-white);
+  font-size: 0.92rem;
+  letter-spacing: 0.05em;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.btn-ai-promo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(124, 111, 196, 0.38);
+}
+
+.ai-promo-deco {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  opacity: 0.9;
+}
+
+.ai-promo-deco svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ===========================
+   ひらめき技法マチエール 案内カード
+   =========================== */
+.matiere-promo-section {
+  padding-top: 0;
+  padding-bottom: 72px;
+}
+
+.matiere-promo-card {
+  background: linear-gradient(135deg, #fff4e0 0%, #fff8f0 40%, #eef6ff 80%, #f5f0ff 100%);
+  border-radius: 24px;
+  padding: 52px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(201,168,76,0.25);
+}
+
+.matiere-promo-body {
+  flex: 1;
+  max-width: 560px;
+}
+
+.matiere-promo-badge {
+  display: inline-block;
+  background: var(--color-gold);
+  color: #fff;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  border-radius: 20px;
+  padding: 3px 12px;
+  margin-bottom: 4px;
+}
+
+.matiere-promo-title {
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--color-text);
+  margin: 8px 0 14px;
+}
+
+.matiere-promo-desc {
+  font-size: 0.92rem;
+  color: var(--color-text-sub);
+  line-height: 1.9;
+  margin-bottom: 28px;
+}
+
+.btn-matiere-promo {
+  display: inline-block;
+  padding: 13px 32px;
+  border-radius: 40px;
+  background: linear-gradient(135deg, var(--color-gold) 0%, #d4942a 100%);
+  color: var(--color-white);
+  font-size: 0.92rem;
+  letter-spacing: 0.05em;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.btn-matiere-promo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(201, 168, 76, 0.38);
+}
+
+.matiere-promo-deco {
+  flex-shrink: 0;
+  font-size: 80px;
+  line-height: 1;
+  opacity: 0.85;
+}
+
+/* ===========================
+   モバイル対応
+   =========================== */
+@media (max-width: 700px) {
+  .nav-toggle { display: flex; }
+
+  .global-nav {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border);
+    padding: 12px 16px 20px;
+  }
+
+  .global-nav.open { display: block; }
+
+  .global-nav ul {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .global-nav a {
+    padding: 10px 16px;
+    font-size: 0.95rem;
+  }
+
+  .hero { padding: 64px 20px 56px; }
+
+  .section { padding: 48px 16px; }
+
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+  }
+
+  .card-caption { padding: 14px 14px 16px; }
+
+  .page-hero { padding: 44px 20px 36px; }
+
+  .howto-steps { grid-template-columns: 1fr; }
+
+  .ai-promo-card {
+    flex-direction: column;
+    padding: 36px 24px;
+    text-align: center;
+  }
+
+  .ai-promo-deco { display: none; }
+
+  .matiere-promo-card {
+    flex-direction: column;
+    padding: 36px 24px;
+    text-align: center;
+  }
+
+  .matiere-promo-deco { display: none; }
+
+  .letter-promo-card {
+    flex-direction: column;
+    padding: 36px 24px;
+    text-align: center;
+  }
+
+  .letter-promo-deco { display: none; }
+}
+
+/* ===========================
+   きららだより 案内カード
+   =========================== */
+.letter-promo-section {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.letter-promo-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  background: linear-gradient(135deg, #fdf3e0 0%, #fef9f0 50%, #f0f8ee 100%);
+  border-radius: 24px;
+  padding: 52px 56px;
+  text-decoration: none;
+  color: inherit;
+  border: 2px solid #f0d890;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.letter-promo-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 36px rgba(201, 168, 76, 0.22);
+}
+
+.letter-promo-body {
+  flex: 1;
+  max-width: 560px;
+}
+
+.letter-promo-badge {
+  display: inline-block;
+  background: #c9a84c;
+  color: #fff;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  border-radius: 20px;
+  padding: 3px 12px;
+  margin-bottom: 4px;
+}
+
+.letter-promo-title {
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  margin: 8px 0 14px;
+}
+
+.letter-promo-desc {
+  font-size: 0.92rem;
+  color: var(--color-text-sub);
+  line-height: 1.9;
+  margin-bottom: 28px;
+}
+
+.btn-letter-promo {
+  display: inline-block;
+  padding: 13px 32px;
+  border-radius: 40px;
+  background: #c9a84c;
+  color: #fff;
+  font-size: 0.92rem;
+  letter-spacing: 0.05em;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.letter-promo-card:hover .btn-letter-promo {
+  box-shadow: 0 6px 22px rgba(201, 168, 76, 0.38);
+}
+
+.letter-promo-deco {
+  flex-shrink: 0;
+  width: 90px;
+  height: 90px;
+  font-size: 72px;
+  line-height: 1;
+  opacity: 0.25;
+  user-select: none;
+}
+
+/* ===========================
+   ひらめきレンズ 案内カード
+   =========================== */
+.lens-promo-section {
+  padding-top: 0;
+  padding-bottom: 72px;
+}
+
+.lens-promo-card {
+  background: linear-gradient(135deg, #f5ecd7 0%, #cce8f4 100%);
+  border-radius: 24px;
+  padding: 52px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.lens-promo-body {
+  flex: 1;
+  max-width: 560px;
+}
+
+.lens-promo-badge {
+  display: inline-block;
+  background: #c9a84c;
+  color: #fff;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  border-radius: 20px;
+  padding: 3px 12px;
+  margin-bottom: 4px;
+}
+
+.lens-promo-title {
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--color-text);
+  margin: 8px 0 14px;
+}
+
+.lens-promo-desc {
+  font-size: 0.92rem;
+  color: var(--color-text-sub);
+  line-height: 1.9;
+  margin-bottom: 28px;
+}
+
+.btn-lens-promo {
+  display: inline-block;
+  padding: 13px 32px;
+  border-radius: 40px;
+  background: #c9a84c;
+  color: var(--color-white);
+  font-size: 0.92rem;
+  letter-spacing: 0.05em;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.btn-lens-promo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(201, 168, 76, 0.38);
+}
+
+.lens-promo-deco {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  opacity: 0.9;
+}
+
+.lens-promo-deco svg {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 600px) {
+  .lens-promo-card {
+    padding: 36px 28px;
+  }
+  .lens-promo-deco { display: none; }
+}

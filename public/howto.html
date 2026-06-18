@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>使い方 — KIRARA MUSE</title>
+  <meta name="description" content="KIRARA MUSEの使い方を説明します。見て、感じて、自分だけの絵のアイデアを見つけよう。">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .howto-intro {
+      max-width: 680px;
+      margin: 0 auto 56px;
+      text-align: center;
+    }
+    .howto-intro p {
+      font-size: 0.95rem;
+      color: var(--color-text-sub);
+      line-height: 2;
+    }
+    .howto-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+      margin-bottom: 64px;
+    }
+    .howto-step {
+      background: var(--color-white);
+      border-radius: var(--radius-card);
+      padding: 36px 28px 32px;
+      box-shadow: var(--shadow-card);
+      text-align: center;
+    }
+    .step-number {
+      font-family: var(--font-en);
+      font-size: 3rem;
+      color: var(--color-gold-light);
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .step-icon {
+      margin: 0 auto 16px;
+      width: 52px;
+      height: 52px;
+      background: var(--color-gold-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: var(--color-gold);
+      fill: none;
+      stroke-width: 1.6;
+    }
+    .step-title {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+      color: var(--color-text);
+    }
+    .step-desc {
+      font-size: 0.86rem;
+      color: var(--color-text-sub);
+      line-height: 1.85;
+    }
+    .notice-box {
+      background: var(--color-lavender);
+      border-radius: var(--radius-card);
+      padding: 36px 40px;
+      max-width: 720px;
+      margin: 0 auto 64px;
+    }
+    .notice-box h2 {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--color-text);
+    }
+    .notice-box ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .notice-box li {
+      font-size: 0.88rem;
+      color: var(--color-text-sub);
+      line-height: 1.75;
+      padding-left: 20px;
+      position: relative;
+    }
+    .notice-box li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: var(--color-gold);
+      font-size: 0.7rem;
+      top: 3px;
+    }
+    .cta-block {
+      text-align: center;
+      padding: 56px 24px;
+      background: linear-gradient(135deg, var(--color-gold-light), var(--color-sky));
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .cta-block h2 {
+      font-size: 1.4rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      margin-bottom: 24px;
+      color: var(--color-text);
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 700px) {
+      .notice-box { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        KIRARA MUSE
+        <span>きらら・ミューズ</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="global-nav" id="globalNav">
+        <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="works.html">ひらめき作品</a></li>
+          <li><a href="images.html">ひらめき画像</a></li>
+          <li><a href="themes.html">テーマで探す</a></li>
+          <li><a href="howto.html">使い方</a></li>
+          <li><a href="ai-inspiration.html">AIひらめき</a></li>
+          <li><a href="kirara-letter.html">きららだより</a></li>
+          <li><a href="technique-matiere.html">技法マチエール</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <div class="page-hero">
+      <span class="section-label">HOW TO USE</span>
+      <h1 class="page-title">使い方</h1>
+      <p class="page-desc">
+        KIRARA MUSEは、子どもの「絵のひらめき」を育てる場所です。<br>
+        画像をそのまま写すためではなく、自分だけのアイデアを見つけるために使ってください。
+      </p>
+    </div>
+
+    <div class="section">
+
+      <div class="howto-intro">
+        <p>
+          作品や画像を見て、「なんかいいな」「これ描きたい！」と感じたら、それがひらめきのはじまりです。<br>
+          気に入ったものを保存して、自分のアイデアノートのように使ってみてください。
+        </p>
+      </div>
+
+      <div class="howto-steps">
+
+        <div class="howto-step">
+          <span class="step-number">01</span>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </div>
+          <h2 class="step-title">作品・画像を探す</h2>
+          <p class="step-desc">「ひらめき作品」や「ひらめき画像」のページを開いて、気になるものを見てみよう。テーマで絞り込んで探すこともできます。</p>
+        </div>
+
+        <div class="howto-step">
+          <span class="step-number">02</span>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h2 class="step-title">じっくり見る・感じる</h2>
+          <p class="step-desc">「色はどんな感じ？」「どんな形がある？」「自分だったらどこに行ってみたい？」心で感じながら、よく観察してみよう。</p>
+        </div>
+
+        <div class="howto-step">
+          <span class="step-number">03</span>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h2 class="step-title">気に入ったものを保存</h2>
+          <p class="step-desc">カードの右上にある「ブックマークボタン」を押すと、画像を保存できます。気になる作品や画像をどんどん集めてみよう。</p>
+        </div>
+
+        <div class="howto-step">
+          <span class="step-number">04</span>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <h2 class="step-title">自分の絵を描く</h2>
+          <p class="step-desc">見た作品や画像をそのまま写すのではなく、「自分の体験」や「感じたこと」と組み合わせて、あなただけの絵を描こう！</p>
+        </div>
+
+      </div>
+
+      <div class="notice-box">
+        <h2>大切なこと</h2>
+        <ul>
+          <li>このサイトの作品・画像は「ひらめきのヒント」として見るものです。そのまま写して「自分の作品」として出すことはやめましょう。</li>
+          <li>保護者の方と一緒に使ってください。保存した画像は、お絵かきのメモとして活用してください。</li>
+          <li>作品や画像を、他のウェブサイトや SNS に無断で転載することはしないでください。</li>
+        </ul>
+      </div>
+
+      <div class="cta-block">
+        <h2>さあ、ひらめきを見つけよう</h2>
+        <div class="cta-buttons">
+          <a href="works.html" class="btn btn-primary">ひらめき作品を見る</a>
+          <a href="images.html" class="btn btn-secondary">ひらめき画像を見る</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-logo">KIRARA MUSE</p>
+    <p>© 2026 KIRARA MUSE. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js?v=2"></script>
+</body>
+</html>
