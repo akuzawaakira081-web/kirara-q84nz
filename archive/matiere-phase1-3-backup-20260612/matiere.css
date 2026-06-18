@@ -1,0 +1,643 @@
+/* ============================================================
+   KIRARA MUSE — ひらめき技法マチエール v2
+   Prefix: mt-  （旧 tm- とは完全に分離）
+   ルール: filter:blur / backdrop-filter は一切使用しない
+   ============================================================ */
+
+/* --- ページ変数 --- */
+:root {
+  --mt-cream:      #fffbf0;
+  --mt-white:      #ffffff;
+  --mt-gold:       #c9a84c;
+  --mt-text:       #3a3630;
+  --mt-text-sub:   #7a7570;
+  --mt-border:     #e8e2d8;
+  --mt-radius:     16px;
+  --mt-radius-sm:  10px;
+  --mt-shadow:     0 2px 12px rgba(100, 90, 70, 0.10);
+  --mt-shadow-md:  0 4px 20px rgba(100, 90, 70, 0.14);
+}
+
+/* ============================================================
+   ページベース
+   ============================================================ */
+.mt-page {
+  background-color: var(--mt-cream);
+  min-height: 100vh;
+}
+
+/* ============================================================
+   ヒーロー — 純白背景、GPU効果一切なし
+   ============================================================ */
+.mt-hero {
+  background-color: var(--mt-white);
+  border-bottom: 2px solid var(--mt-gold);
+  padding: 48px 24px 36px;
+  text-align: center;
+}
+
+.mt-hero-eyebrow {
+  font-family: var(--font-en, Georgia, serif);
+  font-size: 0.76rem;
+  letter-spacing: 0.32em;
+  color: var(--mt-gold);
+  margin-bottom: 12px;
+}
+
+.mt-hero-title {
+  font-size: clamp(1.4rem, 5.5vw, 2.2rem);
+  font-weight: 400;
+  color: var(--mt-text);
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  margin-bottom: 12px;
+  white-space: nowrap;
+}
+
+.mt-hero-lead {
+  font-size: 1rem;
+  color: var(--mt-text-sub);
+  line-height: 1.8;
+}
+
+/* ============================================================
+   作品ビューア
+   ============================================================ */
+.mt-artwork-section {
+  padding: 28px 24px;
+  background-color: var(--mt-white);
+  border-bottom: 1px solid var(--mt-border);
+}
+
+.mt-artwork-wrap {
+  position: relative;
+  max-width: 560px;
+  margin: 0 auto;
+  border-radius: var(--mt-radius);
+  overflow: hidden;
+  background-color: #eef6ee;
+  aspect-ratio: 4 / 3;
+}
+
+.mt-artwork-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mt-artwork-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+.mt-artwork-placeholder-icon {
+  font-size: 5rem;
+  line-height: 1;
+}
+
+.mt-artwork-placeholder-text {
+  font-size: 0.95rem;
+  color: #4a7a4a;
+  letter-spacing: 0.04em;
+}
+
+.mt-artwork-caption {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.mt-artwork-title {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--mt-text);
+  margin-bottom: 4px;
+}
+
+.mt-artwork-author {
+  font-size: 0.88rem;
+  color: var(--mt-text-sub);
+}
+
+/* ============================================================
+   部位選択
+   ============================================================ */
+.mt-part-section {
+  padding: 28px 24px 16px;
+  background-color: var(--mt-cream);
+}
+
+.mt-section-label {
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--mt-text-sub);
+  margin-bottom: 14px;
+}
+
+.mt-part-selector {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (min-width: 480px) {
+  .mt-part-selector {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.mt-part-btn {
+  min-height: 52px;
+  padding: 10px 12px;
+  border-radius: var(--mt-radius-sm);
+  border: 2px solid var(--mt-border);
+  background-color: var(--mt-white);
+  color: var(--mt-text);
+  font-size: 1rem;
+  font-family: var(--font-main, sans-serif);
+  cursor: pointer;
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-align: center;
+  line-height: 1.4;
+  transition: background-color 0.15s, border-color 0.15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.mt-part-btn-check {
+  display: none;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--mt-gold);
+  letter-spacing: 0.06em;
+}
+
+.mt-part-btn[aria-pressed="true"] {
+  background-color: var(--mt-part-color, #e8f4fd);
+  border-color: var(--mt-gold);
+  border-width: 2.5px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(201, 168, 76, 0.25);
+}
+
+.mt-part-btn[aria-pressed="true"] .mt-part-btn-check {
+  display: block;
+}
+
+.mt-part-btn:hover:not([aria-pressed="true"]) {
+  border-color: var(--mt-gold);
+  background-color: #fffbf0;
+}
+
+.mt-part-btn:focus-visible {
+  outline: 3px solid var(--mt-gold);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   技法カード
+   ============================================================ */
+.mt-technique-section {
+  padding: 16px 24px 56px;
+  background-color: var(--mt-cream);
+}
+
+.mt-technique-card {
+  background-color: var(--mt-white);
+  border-radius: var(--mt-radius);
+  box-shadow: var(--mt-shadow-md);
+  overflow: hidden;
+}
+
+/* カードヘッダー */
+.mt-card-header {
+  background-color: var(--mt-accent, #e8f4fd);
+  padding: 28px 24px;
+  text-align: center;
+  border-bottom: 1px solid var(--mt-border);
+}
+
+.mt-card-title {
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--mt-text);
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+
+.mt-card-ruby {
+  font-size: 0.85rem;
+  color: var(--mt-text-sub);
+  letter-spacing: 0.12em;
+}
+
+/* カード内ブロック共通 */
+.mt-card-block {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--mt-border);
+}
+
+.mt-card-block:last-child {
+  border-bottom: none;
+}
+
+.mt-block-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--mt-gold);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.mt-block-value {
+  font-size: 1rem;
+  color: var(--mt-text);
+  line-height: 1.65;
+}
+
+/* 使う色 */
+.mt-color-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mt-color-dot {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.08);
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.mt-color-names {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.mt-color-tag {
+  font-size: 0.88rem;
+  color: var(--mt-text);
+  background-color: var(--mt-cream);
+  padding: 3px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--mt-border);
+}
+
+/* 筆の動き */
+.mt-motion-sound {
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: var(--mt-gold);
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.mt-motion-label {
+  font-size: 0.95rem;
+  color: var(--mt-text-sub);
+}
+
+/* 描く順番 */
+.mt-step-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mt-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.mt-step-num {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--mt-gold);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.mt-step-text {
+  font-size: 1rem;
+  color: var(--mt-text);
+  line-height: 1.65;
+  padding-top: 4px;
+}
+
+/* マチエール拡大 */
+.mt-texture-frame {
+  border-radius: var(--mt-radius-sm);
+  overflow: hidden;
+  background-color: #f0f0f0;
+  aspect-ratio: 1 / 1;
+  max-width: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mt-texture-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mt-texture-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 160px;
+  font-size: 0.88rem;
+  color: var(--mt-text-sub);
+}
+
+.mt-texture-placeholder-icon {
+  font-size: 2rem;
+}
+
+/* 先生のヒント */
+.mt-tip-block {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background-color: #fffde7;
+  padding: 20px 24px;
+}
+
+.mt-tip-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.mt-tip-inner {}
+
+.mt-tip-label {
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--mt-gold);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.mt-tip-text {
+  font-size: 1rem;
+  color: var(--mt-text);
+  line-height: 1.75;
+}
+
+/* スクリーンリーダー専用 */
+.mt-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================
+   レスポンシブ
+   ============================================================ */
+@media (max-width: 640px) {
+  .mt-hero          { padding: 36px 20px 28px; }
+  .mt-hero-title    { white-space: normal; font-size: clamp(1.3rem, 7vw, 1.8rem); }
+  .mt-artwork-section { padding: 20px 16px; }
+  .mt-part-section  { padding: 20px 16px 12px; }
+  .mt-technique-section { padding: 12px 16px 48px; }
+  .mt-card-header   { padding: 22px 20px; }
+  .mt-card-block    { padding: 18px 20px; }
+  .mt-tip-block     { padding: 18px 20px; }
+  .mt-card-title    { font-size: 1.7rem; }
+}
+
+/* ============================================================
+   MotionDemo
+   ============================================================ */
+.mt-motion-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--mt-radius-sm);
+  border: 1px solid var(--mt-border);
+  margin-bottom: 14px;
+}
+
+.mt-motion-controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.mt-motion-btn {
+  min-height: 44px;
+  padding: 8px 16px;
+  border-radius: 22px;
+  border: 2px solid var(--mt-border);
+  background-color: var(--mt-white);
+  color: var(--mt-text);
+  font-size: 0.92rem;
+  font-family: var(--font-main, sans-serif);
+  cursor: pointer;
+  line-height: 1;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.mt-motion-btn:not(:disabled):hover {
+  border-color: var(--mt-gold);
+  background-color: #fffbf0;
+}
+
+.mt-motion-btn:focus-visible {
+  outline: 3px solid var(--mt-gold);
+  outline-offset: 2px;
+}
+
+.mt-motion-btn:disabled {
+  opacity: 0.38;
+  cursor: default;
+}
+
+.mt-motion-btn-play {
+  background-color: var(--mt-gold);
+  color: #fff;
+  border-color: var(--mt-gold);
+}
+
+.mt-motion-btn-play:not(:disabled):hover {
+  background-color: #b8943c;
+  border-color: #b8943c;
+}
+
+.mt-motion-desc {
+  font-size: 0.88rem;
+  color: var(--mt-text-sub);
+  line-height: 1.65;
+}
+
+/* Reduced-motion static display */
+.mt-motion-static {
+  padding: 20px 16px;
+  background-color: var(--mt-cream);
+  border-radius: var(--mt-radius-sm);
+  border: 1px solid var(--mt-border);
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.mt-motion-static-arrow {
+  font-size: 2rem;
+  letter-spacing: 0.3em;
+  color: var(--mt-gold);
+  margin-bottom: 6px;
+}
+
+.mt-motion-static-sound {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--mt-text);
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.mt-motion-static-desc {
+  font-size: 0.92rem;
+  color: var(--mt-text-sub);
+  line-height: 1.65;
+}
+
+/* ============================================================
+   PressureSelector
+   ============================================================ */
+.mt-pressure-selector {
+  padding: 14px 0 0;
+  border-top: 1px dashed var(--mt-border);
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+.mt-pressure-btns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.mt-pressure-btn {
+  min-height: 44px;
+  padding: 8px 6px;
+  border-radius: var(--mt-radius-sm);
+  border: 2px solid var(--mt-border);
+  background-color: var(--mt-white);
+  color: var(--mt-text);
+  font-size: 0.92rem;
+  font-family: var(--font-main, sans-serif);
+  cursor: pointer;
+  text-align: center;
+  line-height: 1.3;
+  word-break: keep-all;
+  transition: background-color 0.15s, border-color 0.15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mt-pressure-btn--on,
+.mt-pressure-btn[aria-pressed="true"] {
+  background-color: #fff4e0;
+  border-color: #d08020;
+  border-width: 2.5px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(208, 128, 32, 0.22);
+}
+
+.mt-pressure-btn:hover:not(.mt-pressure-btn--on):not([aria-pressed="true"]) {
+  border-color: var(--mt-gold);
+  background-color: #fffbf0;
+}
+
+.mt-pressure-btn:focus-visible {
+  outline: 3px solid var(--mt-gold);
+  outline-offset: 2px;
+}
+
+.mt-pressure-desc {
+  font-size: 0.85rem;
+  color: var(--mt-text-sub);
+  line-height: 1.65;
+  min-height: 2.4em;
+}
+
+/* Reduced-motion compare */
+.mt-pressure-compare {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--mt-border);
+}
+
+.mt-pressure-compare-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.mt-pressure-compare-lbl {
+  font-size: 0.82rem;
+  color: var(--mt-text-sub);
+  text-align: center;
+}
+
+/* ============================================================
+   reduced-motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

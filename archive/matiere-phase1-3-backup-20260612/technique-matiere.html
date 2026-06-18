@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>ひらめき技法マチエール — KIRARA MUSE</title>
+  <meta name="description" content="光を受ける大きな木。空・幹・葉・草・光の5つの技法を見て、まねして、描き方がわかる。">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/matiere.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        KIRARA MUSE
+        <span>きらら・ミューズ</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="global-nav" id="globalNav">
+        <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="works.html">ひらめき作品</a></li>
+          <li><a href="images.html">ひらめき画像</a></li>
+          <li><a href="themes.html">テーマで探す</a></li>
+          <li><a href="howto.html">使い方</a></li>
+          <li><a href="ai-inspiration.html">AIひらめき</a></li>
+          <li><a href="color-palette.html">色彩パレット</a></li>
+          <li><a href="kirara-letter.html">きららだより</a></li>
+          <li><a href="technique-matiere.html" aria-current="page">技法マチエール</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="matiereApp" class="mt-page">
+
+    <!-- 1. ヒーロー -->
+    <section class="mt-hero">
+      <p class="mt-hero-eyebrow">KIRARA MUSE</p>
+      <h1 class="mt-hero-title">ひらめき技法マチエール</h1>
+      <p class="mt-hero-lead">見て、まねして、描き方がわかる。</p>
+    </section>
+
+    <!-- 2. 作品ビューア -->
+    <section class="mt-artwork-section" aria-label="作品">
+      <div class="mt-artwork-wrap" id="mtiArtworkWrap">
+        <img
+          class="mt-artwork-img"
+          id="mtiArtworkImg"
+          src=""
+          alt="光を受ける大きな木"
+          style="display:none"
+        />
+        <div class="mt-artwork-placeholder" id="mtiArtworkPlaceholder" aria-hidden="true">
+          <span class="mt-artwork-placeholder-icon">🌳</span>
+          <span class="mt-artwork-placeholder-text">光を受ける大きな木</span>
+        </div>
+      </div>
+      <div class="mt-artwork-caption">
+        <p class="mt-artwork-title">光を受ける大きな木</p>
+        <p class="mt-artwork-author">よしかず先生の作品</p>
+      </div>
+    </section>
+
+    <!-- 3. 部位選択 -->
+    <section class="mt-part-section" aria-label="部位を選ぶ">
+      <p class="mt-section-label">どの部分を見る？</p>
+      <div
+        class="mt-part-selector"
+        id="mtiPartSelector"
+        aria-label="部位選択"
+      >
+        <!-- JS で生成 -->
+      </div>
+    </section>
+
+    <!-- 4–9. 技法カード（部位選択で切り替わる） -->
+    <section
+      class="mt-technique-section"
+      id="mtiTechniqueSection"
+      aria-live="polite"
+      aria-label="技法カード"
+    >
+      <!-- JS で生成 -->
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-logo">KIRARA MUSE</p>
+    <p>© 2026 KIRARA MUSE. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js?v=2"></script>
+  <script src="js/matiere-data.js?v=2"></script>
+  <script src="js/matiere-motion.js?v=3"></script>
+  <script src="js/matiere.js?v=3"></script>
+
+</body>
+</html>

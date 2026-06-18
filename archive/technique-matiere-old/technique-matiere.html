@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>ひらめき技法マチエール — KIRARA MUSE</title>
+  <meta name="description" content="見て、聞いて、触れて、描き方がひらめく。子どものための絵の具の魔法ミュージアム。空の筆づかい、木の質感、色の重ね方まで。絵の中に隠れた描き方の秘密を見つけよう。">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/technique-matiere.css?v=11">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        KIRARA MUSE
+        <span>きらら・ミューズ</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="global-nav" id="globalNav">
+        <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="works.html">ひらめき作品</a></li>
+          <li><a href="images.html">ひらめき画像</a></li>
+          <li><a href="themes.html">テーマで探す</a></li>
+          <li><a href="howto.html">使い方</a></li>
+          <li><a href="ai-inspiration.html">AIひらめき</a></li>
+          <li><a href="color-palette.html">色彩パレット</a></li>
+          <li><a href="kirara-letter.html">きららだより</a></li>
+          <li><a href="technique-matiere.html">技法マチエール</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- A. ヒーロー -->
+    <section class="tm-hero" id="tmHero">
+      <div class="tm-hero-blob tm-hero-blob--1" aria-hidden="true"></div>
+      <div class="tm-hero-blob tm-hero-blob--2" aria-hidden="true"></div>
+      <div class="tm-hero-blob tm-hero-blob--3" aria-hidden="true"></div>
+      <div class="tm-hero-content">
+        <p class="tm-hero-eyebrow">KIRARA MUSE</p>
+        <h1 class="tm-hero-title">ひらめき技法マチエール</h1>
+        <p class="tm-hero-copy">見て、聞いて、触れて、<br>描き方がひらめく。</p>
+        <p class="tm-hero-desc">
+          空の筆づかい、木の質感、色の重ね方まで。<br>
+          絵の中に隠れた、描き方の秘密を見つけよう。
+        </p>
+        <button class="tm-btn-enter" id="tmBtnEnter">絵の中へ入る</button>
+      </div>
+    </section>
+
+    <!-- B. 学年モード選択 -->
+    <section class="tm-section tm-age-section" id="tmAgeSection">
+      <div class="section-header">
+        <span class="section-label">LEARNING MODE</span>
+        <h2 class="section-title">学年モードを選ぼう</h2>
+        <p class="section-desc">自分に合ったモードを選ぶと、説明の難しさが変わるよ。</p>
+      </div>
+      <div class="tm-age-cards" role="radiogroup" aria-label="学年モード選択">
+        <button class="tm-age-card" data-mode="easy" role="radio" aria-checked="false">
+          <div class="tm-age-icon" aria-hidden="true">🌱</div>
+          <div class="tm-age-name">かんたん</div>
+          <div class="tm-age-grade">小学校 低学年</div>
+          <p class="tm-age-desc">やさしいことばで、絵の描き方を探検しよう</p>
+        </button>
+        <button class="tm-age-card" data-mode="standard" role="radio" aria-checked="false">
+          <div class="tm-age-icon" aria-hidden="true">🎨</div>
+          <div class="tm-age-name">ふつう</div>
+          <div class="tm-age-grade">小学校 高学年</div>
+          <p class="tm-age-desc">技法の名前も覚えながら、描き方を深く学ぼう</p>
+        </button>
+        <button class="tm-age-card" data-mode="challenge" role="radio" aria-checked="false">
+          <div class="tm-age-icon" aria-hidden="true">⭐</div>
+          <div class="tm-age-name">チャレンジ</div>
+          <div class="tm-age-grade">中学生以上</div>
+          <p class="tm-age-desc">専門用語と深い技法分析で、表現を極めよう</p>
+        </button>
+      </div>
+    </section>
+
+    <!-- C/D. テーマ・作品ギャラリー -->
+    <section class="tm-section" id="tmGallerySection">
+      <div class="section-header">
+        <span class="section-label">ARTWORKS</span>
+        <h2 class="section-title">作品を選ぼう</h2>
+        <p class="section-desc">気になる作品をタップして、描き方の秘密を探ろう。</p>
+      </div>
+      <div class="tm-theme-tabs" id="tmThemeTabs" role="tablist" aria-label="テーマ絞り込み">
+        <button class="tm-theme-tab active" data-theme="all" role="tab" aria-selected="true">すべて</button>
+        <button class="tm-theme-tab" data-theme="sky" role="tab" aria-selected="false">空と雲</button>
+        <button class="tm-theme-tab" data-theme="tree" role="tab" aria-selected="false">木と森</button>
+        <button class="tm-theme-tab" data-theme="sea" role="tab" aria-selected="false">海と水</button>
+      </div>
+      <div class="tm-artwork-grid" id="tmArtworkGrid" role="list"></div>
+    </section>
+
+    <!-- E–I. インタラクティブ作品ビューア（作品選択後に表示） -->
+    <section class="tm-viewer-section" id="tmViewerSection" hidden aria-label="作品ビューア">
+
+      <!-- ヘッダーバー -->
+      <div class="tm-viewer-header">
+        <button class="tm-btn-back" id="tmBtnBack">← <span class="tm-btn-back-text">作品一覧へ</span></button>
+        <div class="tm-viewer-title-area">
+          <h2 class="tm-viewer-title" id="tmViewerTitle"></h2>
+        </div>
+        <div class="tm-viewer-toolbar">
+          <button class="tm-toolbar-btn" id="tmSoundToggle" aria-label="音ON/OFF" title="音ON/OFF">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07" class="tm-sound-arc1"/>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14" class="tm-sound-arc2"/>
+            </svg>
+          </button>
+          <button class="tm-toolbar-btn" id="tmHotspotListToggle" aria-label="技法一覧" title="技法一覧">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+              <line x1="8" y1="18" x2="21" y2="18"/>
+              <circle cx="3.5" cy="6" r="1" fill="currentColor"/>
+              <circle cx="3.5" cy="12" r="1" fill="currentColor"/>
+              <circle cx="3.5" cy="18" r="1" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ビューア本体 -->
+      <div class="tm-viewer-layout">
+
+        <!-- 作品画像 + ホットスポット -->
+        <div class="tm-artwork-viewer">
+          <div class="tm-artwork-wrap" id="tmArtworkWrap">
+            <div class="tm-skeleton" id="tmArtworkSkeleton" aria-hidden="true"></div>
+            <img class="tm-artwork-img" id="tmArtworkImg" alt="" />
+            <!-- ホットスポットボタンはJSで挿入 -->
+          </div>
+
+          <!-- アクセシブルなホットスポット一覧（ボタンで切り替え） -->
+          <div class="tm-hotspot-list" id="tmHotspotList" hidden aria-label="技法が隠れている場所">
+            <h3 class="tm-hotspot-list-title">技法が隠れている場所</h3>
+            <ul id="tmHotspotListItems" class="tm-hotspot-list-items"></ul>
+          </div>
+        </div>
+
+        <!-- サイドパネル（デスクトップ） -->
+        <div class="tm-side-panel" id="tmSidePanel" aria-label="技法パネル">
+          <div class="tm-panel-inner" id="tmPanelInner">
+            <div class="tm-panel-empty">
+              <div class="tm-panel-empty-icon" aria-hidden="true">👆</div>
+              <p class="tm-panel-empty-text">絵の中の光る点をタップして、<br>描き方の秘密を見つけよう</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ボトムシート（モバイル） -->
+      <div class="tm-bottom-sheet" id="tmBottomSheet" aria-hidden="true" aria-label="技法パネル">
+        <div class="tm-bs-handle" aria-hidden="true"></div>
+        <div class="tm-bs-inner" id="tmBsInner"></div>
+      </div>
+      <div class="tm-bs-overlay" id="tmBsOverlay"></div>
+
+      <!-- G. 描き方リプレイ -->
+      <div class="tm-replay-section" id="tmReplaySection" hidden>
+        <div class="tm-sub-header">
+          <span class="section-label">PAINTING REPLAY</span>
+          <h3 class="tm-sub-title">描き方リプレイ</h3>
+        </div>
+        <div class="tm-replay-layout">
+          <div class="tm-replay-canvas-wrap">
+            <canvas id="tmReplayCanvas" aria-label="描き方リプレイキャンバス"></canvas>
+          </div>
+          <div class="tm-replay-controls">
+            <div class="tm-replay-step-info" id="tmReplayStepInfo" aria-live="polite"></div>
+            <ol class="tm-replay-step-list" id="tmReplayStepList"></ol>
+            <div class="tm-replay-btns">
+              <button class="tm-replay-btn" id="tmReplayFirst" aria-label="最初から">⏮</button>
+              <button class="tm-replay-btn" id="tmReplayPrev" aria-label="前のステップ">⏪</button>
+              <button class="tm-replay-btn tm-replay-btn--play" id="tmReplayPlay" aria-label="再生">▶</button>
+              <button class="tm-replay-btn" id="tmReplayNext" aria-label="次のステップ">⏩</button>
+              <label class="tm-replay-speed-label" aria-label="再生速度">
+                速度
+                <select class="tm-replay-speed" id="tmReplaySpeed">
+                  <option value="0.5">0.5×</option>
+                  <option value="1" selected>1×</option>
+                  <option value="1.5">1.5×</option>
+                  <option value="2">2×</option>
+                </select>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- H. マチエール立体ビュー -->
+      <div class="tm-matiere-section" id="tmMatiereSection" hidden>
+        <div class="tm-sub-header">
+          <span class="section-label">MATIÈRE</span>
+          <h3 class="tm-sub-title">マチエール立体ビュー</h3>
+        </div>
+        <p class="tm-matiere-desc">指やマウスを動かして、光の当たり方を変えてみよう。絵の具の凹凸が見えてくる。</p>
+        <div class="tm-matiere-wrap">
+          <canvas id="tmMatiereCanvas" aria-label="マチエール立体ビュー"></canvas>
+          <div class="tm-matiere-hint" id="tmMatiereHint" aria-live="polite"></div>
+        </div>
+        <div class="tm-matiere-controls">
+          <button class="tm-tag tm-tag--active" id="tmMatiereAuto">自動回転</button>
+          <button class="tm-tag" id="tmMatiereManual">手動</button>
+          <button class="tm-tag" id="tmMatiereCompare">元画像と比較</button>
+        </div>
+      </div>
+
+      <!-- I. なぞり体験 -->
+      <div class="tm-play-section" id="tmPlaySection" hidden>
+        <div class="tm-sub-header">
+          <span class="section-label">TRY IT</span>
+          <h3 class="tm-sub-title" id="tmPlayTitle">なぞり体験</h3>
+        </div>
+        <p class="tm-play-desc" id="tmPlayDesc"></p>
+        <div class="tm-play-wrap">
+          <canvas id="tmPlayCanvas" aria-label="なぞり体験キャンバス"></canvas>
+          <div class="tm-play-guide" id="tmPlayGuide" aria-hidden="true"></div>
+          <div class="tm-play-feedback" id="tmPlayFeedback" aria-live="polite" hidden></div>
+        </div>
+        <div class="tm-play-controls">
+          <label class="tm-pressure-label">
+            筆圧
+            <input type="range" id="tmPlayPressure" min="0" max="100" value="50" aria-label="筆圧スライダー">
+          </label>
+          <button class="tm-btn-clear" id="tmPlayClear">消す</button>
+        </div>
+      </div>
+
+      <!-- J. 技法比較ラボ -->
+      <div class="tm-comparison-section" id="tmComparisonSection" hidden>
+        <div class="tm-sub-header">
+          <span class="section-label">COMPARISON LAB</span>
+          <h3 class="tm-sub-title">技法比較ラボ</h3>
+        </div>
+        <div class="tm-comparison-inner" id="tmComparisonInner"></div>
+      </div>
+
+    </section>
+
+    <!-- K. 今日の描き方カード -->
+    <section class="tm-section tm-recipe-section" id="tmRecipeSection">
+      <div class="section-header">
+        <span class="section-label">TODAY'S RECIPE</span>
+        <h2 class="section-title">今日の描き方カード</h2>
+      </div>
+      <div class="tm-recipe-grid" id="tmRecipeGrid"></div>
+    </section>
+
+    <!-- L. ひらめきスター -->
+    <section class="tm-section tm-star-section" id="tmStarSection">
+      <div class="section-header">
+        <span class="section-label">PROGRESS</span>
+        <h2 class="section-title">ひらめきスター</h2>
+        <p class="section-desc" id="tmStarSummary">技法を体験してスターを集めよう。</p>
+      </div>
+      <div class="tm-star-grid" id="tmStarGrid" role="list"></div>
+    </section>
+
+    <!-- M. 技法一覧 -->
+    <section class="tm-section" id="tmTechniqueListSection">
+      <div class="section-header">
+        <span class="section-label">TECHNIQUES</span>
+        <h2 class="section-title">技法一覧</h2>
+      </div>
+      <div class="tm-technique-grid" id="tmTechniqueGrid"></div>
+    </section>
+
+  </main>
+
+  <!-- スター獲得アニメーション -->
+  <div class="tm-star-overlay" id="tmStarOverlay" aria-live="assertive" aria-hidden="true" hidden>
+    <div class="tm-star-burst" id="tmStarBurst" aria-hidden="true"></div>
+    <p class="tm-star-msg" id="tmStarMsg"></p>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-logo">KIRARA MUSE</p>
+    <p>© 2026 KIRARA MUSE. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js?v=2"></script>
+  <script src="js/technique-matiere.js?v=2"></script>
+</body>
+</html>
