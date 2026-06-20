@@ -985,7 +985,18 @@ main { flex: 1; }
   font-size: 0.92rem;
   color: var(--color-text-sub);
   line-height: 1.9;
-  margin-bottom: 28px;
+  margin-bottom: 12px;
+}
+
+.letter-promo-archive-note {
+  font-size: 0.8rem;
+  color: #c9a84c;
+  background: #fef9ec;
+  border: 1px solid #f0d890;
+  border-radius: 6px;
+  padding: 5px 12px;
+  display: inline-block;
+  margin-bottom: 20px;
 }
 
 .btn-letter-promo {
