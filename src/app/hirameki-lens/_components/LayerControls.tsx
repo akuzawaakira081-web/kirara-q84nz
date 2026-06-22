@@ -39,45 +39,71 @@ export default function LayerControls({
     e.target.value = '';
   };
 
-  const btnBase =
-    'min-h-[44px] px-3 py-2 rounded-xl text-sm font-medium transition-opacity hover:opacity-80 active:opacity-70';
-  const btnGold = `${btnBase} bg-[#c9a84c] text-white`;
-  const btnOutline = `${btnBase} border border-[#e8e2d8] bg-white text-[#3a3630]`;
-  const btnActive = `${btnBase} bg-[#d6cef0] text-[#3a3630]`;
-
   return (
     <div
       className="fixed bottom-0 left-0 right-0 z-30"
       style={{
-        background: 'rgba(250,250,248,0.95)',
+        background: 'rgba(250,250,248,0.96)',
         backdropFilter: 'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
         borderTop: '1px solid #e8e2d8',
         borderRadius: '16px 16px 0 0',
       }}
     >
-      {/* 折りたたみトグル */}
+      {/* ドラッグバー */}
       <button
         onClick={onTogglePanel}
-        className="w-full flex justify-center py-2"
+        className="w-full flex justify-center pt-2 pb-1"
         aria-label={isOpen ? 'パネルを閉じる' : 'パネルを開く'}
       >
         <span className="w-10 h-1 rounded-full bg-[#c9c4bc]" />
       </button>
 
       {isOpen && (
-        <div className="px-4 pb-safe-or-4 pb-4 flex flex-col gap-3">
-          {/* 画像選択 */}
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            className={`${btnGold} w-full`}
-          >
-            {hasImage ? '下書きを変更' : '下書きを選ぶ'}
-          </button>
+        <div className="px-3 pb-5 flex flex-col gap-2">
+          {/* 行1: 画像選択ボタン ＋ 操作ボタン群（画像あり時） */}
+          <div className="flex gap-2">
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              className="flex-1 min-h-[44px] rounded-xl text-sm font-medium bg-[#c9a84c] text-white transition-opacity hover:opacity-80 active:opacity-70"
+            >
+              {hasImage ? '下書きを変更' : '下書きを選ぶ'}
+            </button>
 
-          {/* 透明度スライダー */}
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-[#7a7570] w-16 shrink-0">透明度 {opacity}%</span>
+            {hasImage && (
+              <>
+                <button
+                  onClick={onToggleVisible}
+                  className={`min-h-[44px] px-3 rounded-xl text-sm font-medium border transition-opacity hover:opacity-80 active:opacity-70 ${
+                    visible ? 'bg-[#d6cef0] border-[#d6cef0] text-[#3a3630]' : 'bg-white border-[#e8e2d8] text-[#7a7570]'
+                  }`}
+                  title={visible ? '非表示にする' : '表示する'}
+                >
+                  {visible ? '👁 表示中' : '👁 非表示'}
+                </button>
+                <button
+                  onClick={onToggleLocked}
+                  className={`min-h-[44px] px-3 rounded-xl text-sm font-medium border transition-opacity hover:opacity-80 active:opacity-70 ${
+                    locked ? 'bg-[#d6cef0] border-[#d6cef0] text-[#3a3630]' : 'bg-white border-[#e8e2d8] text-[#3a3630]'
+                  }`}
+                  title={locked ? '固定解除' : '位置を固定'}
+                >
+                  {locked ? '🔒' : '🔓'}
+                </button>
+                <button
+                  onClick={onReset}
+                  className="min-h-[44px] px-3 rounded-xl text-sm font-medium border border-[#e8e2d8] bg-white text-[#3a3630] transition-opacity hover:opacity-80 active:opacity-70"
+                  title="位置をリセット"
+                >
+                  ↺
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* 行2: 透明度スライダー */}
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-[#7a7570] shrink-0 w-14">透明度 {opacity}%</span>
             <input
               type="range"
               min={0}
@@ -87,27 +113,6 @@ export default function LayerControls({
               className="flex-1 accent-[#c9a84c]"
             />
           </div>
-
-          {/* 操作ボタン行（画像あり時のみ） */}
-          {hasImage && (
-            <div className="flex gap-2">
-              <button
-                onClick={onToggleVisible}
-                className={`${visible ? btnActive : btnOutline} flex-1`}
-              >
-                {visible ? '非表示' : '表示'}
-              </button>
-              <button
-                onClick={onToggleLocked}
-                className={`${locked ? btnActive : btnOutline} flex-1`}
-              >
-                {locked ? '固定中' : '固定'}
-              </button>
-              <button onClick={onReset} className={`${btnOutline} flex-1`}>
-                リセット
-              </button>
-            </div>
-          )}
         </div>
       )}
 
