@@ -133,6 +133,16 @@ export default function HiramekiLensPage() {
           {/* カメラ映像 */}
           <CameraView videoRef={videoRef} isActive={isActive} />
 
+          {/* 倍率バッジ */}
+          {isActive && imageUrl && (
+            <div
+              className="absolute top-3 right-3 z-20 px-2 py-1 rounded-lg text-xs font-mono font-bold text-white pointer-events-none"
+              style={{ background: 'rgba(0,0,0,0.45)' }}
+            >
+              ×{transform.scale.toFixed(2)}
+            </div>
+          )}
+
           {/* オーバーレイ */}
           {isActive && (
             <OverlayLayer

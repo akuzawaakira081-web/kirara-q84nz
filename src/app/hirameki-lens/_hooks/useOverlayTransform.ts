@@ -26,6 +26,7 @@ interface GestureSnapshot {
 
 const MIN_SCALE = 0.1;
 const MAX_SCALE = 5.0;
+const MIN_PINCH_DIST = 10; // px — ignore tiny pinch to prevent jitter
 
 function getDistance(a: PointerInfo, b: PointerInfo): number {
   const dx = a.x - b.x;
@@ -76,6 +77,7 @@ export function useOverlayTransform(locked: boolean) {
         singleStartRef.current = null;
         const pts = Array.from(activePointersRef.current.values());
         const dist = getDistance(pts[0], pts[1]);
+        if (dist < MIN_PINCH_DIST) return;
         const angle = getAngle(pts[0], pts[1]);
         const midX = (pts[0].x + pts[1].x) / 2;
         const midY = (pts[0].y + pts[1].y) / 2;
