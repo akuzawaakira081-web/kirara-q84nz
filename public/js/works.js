@@ -7,7 +7,7 @@ let activeTheme = 'all';
 
 async function loadWorks() {
   const res = await fetch('data/works.json', { cache: 'no-store' });
-  allWorks = await res.json();
+  allWorks = (await res.json()).reverse();
   collectThemes(allWorks);
   renderWorks(allWorks);
 }

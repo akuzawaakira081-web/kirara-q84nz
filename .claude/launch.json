@@ -2,10 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "kirara-muse",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8788"],
-      "port": 8788
+      "name": "kirara-muse-next",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000
     }
   ]
 }
