@@ -196,7 +196,7 @@
       const works  = await worksRes.json();
       const images = await imagesRes.json();
 
-      document.getElementById('homeWorksGrid').innerHTML = works.slice(0, 3).map(w => `
+      document.getElementById('homeWorksGrid').innerHTML = works.slice().reverse().slice(0, 3).map(w => `
         <article class="card">
           <div class="card-image-wrap">
             ${imageAreaHTML(w.image, w.title)}
