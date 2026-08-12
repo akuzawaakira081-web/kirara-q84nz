@@ -205,6 +205,141 @@
       line-height: 1.7;
     }
 
+    /* ===== プロンプト例セクション ===== */
+    .prompt-section {
+      background: var(--color-white);
+      border-radius: var(--radius-card);
+      padding: 40px 36px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 28px;
+    }
+
+    .prompt-section .info-card-title {
+      margin-bottom: 8px;
+    }
+
+    .prompt-section-lead {
+      font-size: 0.88rem;
+      color: var(--color-text-sub);
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .prompt-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .prompt-card-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .prompt-card-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .prompt-card-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .prompt-card-desc {
+      font-size: 0.8rem;
+      color: var(--color-text-sub);
+      line-height: 1.7;
+    }
+
+    .prompt-card-text {
+      position: relative;
+      background: var(--color-white);
+      border: 1px dashed #c4bde8;
+      border-radius: 10px;
+      padding: 14px 44px 14px 16px;
+      font-size: 0.82rem;
+      color: var(--color-text);
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+
+    .prompt-copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--color-lavender);
+      color: #6b60b0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      cursor: pointer;
+      border: none;
+      transition: background var(--transition);
+    }
+
+    .prompt-copy-btn:hover {
+      background: #c4bde8;
+    }
+
+    .prompt-copy-btn.copied {
+      background: #a8d8b9;
+      color: #2f6b45;
+    }
+
+    .prompt-tips {
+      background: var(--color-gold-light);
+      border-radius: 14px;
+      padding: 24px 22px;
+    }
+
+    .prompt-tips-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 14px;
+    }
+
+    .prompt-tips ol {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-left: 20px;
+    }
+
+    .prompt-tips li {
+      font-size: 0.85rem;
+      color: var(--color-text-sub);
+      line-height: 1.8;
+    }
+
+    .prompt-tips li strong {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+
+    @media (max-width: 700px) {
+      .prompt-section { padding: 28px 22px; }
+      .prompt-grid { grid-template-columns: 1fr; }
+    }
+
     /* ===== 注意事項カード ===== */
     .notice-card {
       background: #f0eef8;
@@ -487,6 +622,91 @@
 
       </div>
 
+      <!-- プロンプト例 -->
+      <div class="prompt-section">
+        <p class="section-label">PROMPT EXAMPLES</p>
+        <h2 class="info-card-title">プロンプト例</h2>
+        <p class="prompt-section-lead">
+          何を話しかけたらいいか迷ったら、まずはこの例文をそのまま使ってみてください。<br>
+          コピーしてチャット欄に貼り付けるだけでOKです。
+        </p>
+
+        <div class="prompt-grid">
+          <div class="prompt-card">
+            <div class="prompt-card-head">
+              <span class="prompt-card-icon">💡</span>
+              <span class="prompt-card-title">何を描くか決まっていないとき</span>
+            </div>
+            <p class="prompt-card-desc">テーマだけ決まっていて、モチーフのアイデアがほしいときに。</p>
+            <div class="prompt-card-text">小学3年生の子どもが「自然」をテーマにした絵を描きます。
+どんなモチーフがあるか、アイデアを3つくらい提案してください。<button class="prompt-copy-btn" type="button" aria-label="プロンプトをコピー">⧉</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-card-head">
+              <span class="prompt-card-icon">🔍</span>
+              <span class="prompt-card-title">下描き用の参考画像がほしいとき</span>
+            </div>
+            <p class="prompt-card-desc">コンクールの下描き前に、具体的な資料を作りたいときに。</p>
+            <div class="prompt-card-text">「身近な自然」をテーマに絵を描きます。
+公園にいるカブトムシを、正面から見上げるような構図で
+参考になる画像を作ってください。<button class="prompt-copy-btn" type="button" aria-label="プロンプトをコピー">⧉</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-card-head">
+              <span class="prompt-card-icon">🎨</span>
+              <span class="prompt-card-title">色や雰囲気を伝えたいとき</span>
+            </div>
+            <p class="prompt-card-desc">頭の中のイメージを言葉にして、色合いの参考にしたいときに。</p>
+            <div class="prompt-card-text">夏の水遊びの絵を描きたいです。
+明るくて元気な、水しぶきが弾けるような雰囲気の色合いで
+参考画像を作ってください。<button class="prompt-copy-btn" type="button" aria-label="プロンプトをコピー">⧉</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-card-head">
+              <span class="prompt-card-icon">📐</span>
+              <span class="prompt-card-title">構図に迷っているとき</span>
+            </div>
+            <p class="prompt-card-desc">同じモチーフでも見せ方を変えると印象が変わることを体験できます。</p>
+            <div class="prompt-card-text">魚釣りをしている場面を描きたいです。
+下から見上げる構図と、横から見た構図、
+2パターンの参考画像を見せてください。<button class="prompt-copy-btn" type="button" aria-label="プロンプトをコピー">⧉</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-card-head">
+              <span class="prompt-card-icon">💬</span>
+              <span class="prompt-card-title">出てきた画像をもっと深めたいとき</span>
+            </div>
+            <p class="prompt-card-desc">気に入った画像が出たら、会話を続けて育てていきましょう。</p>
+            <div class="prompt-card-text">今の画像、いいね。もう少しにぎやかにできる?
+別の角度から見た感じも見てみたいな。<button class="prompt-copy-btn" type="button" aria-label="プロンプトをコピー">⧉</button></div>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-card-head">
+              <span class="prompt-card-icon">🏆</span>
+              <span class="prompt-card-title">学校のコンクール課題があるとき</span>
+            </div>
+            <p class="prompt-card-desc">選挙ポスターや家庭の日など、テーマが決まっているコンクール向け。</p>
+            <div class="prompt-card-text">「明るい選挙ポスター」というテーマで絵を描きます。
+中学生らしい視点で、街の風景を使ったデザイン案を
+2〜3パターン考えてください。文字は入れないでください。<button class="prompt-copy-btn" type="button" aria-label="プロンプトをコピー">⧉</button></div>
+          </div>
+        </div>
+
+        <div class="prompt-tips">
+          <p class="prompt-tips-title">保護者の方へ ― 使うときのコツ</p>
+          <ol>
+            <li><strong>一発で完成形を求めない。</strong>「もう少し◯◯して」と会話しながら育てていくのが本来の使い方です。</li>
+            <li><strong>出てきた画像は「下敷き」。</strong>そのまま提出せず、見ながら自分の手で描く参考にしましょう。</li>
+            <li><strong>個人情報は入力しない。</strong>名前・学校名・住所などはチャット欄に書かないでください。</li>
+          </ol>
+        </div>
+      </div>
+
       <!-- CTAブロック -->
       <div class="ai-cta-block">
         <span class="ai-cta-label">AI INSPIRATION MAKER</span>
@@ -516,5 +736,22 @@
   </footer>
 
   <script src="js/main.js?v=2"></script>
+  <script>
+    // プロンプト例 コピー機能
+    document.querySelectorAll('.prompt-copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const box = btn.closest('.prompt-card-text');
+        const text = box.textContent.replace('⧉', '').trim();
+        navigator.clipboard.writeText(text).then(() => {
+          btn.classList.add('copied');
+          btn.textContent = '✓';
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.textContent = '⧉';
+          }, 1500);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
