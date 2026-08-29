@@ -1103,6 +1103,89 @@ main { flex: 1; }
   height: 100%;
 }
 
+.museswitch-promo-section {
+  padding-top: 0;
+  padding-bottom: 72px;
+}
+
+.museswitch-promo-card {
+  background: linear-gradient(135deg, #d6cef0 0%, #f5ecd7 100%);
+  border-radius: 24px;
+  padding: 52px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.museswitch-promo-body {
+  flex: 1;
+  max-width: 560px;
+}
+
+.museswitch-promo-badge {
+  display: inline-block;
+  background: #c9a84c;
+  color: #fff;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  border-radius: 20px;
+  padding: 3px 12px;
+  margin-bottom: 4px;
+}
+
+.museswitch-promo-title {
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--color-text);
+  margin: 8px 0 14px;
+}
+
+.museswitch-promo-desc {
+  font-size: 0.92rem;
+  color: var(--color-text-sub);
+  line-height: 1.9;
+  margin-bottom: 28px;
+}
+
+.btn-museswitch-promo {
+  display: inline-block;
+  padding: 13px 32px;
+  border-radius: 40px;
+  background: #c9a84c;
+  color: var(--color-white);
+  font-size: 0.92rem;
+  letter-spacing: 0.05em;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.btn-museswitch-promo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(201, 168, 76, 0.38);
+}
+
+.museswitch-promo-deco {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  opacity: 0.9;
+}
+
+.museswitch-promo-deco svg {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 600px) {
+  .museswitch-promo-card {
+    padding: 36px 28px;
+  }
+  .museswitch-promo-deco { display: none; }
+}
+
 @media (max-width: 600px) {
   .lens-promo-card {
     padding: 36px 28px;

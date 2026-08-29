@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>MUSE SWITCH — KIRARA MUSE</title>
+  <meta name="description" content="いつもの見方をOFF。見る力をON。きらら・ミューズの「MUSE SWITCH」で、画像を逆さまにして線・形・色を観察し、実際の紙に描くトレーニングができます。">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+
+    /* ===== ページヒーロー ===== */
+    .ms-hero {
+      background: linear-gradient(145deg, #d6cef0 0%, var(--color-white) 45%, var(--color-gold-light) 100%);
+      padding: 72px 24px 60px;
+      text-align: center;
+    }
+
+    .ms-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--color-lavender);
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      color: #6b60b0;
+      margin-bottom: 20px;
+    }
+
+    .ms-hero-badge svg {
+      width: 14px;
+      height: 14px;
+      stroke: #6b60b0;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .ms-hero-title {
+      font-size: clamp(1.7rem, 4.5vw, 2.6rem);
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      line-height: 1.5;
+      color: var(--color-text);
+      margin-bottom: 12px;
+    }
+
+    .ms-hero-tagline {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--color-gold);
+      margin-bottom: 20px;
+    }
+
+    .ms-hero-lead {
+      font-size: 1rem;
+      line-height: 2;
+      color: var(--color-text-sub);
+      max-width: 580px;
+      margin: 0 auto 40px;
+    }
+
+    .btn-cta-large {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #7c6fc4;
+      color: var(--color-white);
+      padding: 18px 44px;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      letter-spacing: 0.05em;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .btn-cta-large:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(124, 111, 196, 0.40);
+    }
+
+    .btn-cta-large svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    /* ===== 2カラム情報エリア ===== */
+    .ms-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-bottom: 48px;
+    }
+
+    .info-card {
+      background: var(--color-white);
+      border-radius: var(--radius-card);
+      padding: 40px 36px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .info-card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .info-card-icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.7;
+    }
+
+    .info-card-icon--lavender {
+      background: var(--color-lavender);
+      color: #6b60b0;
+    }
+
+    .info-card-title {
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--color-text);
+      letter-spacing: 0.04em;
+    }
+
+    .info-card ul {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .info-card li {
+      font-size: 0.88rem;
+      color: var(--color-text-sub);
+      line-height: 1.75;
+      padding-left: 22px;
+      position: relative;
+    }
+
+    .info-card li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: var(--color-gold);
+      font-size: 0.65rem;
+      top: 4px;
+    }
+
+    /* ===== できることリスト（全幅） ===== */
+    .features-card {
+      background: var(--color-gold-light);
+      border-radius: var(--radius-card);
+      padding: 40px 36px;
+      margin-bottom: 28px;
+    }
+
+    .features-card .info-card-title {
+      margin-bottom: 24px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .feature-item {
+      background: var(--color-white);
+      border-radius: 14px;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .feature-item-icon {
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .feature-item-text {
+      font-size: 0.88rem;
+      color: var(--color-text);
+      line-height: 1.7;
+      font-weight: 500;
+    }
+
+    .feature-item-sub {
+      font-size: 0.78rem;
+      color: var(--color-text-sub);
+      line-height: 1.7;
+    }
+
+    /* ===== 注意事項カード ===== */
+    .notice-card {
+      background: #f0eef8;
+      border: 1.5px solid #d6cef0;
+      border-radius: var(--radius-card);
+      padding: 40px 36px;
+      margin-bottom: 28px;
+    }
+
+    .notice-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .notice-card-header svg {
+      width: 22px;
+      height: 22px;
+      stroke: #6b60b0;
+      fill: none;
+      stroke-width: 2;
+      flex-shrink: 0;
+    }
+
+    .notice-card-title {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--color-text);
+    }
+
+    .notice-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .notice-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .notice-item-bullet {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--color-lavender);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #6b60b0;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+
+    .notice-item-text {
+      font-size: 0.88rem;
+      color: var(--color-text-sub);
+      line-height: 1.8;
+      flex: 1;
+    }
+
+    .notice-item-text strong {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+
+    .age-badges {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px dashed #c4bde8;
+    }
+
+    .age-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-white);
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 0.82rem;
+      color: var(--color-text-sub);
+      line-height: 1.6;
+    }
+
+    .age-badge-icon {
+      font-size: 1.2rem;
+    }
+
+    /* ===== CTAブロック ===== */
+    .ms-cta-block {
+      background: linear-gradient(135deg, #d6cef0 0%, var(--color-gold-light) 100%);
+      border-radius: 24px;
+      padding: 64px 24px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .ms-cta-label {
+      font-family: var(--font-en);
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      color: #6b60b0;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .ms-cta-title {
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--color-text);
+      margin-bottom: 12px;
+    }
+
+    .ms-cta-desc {
+      font-size: 0.9rem;
+      color: var(--color-text-sub);
+      margin-bottom: 36px;
+      line-height: 1.9;
+    }
+
+    .ms-cta-note {
+      margin-top: 20px;
+      font-size: 0.78rem;
+      color: var(--color-text-sub);
+    }
+
+    /* ===== モバイル ===== */
+    @media (max-width: 700px) {
+      .ms-hero { padding: 52px 20px 44px; }
+      .btn-cta-large { padding: 16px 32px; font-size: 1rem; }
+      .ms-info-grid { grid-template-columns: 1fr; }
+      .info-card { padding: 28px 22px; }
+      .features-card { padding: 28px 22px; }
+      .notice-card { padding: 28px 22px; }
+      .ms-cta-block { padding: 48px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        KIRARA MUSE
+        <span>きらら・ミューズ</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="global-nav" id="globalNav">
+        <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="works.html">ひらめき作品</a></li>
+          <li><a href="images.html">ひらめき画像</a></li>
+          <li><a href="themes.html">テーマで探す</a></li>
+          <li><a href="howto.html">使い方</a></li>
+          <li><a href="ai-inspiration.html">AIひらめき</a></li>
+          <li><a href="color-palette.html">色彩パレット</a></li>
+          <li><a href="kirara-letter.html">きららだより</a></li>
+          <li><a href="technique-matiere.html">技法マチエール</a></li>
+          <li><a href="https://kiraramuse.vercel.app/hirameki-lens">ひらめきレンズ</a></li>
+          <li><a href="muse-switch-guide.html" class="active">MUSE SWITCH</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ヒーロー -->
+    <section class="ms-hero">
+      <div class="ms-hero-badge">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>
+        SEEING TRAINING
+      </div>
+      <h1 class="ms-hero-title">
+        きらら Muse<br>MUSE SWITCH
+      </h1>
+      <p class="ms-hero-tagline">いつもの見方をOFF。見る力をON。</p>
+      <p class="ms-hero-lead">
+        画像を逆さまにすると、「これは顔」「これは花」という思い込みが弱くなります。<br>
+        名前ではなく、線・形・角度・余白の関係を見て、実際の紙に描いてみよう。
+      </p>
+      <a
+        href="https://kiraramuse.vercel.app/muse-switch"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-cta-large"
+      >
+        MUSE SWITCHを開く
+        <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </section>
+
+    <div class="section">
+
+      <!-- できること -->
+      <div class="features-card">
+        <p class="section-label">WHAT YOU CAN DO</p>
+        <h2 class="info-card-title">できること</h2>
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-item-icon">🙃</div>
+            <div class="feature-item-text">↻ 逆さまにして観察</div>
+            <div class="feature-item-sub">画像が180度回転。名前で考えず、線・形の関係だけで見る練習になります</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-item-icon">◐</div>
+            <div class="feature-item-text">MONO・GRIDで見え方を変える</div>
+            <div class="feature-item-sub">白黒にして明暗だけを見たり、方眼線を重ねて位置関係をつかんだりできます</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-item-icon">◎</div>
+            <div class="feature-item-text">FOCUSで一部分だけをじっくり見る</div>
+            <div class="feature-item-sub">画面をタップすると観察窓が動きます。細部の形をじっくり観察できます</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-item-icon">👁</div>
+            <div class="feature-item-text">REVEALで答え合わせ</div>
+            <div class="feature-item-sub">描き終わったら元の向きに戻して、自分の絵と見比べてみよう</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 使い方 + 注意事項 -->
+      <div class="ms-info-grid">
+
+        <!-- 使い方 -->
+        <div class="info-card">
+          <div class="info-card-icon info-card-icon--lavender">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </div>
+          <h2 class="info-card-title">使い方</h2>
+          <ul>
+            <li>「MUSE SWITCHを開く」ボタンから、描きたい画像を1枚選びます</li>
+            <li>画面には画像が逆さまのまま表示されます。名前を考えず、線・形・角度・余白だけを見ましょう</li>
+            <li>MONO・GRID・FOCUSのボタンを試しながら、画面は見るだけで、実際の紙に鉛筆やクレヨンで描いていきます</li>
+            <li>描き終わったらREVEALを押して元の向きに戻し、自分の絵と見比べてみましょう</li>
+            <li>もう一度描きたいときはRESETで設定を初期状態に戻せます</li>
+          </ul>
+        </div>
+
+        <!-- 注意事項 -->
+        <div class="notice-card">
+          <div class="notice-card-header">
+            <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <h2 class="notice-card-title">注意事項</h2>
+          </div>
+          <div class="notice-list">
+            <div class="notice-item">
+              <div class="notice-item-bullet">1</div>
+              <p class="notice-item-text">このツールは<strong>絵を自動で描いてくれるものではありません。</strong>「よく見る力」を育てる観察トレーニングです。</p>
+            </div>
+            <div class="notice-item">
+              <div class="notice-item-bullet">2</div>
+              <p class="notice-item-text">実際に描くのは<strong>画面ではなく、手元の紙</strong>です。画面は観察の見え方を変えるためだけに使います。</p>
+            </div>
+            <div class="notice-item">
+              <div class="notice-item-bullet">3</div>
+              <p class="notice-item-text">選んだ画像は<strong>この端末の中だけ</strong>で使われ、どこにも送信されません。</p>
+            </div>
+          </div>
+          <div class="age-badges">
+            <div class="age-badge">
+              <span class="age-badge-icon">👤</span>
+              <span><strong>全年齢</strong>で使えます</span>
+            </div>
+            <div class="age-badge">
+              <span class="age-badge-icon">👨‍👩‍👧</span>
+              <span>保護者・先生と<strong>一緒に使う</strong>のもおすすめです</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CTAブロック -->
+      <div class="ms-cta-block">
+        <span class="ms-cta-label">MUSE SWITCH</span>
+        <h2 class="ms-cta-title">さあ、見る力をスイッチしよう</h2>
+        <p class="ms-cta-desc">
+          描きたい画像を1枚選んで、逆さまの世界で観察をはじめましょう。
+        </p>
+        <a
+          href="https://kiraramuse.vercel.app/muse-switch"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-cta-large"
+        >
+          MUSE SWITCHを開く
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+        <p class="ms-cta-note">※ 選んだ画像はこの端末の中だけで使われます。サーバーへは送信されません。</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-logo">KIRARA MUSE</p>
+    <p>© 2026 KIRARA MUSE. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js?v=2"></script>
+</body>
+</html>
