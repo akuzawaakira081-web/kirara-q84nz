@@ -14,6 +14,115 @@
     .image-card .card-image-wrap.landscape { aspect-ratio: 4/3; background: #f0ede8; }
     .image-card .card-image-wrap.landscape img { object-fit: contain; }
     .card:hover .image-card .card-image-wrap.landscape img { transform: scale(1.02); }
+
+    /* ===== 拡大詳細モーダル ===== */
+    .image-card { cursor: pointer; }
+
+    .image-detail-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(30, 26, 20, 0.72);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 200;
+    }
+    .image-detail-overlay[hidden] { display: none; }
+
+    .image-detail-modal {
+      background: var(--color-white);
+      border-radius: var(--radius-card);
+      max-width: 880px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    @media (min-width: 700px) {
+      .image-detail-modal { flex-direction: row; }
+      .image-detail-media { flex: 1.15; }
+      .image-detail-body { flex: 1; }
+    }
+
+    .image-detail-media {
+      background: #f0ede8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      height: 46vh;
+    }
+    @media (min-width: 700px) {
+      .image-detail-media { height: auto; max-height: 80vh; }
+    }
+    .image-detail-media img {
+      width: 100%;
+      height: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .image-detail-body {
+      padding: 30px 32px;
+      position: relative;
+    }
+    .image-detail-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      border: none;
+      font-size: 1rem;
+      line-height: 1;
+      cursor: pointer;
+      color: var(--color-text);
+    }
+    .image-detail-body h2 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin: 10px 0 14px;
+      color: var(--color-text);
+    }
+    .image-detail-body p {
+      font-size: 0.9rem;
+      color: var(--color-text-sub);
+      line-height: 1.85;
+      margin-bottom: 22px;
+    }
+    .image-detail-composition-title {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      color: var(--color-gold);
+      margin-bottom: 10px;
+    }
+    .image-detail-composition ul {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .image-detail-composition li {
+      font-size: 0.85rem;
+      color: var(--color-text-sub);
+      line-height: 1.6;
+      padding-left: 18px;
+      position: relative;
+    }
+    .image-detail-composition li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      top: 3px;
+      color: var(--color-gold);
+      font-size: 0.6rem;
+    }
   </style>
 </head>
 <body>
@@ -59,6 +168,22 @@
     </div>
 
   </main>
+
+  <!-- 拡大詳細モーダル -->
+  <div class="image-detail-overlay" id="imageDetailOverlay" hidden>
+    <div class="image-detail-modal" role="dialog" aria-modal="true" aria-labelledby="imageDetailTitle">
+      <div class="image-detail-media">
+        <img id="imageDetailImg" src="" alt="">
+      </div>
+      <div class="image-detail-body">
+        <button class="image-detail-close" id="imageDetailClose" aria-label="閉じる">✕</button>
+        <span class="card-theme" id="imageDetailTheme"></span>
+        <h2 id="imageDetailTitle"></h2>
+        <p id="imageDetailDesc"></p>
+        <div class="image-detail-composition" id="imageDetailComposition" hidden></div>
+      </div>
+    </div>
+  </div>
 
   <footer class="site-footer">
     <p class="footer-logo">KIRARA MUSE</p>

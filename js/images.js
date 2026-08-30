@@ -48,7 +48,7 @@ function renderImages(images) {
 function imageCardHTML(img) {
   const tags = (img.tags || []).map(t => `<span class="card-tag">${t}</span>`).join('');
   return `
-    <article class="card image-card">
+    <article class="card image-card" onclick="openImageDetail(event, '${img.id}')">
       <div class="card-image-wrap">
         ${imageAreaHTML(img.image, img.title)}
         ${makeSaveBtn(img.id, img.image, img.title)}
@@ -64,4 +64,56 @@ function imageCardHTML(img) {
     </article>`;
 }
 
-document.addEventListener('DOMContentLoaded', loadImages);
+/* ===========================
+   拡大詳細表示（モーダル）
+   =========================== */
+
+function openImageDetail(event, id) {
+  if (event.target.closest('.btn-save')) return;
+
+  const img = allImages.find(i => i.id === id);
+  const overlay = document.getElementById('imageDetailOverlay');
+  if (!img || !overlay) return;
+
+  const imgEl = document.getElementById('imageDetailImg');
+  imgEl.src = img.image;
+  imgEl.alt = img.title;
+
+  document.getElementById('imageDetailTheme').textContent = img.themeEn || '';
+  document.getElementById('imageDetailTitle').textContent = img.title;
+  document.getElementById('imageDetailDesc').textContent = img.desc || '';
+
+  const compWrap = document.getElementById('imageDetailComposition');
+  if (img.composition && img.composition.length) {
+    compWrap.innerHTML = `
+      <span class="image-detail-composition-title">構成の特徴</span>
+      <ul>${img.composition.map(c => `<li>${c}</li>`).join('')}</ul>`;
+    compWrap.hidden = false;
+  } else {
+    compWrap.innerHTML = '';
+    compWrap.hidden = true;
+  }
+
+  overlay.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeImageDetail() {
+  const overlay = document.getElementById('imageDetailOverlay');
+  if (!overlay) return;
+  overlay.hidden = true;
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadImages();
+
+  const overlay = document.getElementById('imageDetailOverlay');
+  document.getElementById('imageDetailClose')?.addEventListener('click', closeImageDetail);
+  overlay?.addEventListener('click', (e) => {
+    if (e.target === overlay) closeImageDetail();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeImageDetail();
+  });
+});

@@ -1,5 +1,85 @@
 [
   {
+    "id": "image025",
+    "title": "海の中で、こんにちは",
+    "theme": "日常の発見を描こう",
+    "themeEn": "Everyday Discovery",
+    "desc": "船から海をのぞく子どもたちと、青い海を泳ぐイルカの家族。水面の上と海中を一画面に重ね、出会いの驚きと海の豊かさを描いた作品です。",
+    "composition": ["水上・水中の二層構造", "手前の大きなイルカ", "奥行きのある魚群", "強い青の色彩"],
+    "tags": ["海", "イルカ", "出会い", "二層構造", "青"],
+    "image": "assets/images/01-umi-no-naka-de-konnichiwa.jpg"
+  },
+  {
+    "id": "image024",
+    "title": "空へ飛び出す一瞬",
+    "theme": "日常の発見を描こう",
+    "themeEn": "Everyday Discovery",
+    "desc": "森の高台からジップラインで谷を越える女の子。足裏を大胆に手前へ出した構図で、風、速さ、高さ、挑戦する喜びを表現しています。",
+    "composition": ["超近景の足", "中景の人物", "遠景の渓谷", "斜めに伸びるワイヤー"],
+    "tags": ["ジップライン", "挑戦", "風", "高さ", "構図"],
+    "image": "assets/images/02-sora-e-tobidasu-isshun.jpg"
+  },
+  {
+    "id": "image023",
+    "title": "夏の森の大発見",
+    "theme": "日常の発見を描こう",
+    "themeEn": "Everyday Discovery",
+    "desc": "木の幹にとまる大きなセミを見つけ、虫あみを伸ばす少年。木漏れ日と見上げる視点によって、夏の森で生き物と出会う興奮を描いています。",
+    "composition": ["セミと樹皮の近景", "見上げる少年", "虫あみの円", "木漏れ日と青空"],
+    "tags": ["夏", "セミ", "森", "発見", "木漏れ日"],
+    "image": "assets/images/03-natsu-no-mori-no-daihakken.jpg"
+  },
+  {
+    "id": "image022",
+    "title": "とれたよ！海からの贈りもの",
+    "theme": "日常の発見を描こう",
+    "themeEn": "Everyday Discovery",
+    "desc": "潮干狩りで見つけた貝を高く掲げる女の子と、喜び合う家族。泥や水しぶきまで生き生きと描き、家族で過ごした海辺の一日を伝えます。",
+    "composition": ["手前へ飛び出す人物", "掲げた貝", "家族の表情", "干潟のにぎわい"],
+    "tags": ["潮干狩り", "家族", "海辺", "喜び"],
+    "image": "assets/images/04-toretayo-umi-kara-no-okurimono.jpg"
+  },
+  {
+    "id": "image021",
+    "title": "星をすくう夜",
+    "theme": "日常の発見を描こう",
+    "themeEn": "Everyday Discovery",
+    "desc": "ペットボトルの仕掛けで海ほたるを集める少年。月明かりの海と無数の青い光を重ね、実際の体験を幻想的な夜の物語へ広げています。",
+    "composition": ["手前の採集ボトル", "中景の少年", "遠景の月夜の海", "青い発光表現"],
+    "tags": ["夜", "海ほたる", "月明かり", "幻想的"],
+    "image": "assets/images/05-hoshi-o-sukuu-yoru.jpg"
+  },
+  {
+    "id": "image020",
+    "title": "雪けむりを追い越して",
+    "theme": "日常の発見を描こう",
+    "themeEn": "Everyday Discovery",
+    "desc": "雪山の斜面を勢いよく滑り降りるスキーヤー。画面いっぱいの雪しぶきと大きく曲がる身体で、冬のスポーツの速度と爽快感を表現しています。",
+    "composition": ["大きな近景人物", "舞い上がる雪", "眼下のゲレンデ", "山並みと朝日"],
+    "tags": ["冬", "スキー", "スピード", "爽快感"],
+    "image": "assets/images/06-yukikemuri-o-oikoshite.jpg"
+  },
+  {
+    "id": "image019",
+    "title": "獅子と笑った春の日",
+    "theme": "日常の発見を描こう",
+    "themeEn": "Everyday Discovery",
+    "desc": "迫力ある獅子舞から笑顔で逃げる着物姿の女の子。伝統行事の怖さと楽しさを、低い視点と飛び散る紙吹雪で躍動的に描いています。",
+    "composition": ["手前へ伸びる子どもの手", "巨大な獅子頭", "左右の観客", "低いカメラ視点"],
+    "tags": ["春", "獅子舞", "伝統行事", "躍動感"],
+    "image": "assets/images/07-shishi-to-waratta-haru-no-hi.jpg"
+  },
+  {
+    "id": "image018",
+    "title": "雲の道でめぐる日本",
+    "theme": "日常の発見を描こう",
+    "themeEn": "Everyday Discovery",
+    "desc": "飛行機の旅から広がる日本各地の思い出を、雲の道でつないだ物語画。空港、渦潮、阿波おどり、軍艦島、夜景を一枚に集め、旅への憧れを描いています。",
+    "composition": ["複数場面をつなぐ雲", "右下の旅する少女", "昼から夜への色の変化", "物語的な画面構成"],
+    "tags": ["旅", "日本各地", "物語", "色の変化"],
+    "image": "assets/images/08-kumo-no-michi-de-meguru-nihon.png"
+  },
+  {
     "id": "image017",
     "title": "夕日にきらめく、冬の渓谷で",
     "theme": "自然を描こう",
