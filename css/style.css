@@ -1192,3 +1192,92 @@ main { flex: 1; }
   }
   .lens-promo-deco { display: none; }
 }
+
+.piko-promo-section {
+  padding-top: 0;
+  padding-bottom: 72px;
+}
+
+.piko-promo-card {
+  background: linear-gradient(135deg, #fde8ec 0%, #e8f0fd 35%, #eafaf0 65%, #fdf6e3 100%);
+  border-radius: 24px;
+  padding: 52px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.piko-promo-body {
+  flex: 1;
+  max-width: 560px;
+}
+
+.piko-promo-badge {
+  display: inline-block;
+  background: linear-gradient(90deg, #f08cae, #8cb8f0, #8cd9a8);
+  color: #fff;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  border-radius: 20px;
+  padding: 3px 12px;
+  margin-bottom: 4px;
+}
+
+.piko-promo-title {
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--color-text);
+  margin: 8px 0 14px;
+}
+
+.piko-promo-desc {
+  font-size: 0.92rem;
+  color: var(--color-text-sub);
+  line-height: 1.9;
+  margin-bottom: 12px;
+}
+
+.piko-promo-note {
+  font-size: 0.78rem;
+  color: var(--color-text-sub);
+  opacity: 0.75;
+  margin-bottom: 24px;
+}
+
+.btn-piko-promo {
+  display: inline-block;
+  padding: 13px 32px;
+  border-radius: 40px;
+  background: linear-gradient(90deg, #f08cae, #8cb8f0, #8cd9a8);
+  color: var(--color-white);
+  font-size: 0.92rem;
+  letter-spacing: 0.05em;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.btn-piko-promo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(140, 152, 240, 0.38);
+}
+
+.piko-promo-deco {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  opacity: 0.95;
+  font-size: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .piko-promo-card {
+    padding: 36px 28px;
+  }
+  .piko-promo-deco { display: none; }
+}

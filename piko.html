@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>ピコ｜ひらめきを見つけるアートコーチ — KIRARA MUSE</title>
+  <meta name="description" content="筆の妖精ピコが、子どもの絵の中にある「その子だけのひらめき」を見つけて、今日の一歩をいっしょに考えるAIアートコーチです。先生・保護者が子どもと一緒に使うツールです。">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+
+    /* ===== ページヒーロー ===== */
+    .piko-hero {
+      background: linear-gradient(145deg, #fde8ec 0%, var(--color-white) 45%, #e8f0fd 100%);
+      padding: 72px 24px 60px;
+      text-align: center;
+    }
+
+    .piko-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(90deg, #f08cae, #8cb8f0, #8cd9a8);
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .piko-hero-badge svg {
+      width: 14px;
+      height: 14px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .piko-hero-title {
+      font-size: clamp(1.7rem, 4.5vw, 2.6rem);
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      line-height: 1.5;
+      color: var(--color-text);
+      margin-bottom: 20px;
+    }
+
+    .piko-hero-lead {
+      font-size: 1rem;
+      line-height: 2;
+      color: var(--color-text-sub);
+      max-width: 580px;
+      margin: 0 auto 40px;
+    }
+
+    .btn-piko-cta-large {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(90deg, #f08cae, #8cb8f0, #8cd9a8);
+      color: var(--color-white);
+      padding: 18px 44px;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      letter-spacing: 0.05em;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .btn-piko-cta-large:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(140, 152, 240, 0.40);
+    }
+
+    .btn-piko-cta-large svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    /* ===== 2カラム情報エリア ===== */
+    .piko-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-bottom: 48px;
+    }
+
+    /* ===== 汎用インフォカード ===== */
+    .info-card {
+      background: var(--color-white);
+      border-radius: var(--radius-card);
+      padding: 40px 36px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .info-card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .info-card-icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.7;
+    }
+
+    .info-card-icon--lavender {
+      background: var(--color-lavender);
+      color: #6b60b0;
+    }
+
+    .info-card-icon--gold {
+      background: var(--color-gold-light);
+      color: var(--color-gold);
+    }
+
+    .info-card-icon--sky {
+      background: var(--color-sky);
+      color: #4a8fab;
+    }
+
+    .info-card-title {
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--color-text);
+      letter-spacing: 0.04em;
+    }
+
+    .info-card ul {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .info-card li {
+      font-size: 0.88rem;
+      color: var(--color-text-sub);
+      line-height: 1.75;
+      padding-left: 22px;
+      position: relative;
+    }
+
+    .info-card li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: var(--color-gold);
+      font-size: 0.65rem;
+      top: 4px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .feature-item {
+      background: var(--color-white);
+      border-radius: 14px;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .feature-item-icon {
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .feature-item-text {
+      font-size: 0.88rem;
+      color: var(--color-text);
+      line-height: 1.7;
+      font-weight: 500;
+    }
+
+    .feature-item-sub {
+      font-size: 0.78rem;
+      color: var(--color-text-sub);
+      line-height: 1.7;
+    }
+
+    .notice-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .notice-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .notice-item-text {
+      font-size: 0.88rem;
+      color: var(--color-text-sub);
+      line-height: 1.8;
+      flex: 1;
+    }
+
+    .notice-item-text strong {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+
+    .age-badges {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px dashed #c4bde8;
+    }
+
+    .age-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-white);
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 0.82rem;
+      color: var(--color-text-sub);
+      line-height: 1.6;
+    }
+
+    .age-badge-icon {
+      font-size: 1.2rem;
+    }
+
+    /* ===== できることリスト（全幅） ===== */
+    .piko-features-card {
+      background: #fdf6e3;
+      border-radius: var(--radius-card);
+      padding: 40px 36px;
+      margin-bottom: 28px;
+    }
+
+    .piko-features-card .info-card-title {
+      margin-bottom: 24px;
+    }
+
+    /* ===== 注意事項カード ===== */
+    .piko-notice-card {
+      background: #eef2fb;
+      border: 1.5px solid #cdd9f5;
+      border-radius: var(--radius-card);
+      padding: 40px 36px;
+      margin-bottom: 28px;
+    }
+
+    .piko-notice-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .piko-notice-card-header svg {
+      width: 22px;
+      height: 22px;
+      stroke: #6f89c9;
+      fill: none;
+      stroke-width: 2;
+      flex-shrink: 0;
+    }
+
+    .piko-notice-item-bullet {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #dbe4f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #4f6bb0;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+
+    /* ===== CTAブロック ===== */
+    .piko-cta-block {
+      background: linear-gradient(135deg, #fde8ec 0%, #e8f0fd 50%, #eafaf0 100%);
+      border-radius: 24px;
+      padding: 64px 24px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .piko-cta-label {
+      font-family: var(--font-en);
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      color: #8b7bc9;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .piko-cta-title {
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--color-text);
+      margin-bottom: 12px;
+    }
+
+    .piko-cta-desc {
+      font-size: 0.9rem;
+      color: var(--color-text-sub);
+      margin-bottom: 36px;
+      line-height: 1.9;
+    }
+
+    .piko-cta-note {
+      margin-top: 20px;
+      font-size: 0.78rem;
+      color: var(--color-text-sub);
+    }
+
+    /* ===== モバイル ===== */
+    @media (max-width: 700px) {
+      .piko-hero { padding: 52px 20px 44px; }
+      .btn-piko-cta-large { padding: 16px 32px; font-size: 1rem; }
+      .piko-info-grid { grid-template-columns: 1fr; }
+      .info-card { padding: 28px 22px; }
+      .piko-features-card { padding: 28px 22px; }
+      .piko-notice-card { padding: 28px 22px; }
+      .piko-cta-block { padding: 48px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        KIRARA MUSE
+        <span>きらら・ミューズ</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="global-nav" id="globalNav">
+        <ul>
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="works.html">ひらめき作品</a></li>
+          <li><a href="images.html">ひらめき画像</a></li>
+          <li><a href="themes.html">テーマで探す</a></li>
+          <li><a href="howto.html">使い方</a></li>
+          <li><a href="ai-inspiration.html">AIひらめき</a></li>
+          <li><a href="piko.html" class="active">ピコに相談</a></li>
+          <li><a href="color-palette.html">色彩パレット</a></li>
+          <li><a href="kirara-letter.html">きららだより</a></li>
+          <li><a href="technique-matiere.html">技法マチエール</a></li>
+          <li><a href="https://kiraramuse.vercel.app/hirameki-lens">ひらめきレンズ</a></li>
+          <li><a href="muse-switch-guide.html">MUSE SWITCH</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ヒーロー -->
+    <section class="piko-hero">
+      <div class="piko-hero-badge">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        AI ART COACH
+      </div>
+      <h1 class="piko-hero-title">
+        ピコ｜ひらめきを<br>見つけるアートコーチ
+      </h1>
+      <p class="piko-hero-lead">
+        筆の妖精ピコが、作品の中にある「その子だけのひらめき」を見つけて、<br>
+        今日の一歩をいっしょに考えます。<br>
+        先生・保護者が子どもと一緒に使うツールです。
+      </p>
+      <a
+        href="https://chatgpt.com/g/g-69e77c7f06248191853ccdeae92ed1f0-hiko-hiramekiwojian-tukeruatokoti"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-piko-cta-large"
+      >
+        ピコに相談する
+        <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </section>
+
+    <div class="section">
+
+      <!-- できること -->
+      <div class="piko-features-card">
+        <p class="section-label">WHAT YOU CAN DO</p>
+        <h2 class="info-card-title">できること</h2>
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-item-icon">✨</div>
+            <div class="feature-item-text">作品の中の「良いところ」を見つける</div>
+            <div class="feature-item-sub">まず根拠つきで強みを1つ伝えてから、話が始まります</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-item-icon">🖌️</div>
+            <div class="feature-item-text">「今日の一歩」をひとつだけ提案</div>
+            <div class="feature-item-sub">具体的で、元に戻せて、その子の年齢や画材でできる範囲の提案です</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-item-icon">📋</div>
+            <div class="feature-item-text">G1スコアで強みを言語化</div>
+            <div class="feature-item-sub">独創性・体験・構図など10軸で、受賞確率ではなく「強みを見つける指標」を提示</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-item-icon">📝</div>
+            <div class="feature-item-text">先生の判断・子どもの変化を記録</div>
+            <div class="feature-item-sub">提案→先生の判断→実際の変更、という流れを記録するお手伝いをします</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 使い方 + 注意事項 -->
+      <div class="piko-info-grid">
+
+        <!-- 使い方 -->
+        <div class="info-card">
+          <div class="info-card-icon info-card-icon--sky">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </div>
+          <h2 class="info-card-title">使い方</h2>
+          <ul>
+            <li>「ピコに相談する」ボタンから ChatGPT のページを開きます</li>
+            <li>子どもの作品の写真と、テーマ・体験談・学年を伝えてください</li>
+            <li>ピコが「良いところ」と「今日の一歩」を、先生向けメモ＋子どもに読み聞かせるセリフの2部構成で返します</li>
+            <li>提案をそのまま採用するかどうかは、必ず先生・保護者が判断してください</li>
+            <li>子ども本人だけで使うのではなく、先生・保護者が同席して使うツールです</li>
+          </ul>
+        </div>
+
+        <!-- 注意事項 -->
+        <div class="piko-notice-card">
+          <div class="piko-notice-card-header">
+            <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <h2 class="info-card-title">注意事項</h2>
+          </div>
+          <div class="notice-list">
+            <div class="notice-item">
+              <div class="piko-notice-item-bullet">1</div>
+              <p class="notice-item-text">ピコは<strong>受賞を保証するものではありません。</strong>「この作品の強みを見つける指標」として使ってください。</p>
+            </div>
+            <div class="notice-item">
+              <div class="piko-notice-item-bullet">2</div>
+              <p class="notice-item-text">ピコの提案は<strong>仮説であり、正解ではありません。</strong>最終判断は必ず先生・保護者が行ってください。</p>
+            </div>
+            <div class="notice-item">
+              <div class="piko-notice-item-bullet">3</div>
+              <p class="notice-item-text">チャット欄に<strong>子どもの名前・学校名・住所などの個人情報は入力しないでください。</strong></p>
+            </div>
+          </div>
+          <div class="age-badges">
+            <div class="age-badge">
+              <span class="age-badge-icon">👨‍👩‍👧</span>
+              <span><strong>先生・保護者が同席</strong>して使うツールです</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CTAブロック -->
+      <div class="piko-cta-block">
+        <span class="piko-cta-label">PIKO — AI ART COACH</span>
+        <h2 class="piko-cta-title">さあ、ピコとひらめきを見つけよう</h2>
+        <p class="piko-cta-desc">
+          ChatGPTのページが開きます。<br>
+          子どもの作品の写真を見せながら、話しかけてみてください。
+        </p>
+        <a
+          href="https://chatgpt.com/g/g-69e77c7f06248191853ccdeae92ed1f0-hiko-hiramekiwojian-tukeruatokoti"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-piko-cta-large"
+        >
+          ピコに相談する
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+        <p class="piko-cta-note">※ ChatGPT (OpenAI) のサービスに移動します。<strong>ご利用にはChatGPTアカウントへのログインが必要です。</strong><br>あらかじめ <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" style="color: #6b60b0;">chatgpt.com</a> にログインしてからボタンを押してください。</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-logo">KIRARA MUSE</p>
+    <p>© 2026 KIRARA MUSE. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js?v=2"></script>
+</body>
+</html>
